@@ -76,6 +76,7 @@
     "*": "eslint --fix"
   },
   "dependencies": {
+    "@zag-js/avatar": "^0.17.0",
     "@zag-js/menu": "^0.17.0",
     "@zag-js/vue": "^0.17.0"
   }

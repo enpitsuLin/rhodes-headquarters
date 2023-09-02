@@ -1,6 +1,6 @@
 import type { MaybeRefOrGetter } from '@vueuse/core'
 import { toValue, useFetch } from '@vueuse/core'
-import type { Player, PlayerAvatar, SklandBinding, SklandResponseBody, SklandUser } from '~/types'
+import type { Player, SklandBinding, SklandResponseBody, SklandUser } from '~/types'
 
 function createUrl(path: string) {
   return new URL(path, 'https://zonai.skland.com').toString()
@@ -26,13 +26,4 @@ export function useMyInfo(cred: string) {
   return useFetch(createUrl('/api/v1/user/me'), { headers: { cred: toValue(cred) } }, { refetch: true })
     .get()
     .json<SklandResponseBody<SklandUser>>()
-}
-
-export function useUserAvatar(avatar: MaybeRefOrGetter<PlayerAvatar>) {
-  return computed(() => {
-    const _avatar = toValue(avatar)
-    if (_avatar.type === 'ICON')
-      return `https://web.hycdn.cn/arknights/game/assets/avatar/${_avatar.id}.png`
-    return 'unknown'
-  })
 }

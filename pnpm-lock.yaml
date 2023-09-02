@@ -1,6 +1,9 @@
 lockfileVersion: '6.0'
 
 dependencies:
+  '@zag-js/avatar':
+    specifier: ^0.17.0
+    version: 0.17.0
   '@zag-js/menu':
     specifier: ^0.17.0
     version: 0.17.0
@@ -1377,6 +1380,17 @@ packages:
     resolution: {integrity: sha512-ArUZdpZiZC0IDzF4KrK8WO+U03/RM7otxugjawunmOFDNDIdlts5tyVvpcrYcPwxYPpVxIBT0d7NbLWXCs6FHA==}
     dev: false
 
+  /@zag-js/avatar@0.17.0:
+    resolution: {integrity: sha512-VNfRPnBAL8TLrhXnMJkBfY2h9cCEy1m3NlEj5S9D365AelaMGfZf0kKqRbNIcuJMnWvRBPwiXcg7kXcDXF19QA==}
+    dependencies:
+      '@zag-js/anatomy': 0.17.0
+      '@zag-js/core': 0.17.0
+      '@zag-js/dom-query': 0.17.0
+      '@zag-js/mutation-observer': 0.17.0
+      '@zag-js/types': 0.17.0
+      '@zag-js/utils': 0.17.0
+    dev: false
+
   /@zag-js/core@0.17.0:
     resolution: {integrity: sha512-Q9E7lXcUYlVrPP9PUKcQGO7GxF4EOQ+AqKhZpKTK21OUpX8rn9At7/+UtFrD7T56waybT7WW++iXH+GqLXH7vQ==}
     dependencies:
@@ -1429,6 +1443,10 @@ packages:
       '@zag-js/rect-utils': 0.17.0
       '@zag-js/types': 0.17.0
       '@zag-js/utils': 0.17.0
+    dev: false
+
+  /@zag-js/mutation-observer@0.17.0:
+    resolution: {integrity: sha512-7cSn6PXjVCQJUa/tJVa8kZzw2R0Q0YX6BdgK9FMd84RBo2yKHenA6bNpcayrd/oZCYcaDbwTNfIjcUQeqTyHKA==}
     dev: false
 
   /@zag-js/popper@0.17.0:

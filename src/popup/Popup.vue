@@ -2,7 +2,7 @@
 import * as menu from '@zag-js/menu'
 import { normalizeProps, useMachine } from '@zag-js/vue'
 import { computed } from 'vue'
-import { useBinding, useUserAvatar, useUserInfo } from '~/logic/user'
+import { useBinding, useUserInfo } from '~/logic/user'
 
 declare const __TEST_CRED__: string
 
@@ -16,8 +16,6 @@ const {
   data: userInfo,
   execute,
 } = useUserInfo(__TEST_CRED__, () => bindingData.value?.data.list[0].defaultUid ?? '')
-
-const avatarSrc = useUserAvatar(() => (userInfo.value?.data.status.avatar ?? { type: 'ICON', id: 'avatar_special_01' }))
 
 const [state, send] = useMachine(
   menu.machine({
@@ -61,7 +59,7 @@ const api = computed(() => menu.connect(state.value, send, normalizeProps))
       </div>
     </Teleport>
     <div v-if="userInfo">
-      <img :src="avatarSrc">
+      <Avatar :avatar="userInfo.data.status.avatar" :name="userInfo.data.status.name" />
       <pre>{{ userInfo.data.status }}</pre>
     </div>
   </main>
