@@ -74,5 +74,9 @@
   },
   "lint-staged": {
     "*": "eslint --fix"
+  },
+  "dependencies": {
+    "@zag-js/menu": "^0.17.0",
+    "@zag-js/vue": "^0.17.0"
   }
 }
