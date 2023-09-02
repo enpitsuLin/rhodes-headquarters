@@ -2,7 +2,7 @@
 import * as menu from '@zag-js/menu'
 import { normalizeProps, useMachine } from '@zag-js/vue'
 import { computed } from 'vue'
-import { useBinding, useUserInfo } from '~/logic/user'
+import { useBinding, useUserInfo } from '~/composables/user'
 
 declare const __TEST_CRED__: string
 
@@ -31,7 +31,7 @@ const api = computed(() => menu.connect(state.value, send, normalizeProps))
 </script>
 
 <template>
-  <main class="w-[300px] px-4 py-5">
+  <main class="w-350px px-4 py-5">
     <button v-bind="api.triggerProps">
       选择角色 <span aria-hidden>▾</span>
     </button>
@@ -59,8 +59,8 @@ const api = computed(() => menu.connect(state.value, send, normalizeProps))
       </div>
     </Teleport>
     <div v-if="userInfo">
-      <Avatar :avatar="userInfo.data.status.avatar" :name="userInfo.data.status.name" />
-      <pre>{{ userInfo.data.status }}</pre>
+      <BaseStatus :status="userInfo.data.status" />
     </div>
   </main>
 </template>
+~/composables/user
