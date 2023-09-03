@@ -27,13 +27,23 @@ const api = computed(() => menu.connect(state.value, send, normalizeProps))
 function getRoleList(list: SklandBinding[]) {
   return list.filter(i => i.appCode === 'arknights').map(i => i.bindingList).flat()
 }
+
+function openOptionsPage() {
+  browser.runtime.openOptionsPage()
+}
 </script>
 
 <template>
   <main class="w-350px min-h-350px px-4 py-5 bg-main">
-    <button v-bind="api.triggerProps">
-      选择角色 <span aria-hidden>▾</span>
-    </button>
+    <div py-2 flex="~ items-center justify-between">
+      <button v-bind="api.triggerProps" flex="inline items-center">
+        <span text-base>选择角色 </span>
+        <div i-ri:arrow-drop-down-fill w-4 h-4 aria-hidden="true" />
+      </button>
+      <button @click="openOptionsPage">
+        <div i-ri:settings-line h-4 w-4 />
+      </button>
+    </div>
     <Teleport to="body">
       <div v-bind="api.positionerProps" bg-black c-white>
         <div v-bind="api.contentProps">

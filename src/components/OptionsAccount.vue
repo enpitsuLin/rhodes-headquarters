@@ -4,7 +4,7 @@ import * as dialog from '@zag-js/dialog'
 import { normalizeProps, useMachine } from '@zag-js/vue'
 import { computed } from 'vue'
 import { createUrl } from '~/composables/user'
-import { defaultAccountId, storageAccounts } from '~/logic'
+import { defaultAccountId, removeAccount, storageAccounts } from '~/logic'
 import type { SklandResponseBody, SklandUser } from '~/types'
 
 const apiEndpoint = createUrl('/api/v1/user/me')
@@ -38,9 +38,6 @@ async function onCredChange() {
     toggleLoading(false)
     api.value.close()
   }
-}
-function onRemoveClick(id: string) {
-  storageAccounts.value = storageAccounts.value.filter(i => i.id !== id)
 }
 </script>
 
@@ -91,7 +88,7 @@ function onRemoveClick(id: string) {
         i-ri:close-fill h-4 w-4 cursor-pointer
         transition="colors ease-in duration-300"
         bg="hover:primary"
-        @click="onRemoveClick(account.id)"
+        @click="removeAccount(account.id)"
       />
     </div>
   </OptionsSection>

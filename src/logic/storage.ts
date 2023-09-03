@@ -22,3 +22,12 @@ export const currentAccount = computed(() => {
 export const storageUid = useStorageLocal(PLAYER_UID_KEY, '')
 
 export const storagePlayerInfo = useStorageLocal<Record<string, Player & { updateAt: number }>>(PLAYER_CACHE_KEY, {})
+
+export function removeAccount(id: string) {
+  if (id === currentAccountId.value)
+    currentAccountId.value = ''
+  if (id === defaultAccountId.value)
+    defaultAccountId.value = ''
+
+  storageAccounts.value = storageAccounts.value.filter(i => i.id !== id)
+}
