@@ -10,6 +10,9 @@ dependencies:
   '@zag-js/menu':
     specifier: ^0.17.0
     version: 0.17.0
+  '@zag-js/tabs':
+    specifier: ^0.17.0
+    version: 0.17.0
   '@zag-js/vue':
     specifier: ^0.17.0
     version: 0.17.0(vue@3.2.47)
@@ -1503,6 +1506,19 @@ packages:
     resolution: {integrity: sha512-tGw4r/4hwoDis0mClGHNHehQSuJzPPoT9qZ94hzwk2XKoKYJsySDKLDmRvPPkB3zUaYk8aX8SigqUnitu6iw9A==}
     dependencies:
       '@zag-js/dom-query': 0.17.0
+    dev: false
+
+  /@zag-js/tabs@0.17.0:
+    resolution: {integrity: sha512-dcPz24nHGN8Ezg8EXWSWyh+wijf2RbMaq4+MjKe/2x4lR37oYN+c/yoQdq50ehyKKnRAfOfaFY9oN3DlXgYuKg==}
+    dependencies:
+      '@zag-js/anatomy': 0.17.0
+      '@zag-js/core': 0.17.0
+      '@zag-js/dom-event': 0.17.0
+      '@zag-js/dom-query': 0.17.0
+      '@zag-js/element-rect': 0.17.0
+      '@zag-js/tabbable': 0.17.0
+      '@zag-js/types': 0.17.0
+      '@zag-js/utils': 0.17.0
     dev: false
 
   /@zag-js/text-selection@0.17.0:

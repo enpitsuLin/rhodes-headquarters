@@ -4,8 +4,8 @@ defineProps<{ title: string;subTitle: string }>()
 
 <template>
   <section p-4>
-    <div border="l t-3.75rem b-3.75rem t-transparent b-transparent" w-400px>
-      <div p-4 flex="~ items-center justify-between">
+    <div border="l t-3.75rem b-3.75rem t-transparent b-transparent" w-400px flex="~ col" min-h-400px>
+      <div p-4 flex="~ items-center justify-between" h-100px>
         <header>
           <h2 text-xl>
             {{ title }}
@@ -15,7 +15,7 @@ defineProps<{ title: string;subTitle: string }>()
         <slot name="title-extra" />
       </div>
       <div aria-hidden="true" border="b r-4rem r-transparent" />
-      <div p-4>
+      <div p-4 flex-1>
         <slot />
       </div>
     </div>
