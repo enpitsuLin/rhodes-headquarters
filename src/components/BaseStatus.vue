@@ -4,7 +4,11 @@ import type { PlayerStatus } from '~/types'
 
 const props = defineProps<{ status: PlayerStatus }>()
 
-const { spendTime, recoveryDesc } = useApInfo(props.status.ap)
+const {
+  spendTime, recoveryDesc,
+  current, max,
+  nextApAddTime,
+} = useApInfo(props.status.ap)
 </script>
 
 <template>
@@ -27,8 +31,9 @@ const { spendTime, recoveryDesc } = useApInfo(props.status.ap)
     </section>
     <section>
       <h2>当前理智</h2>
-      <div text-3xl font-semibold>
-        {{ status.ap.current }}/{{ status.ap.max }}
+      <div flex="~ items-baseline justify-between">
+        <span text-3xl font-semibold>{{ current }}/{{ max }}</span>
+        <span>下次恢复: {{ nextApAddTime }}</span>
       </div>
       <div flex="~ items-center justify-between">
         <div>全部恢复需要</div>

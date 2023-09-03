@@ -63,4 +63,3 @@ const api = computed(() => menu.connect(state.value, send, normalizeProps))
     </div>
   </main>
 </template>
-~/composables/user
