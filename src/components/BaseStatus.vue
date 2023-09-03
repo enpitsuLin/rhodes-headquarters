@@ -32,7 +32,7 @@ const {
     <div>
       <h2>当前理智</h2>
       <div flex="~ items-baseline justify-between">
-        <span text-3xl font-semibold>{{ current }}/{{ max }}</span>
+        <span text-3xl font-semibold font-bender>{{ current }}/{{ max }}</span>
         <span>下次恢复: {{ nextApAddTime }}</span>
       </div>
       <div flex="~ items-center justify-between">

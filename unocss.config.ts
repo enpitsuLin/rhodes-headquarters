@@ -10,6 +10,9 @@ export default defineConfig<Theme>({
       'foreground-secondary': '#9a9a9a',
       'background': '#121212',
     },
+    fontFamily: {
+      bender: 'Bender, sans-serif',
+    },
   },
   shortcuts: {
     'bg-main': 'bg-#121212 c-foreground',
