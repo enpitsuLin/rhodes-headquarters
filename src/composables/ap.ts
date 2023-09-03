@@ -1,18 +1,9 @@
-import { formatDate, useNow } from '@vueuse/core'
-import { formatDuration, intervalToDuration } from 'date-fns'
-import { zhCN } from 'date-fns/locale'
+import { useNow } from '@vueuse/core'
+import { format } from 'date-fns'
+import { padTimestamp, parseDuration } from '~/logic/time'
 import type { PlayerStatusAp } from '~/types'
 
 const TIME_PRE_AP = 6 * 60 * 1000
-
-function padTimestamp(time: number) {
-  return Number((time).toString().padEnd(13, '0'))
-}
-
-function parseDuration(start: Date, end: Date, format?: string[]) {
-  const duration = intervalToDuration({ start, end })
-  return formatDuration(duration, { locale: zhCN, format, zero: true })
-}
 
 export function useApInfo(ap: PlayerStatusAp) {
   const completeRecoveryTime = padTimestamp(ap.completeRecoveryTime)
@@ -20,12 +11,12 @@ export function useApInfo(ap: PlayerStatusAp) {
   const now = useNow()
   const completeRecovery = new Date(completeRecoveryTime)
 
-  const spendTime = computed(() => parseDuration(now.value, completeRecovery, ['hours', 'minutes']))
+  const spendTime = computed(() => parseDuration(now.value, completeRecovery, { format: ['hours', 'minutes'] }))
 
-  const nowDate = computed(() => formatDate(now.value, 'YYYY MM DD'))
-  const completeRecoveryDate = formatDate(completeRecovery, 'YYYY MM DD')
+  const nowDate = computed(() => format(now.value, 'yyyy MM dd'))
+  const completeRecoveryDate = format(completeRecovery, 'yyyy MM dd')
 
-  const recoveryDesc = computed(() => `${nowDate.value === completeRecoveryDate ? '今日' : '明日'} ${formatDate(completeRecovery, 'H[时]mm[分]')}`)
+  const recoveryDesc = computed(() => `${nowDate.value === completeRecoveryDate ? '今日' : '明日'} ${format(completeRecovery, 'H时mm分')}`)
 
   const max = ap.max
   const current = computed(() => {
@@ -34,7 +25,7 @@ export function useApInfo(ap: PlayerStatusAp) {
 
   const nextApAdd = new Date((current.value + 1 - ap.current) * TIME_PRE_AP + padTimestamp(ap.lastApAddTime))
 
-  const nextApAddTime = computed(() => parseDuration(now.value, nextApAdd))
+  const nextApAddTime = computed(() => parseDuration(now.value, nextApAdd) || '0 秒')
 
   return {
     recoveryDesc,

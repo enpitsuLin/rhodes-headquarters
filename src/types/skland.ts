@@ -302,7 +302,9 @@ export interface CharacterInfo {
 export interface Recruit {
   startTs: number
   finishTs: number
+  /** @deprecated 现在已移除 */
   duration: number
+  /** @deprecated 现在已移除 */
   selectTags: { tagId: number; pick: number }[]
   state: number
 }

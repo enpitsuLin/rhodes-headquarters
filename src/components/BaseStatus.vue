@@ -12,8 +12,8 @@ const {
 </script>
 
 <template>
-  <div>
-    <section flex="~ gap-2 items-center" p-2 rounded-md>
+  <section>
+    <div flex="~ gap-2 items-center" p-2 rounded-md>
       <Avatar :avatar="status.avatar" :name="status.name" />
       <div flex-1 flex="~ col justify-between">
         <h3 text-lg>
@@ -28,8 +28,8 @@ const {
           </div>
         </div>
       </div>
-    </section>
-    <section>
+    </div>
+    <div>
       <h2>当前理智</h2>
       <div flex="~ items-baseline justify-between">
         <span text-3xl font-semibold>{{ current }}/{{ max }}</span>
@@ -43,6 +43,6 @@ const {
         <div>预计恢复时间</div>
         <div>{{ recoveryDesc }}</div>
       </div>
-    </section>
-  </div>
+    </div>
+  </section>
 </template>

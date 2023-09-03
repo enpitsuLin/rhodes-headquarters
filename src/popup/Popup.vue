@@ -60,6 +60,7 @@ const api = computed(() => menu.connect(state.value, send, normalizeProps))
     </Teleport>
     <div v-if="userInfo">
       <BaseStatus :status="userInfo.data.status" />
+      <Recruit :recruits="userInfo.data.recruit" :hire="userInfo.data.building.hire" />
     </div>
   </main>
 </template>
