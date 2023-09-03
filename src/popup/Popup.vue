@@ -2,31 +2,27 @@
 import * as menu from '@zag-js/menu'
 import { normalizeProps, useMachine } from '@zag-js/vue'
 import { computed } from 'vue'
-import { useAllBinding, usePlayerInfo } from '~/composables/user'
-import { storageUid } from '~/logic'
-import type { SklandBinding } from '~/types'
+import { currentUser } from '~/composables/skland'
+import { useUserInfo } from '~/composables/user'
 
-const { data } = useAllBinding()
+const uid = ref('')
 
-const {
-  data: userInfo,
-} = usePlayerInfo()
+const arknightsBinding = currentUser.value?.binding.filter(i => i.appCode === 'arknights').map(i => i.bindingList).flat() ?? []
+
+const { data: userInfo, execute } = useUserInfo(computed(() => currentUser.value?.cred ?? ''), uid)
 
 const [state, send] = useMachine(
   menu.machine({
     'id': 'menu',
     'aria-label': 'Role',
     onSelect({ value }) {
-      storageUid.value = value
+      uid.value = value
+      execute()
     },
   }),
 )
 
 const api = computed(() => menu.connect(state.value, send, normalizeProps))
-
-function getRoleList(list: SklandBinding[]) {
-  return list.filter(i => i.appCode === 'arknights').map(i => i.bindingList).flat()
-}
 
 function openOptionsPage() {
   browser.runtime.openOptionsPage()
@@ -47,26 +43,21 @@ function openOptionsPage() {
     <Teleport to="body">
       <div v-bind="api.positionerProps" bg-black c-white>
         <div v-bind="api.contentProps">
-          <div v-for="item in data" :key="item.account.id" p-4>
-            <div>账号:{{ item.account.nickname }}</div>
-            <div pl-4>
-              <ul>
-                <li
-                  v-for="role in getRoleList(item.list)"
-                  :key="role.uid"
-                  v-bind="api.getItemProps({ id: role.uid })"
-                >
-                  {{ role.nickName }} uid:{{ role.uid }}
-                </li>
-              </ul>
-            </div>
-          </div>
+          <ul>
+            <li
+              v-for="role in arknightsBinding"
+              :key="role.uid"
+              v-bind="api.getItemProps({ id: role.uid })"
+            >
+              {{ role.nickName }} uid:{{ role.uid }}
+            </li>
+          </ul>
         </div>
       </div>
     </Teleport>
     <div v-if="userInfo">
-      <BaseStatus :status="userInfo.status" />
-      <Recruit :recruits="userInfo.recruit" :hire="userInfo.building.hire" />
+      <BaseStatus :status="userInfo.data.status" />
+      <Recruit :recruits="userInfo.data.recruit" :hire="userInfo.data.building.hire" />
     </div>
   </main>
 </template>
