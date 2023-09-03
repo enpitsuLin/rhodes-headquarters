@@ -23,9 +23,9 @@ export function useApInfo(ap: PlayerStatusAp) {
     return Math.floor((+now.value - padTimestamp(ap.lastApAddTime)) / TIME_PRE_AP) + ap.current
   })
 
-  const nextApAdd = new Date((current.value + 1 - ap.current) * TIME_PRE_AP + padTimestamp(ap.lastApAddTime))
+  const nextApAdd = computed(() => new Date((current.value + 1 - ap.current) * TIME_PRE_AP + padTimestamp(ap.lastApAddTime)))
 
-  const nextApAddTime = computed(() => parseDuration(now.value, nextApAdd) || '0 秒')
+  const nextApAddTime = computed(() => parseDuration(now.value, nextApAdd.value) || '0 秒')
 
   return {
     recoveryDesc,

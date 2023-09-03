@@ -15,10 +15,12 @@ export function usePlayerInfo() {
   const cred = computed(() => currentAccount.value?.cred ?? '')
   const data = computed({
     get() {
-      return storagePlayerInfo.value[uid]
+      if (uid !== '')
+        return storagePlayerInfo.value[uid]
     },
     set(val) {
-      storagePlayerInfo.value[uid] = val
+      if (uid !== '' && val)
+        storagePlayerInfo.value[uid] = val
     },
   })
 
@@ -28,15 +30,15 @@ export function usePlayerInfo() {
   })
 
   async function fetchPlayerInfo() {
-    if (!data.value || Date.now() - data.value.updateAt > MS_PRE_MINTUES * 15) {
-      const res = await fetch(url.value, { headers: { cred: toValue(cred) } })
-      const json = await res.json() as SklandResponseBody<Player>
-      data.value = { ...json.data, updateAt: Date.now() }
-    }
+    const res = await fetch(url.value, { headers: { cred: toValue(cred) } })
+    const json = await res.json() as SklandResponseBody<Player>
+    data.value = { ...json.data, updateAt: Date.now() }
   }
   watchPostEffect(() => {
-    if (cred.value && cred.value !== '')
-      fetchPlayerInfo()
+    if (cred.value && cred.value !== '') {
+      if (!data.value || Date.now() - data.value.updateAt > MS_PRE_MINTUES * 15)
+        fetchPlayerInfo()
+    }
   })
   return { data }
 }
