@@ -1,27 +1,44 @@
 import type { MaybeRefOrGetter } from '@vueuse/core'
 import { toValue, useFetch } from '@vueuse/core'
 import type { StorageAccount } from '~/logic'
-import { storageAccounts } from '~/logic'
+import { currentAccount, storageAccounts, storagePlayerInfo, storageUid } from '~/logic'
 import type { Player, SklandBinding, SklandResponseBody, SklandUser } from '~/types'
 
 export function createUrl(path: string) {
   return new URL(path, 'https://zonai.skland.com').toString()
 }
 
-export function usePlayerInfo(cred: MaybeRefOrGetter<string>, uid: MaybeRefOrGetter<string>) {
+const MS_PRE_MINTUES = 1000 * 60
+
+export function usePlayerInfo() {
+  const uid = toValue(storageUid)
+  const cred = computed(() => currentAccount.value?.cred ?? '')
+  const data = computed({
+    get() {
+      return storagePlayerInfo.value[uid]
+    },
+    set(val) {
+      storagePlayerInfo.value[uid] = val
+    },
+  })
+
   const url = computed(() => {
-    const params = new URLSearchParams({ uid: toValue(uid) }).toString()
+    const params = new URLSearchParams({ uid }).toString()
     return createUrl(`/api/v1/game/player/info?${params}`)
   })
-  return useFetch(url, { headers: { cred: toValue(cred) } }, { immediate: false })
-    .get()
-    .json<SklandResponseBody<Player>>()
-}
 
-export function useBinding(cred: MaybeRefOrGetter<string>) {
-  return useFetch(createUrl('/api/v1/game/player/binding'), { headers: { cred: toValue(cred) } }, { refetch: true })
-    .get()
-    .json<SklandResponseBody<{ list: SklandBinding[] }>>()
+  async function fetchPlayerInfo() {
+    if (!data.value || Date.now() - data.value.updateAt > MS_PRE_MINTUES * 15) {
+      const res = await fetch(url.value, { headers: { cred: toValue(cred) } })
+      const json = await res.json() as SklandResponseBody<Player>
+      data.value = { ...json.data, updateAt: Date.now() }
+    }
+  }
+  watchPostEffect(() => {
+    if (cred.value && cred.value !== '')
+      fetchPlayerInfo()
+  })
+  return { data }
 }
 
 export function useUserInfo(cred: MaybeRefOrGetter<string>) {

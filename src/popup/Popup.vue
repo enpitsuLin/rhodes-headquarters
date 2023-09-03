@@ -3,22 +3,14 @@ import * as menu from '@zag-js/menu'
 import { normalizeProps, useMachine } from '@zag-js/vue'
 import { computed } from 'vue'
 import { useAllBinding, usePlayerInfo } from '~/composables/user'
-import { currentAccount, storageUid } from '~/logic'
+import { storageUid } from '~/logic'
 import type { SklandBinding } from '~/types'
 
 const { data } = useAllBinding()
 
-const cred = computed(() => currentAccount.value?.cred ?? '')
-
 const {
   data: userInfo,
-  execute,
-} = usePlayerInfo(cred, storageUid)
-
-onMounted(() => {
-  if (storageUid.value !== '')
-    execute()
-})
+} = usePlayerInfo()
 
 const [state, send] = useMachine(
   menu.machine({
@@ -26,7 +18,6 @@ const [state, send] = useMachine(
     'aria-label': 'Role',
     onSelect({ value }) {
       storageUid.value = value
-      execute()
     },
   }),
 )
@@ -64,8 +55,8 @@ function getRoleList(list: SklandBinding[]) {
       </div>
     </Teleport>
     <div v-if="userInfo">
-      <BaseStatus :status="userInfo.data.status" />
-      <Recruit :recruits="userInfo.data.recruit" :hire="userInfo.data.building.hire" />
+      <BaseStatus :status="userInfo.status" />
+      <Recruit :recruits="userInfo.recruit" :hire="userInfo.building.hire" />
     </div>
   </main>
 </template>

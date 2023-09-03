@@ -1,6 +1,9 @@
 import { useStorageLocal } from '~/composables/useStorageLocal'
-import { ACCOUNTS_KEY, DEFAULT_ACCOUNT_ID_KEY, ROLE_UID_KEY } from '~/constsants'
-import type { SklandUser } from '~/types'
+import {
+  ACCOUNTS_KEY, DEFAULT_ACCOUNT_ID_KEY,
+  PLAYER_CACHE_KEY, PLAYER_UID_KEY,
+} from '~/constsants'
+import type { Player, SklandUser } from '~/types'
 
 export type StorageAccount = {
   cred: string
@@ -16,4 +19,6 @@ export const currentAccount = computed(() => {
   return storageAccounts.value.find(i => i.id === defaultAccountId.value)
 })
 
-export const storageUid = useStorageLocal(ROLE_UID_KEY, '')
+export const storageUid = useStorageLocal(PLAYER_UID_KEY, '')
+
+export const storagePlayerInfo = useStorageLocal<Record<string, Player & { updateAt: number }>>(PLAYER_CACHE_KEY, {})
