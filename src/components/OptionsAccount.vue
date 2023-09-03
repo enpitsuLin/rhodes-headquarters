@@ -4,7 +4,7 @@ import * as dialog from '@zag-js/dialog'
 import { normalizeProps, useMachine } from '@zag-js/vue'
 import { computed } from 'vue'
 import { createUrl } from '~/composables/user'
-import { storageAccounts } from '~/logic'
+import { defaultAccountId, storageAccounts } from '~/logic'
 import type { SklandResponseBody, SklandUser } from '~/types'
 
 const apiEndpoint = createUrl('/api/v1/user/me')
@@ -69,7 +69,24 @@ function onRemoveClick(id: string) {
       </div>
       <div text-lg flex-1>
         {{ account.nickname }}
+        <div
+          v-if="defaultAccountId = account.id"
+          inline-block
+          text-xs border="~ white rounded" p-1
+          scale="80"
+        >
+          默认
+        </div>
       </div>
+      <button
+        v-if="defaultAccountId !== account.id"
+        border="~ white hover:primary"
+        transition="all ease-in duration-300"
+        bg="transparent hover:primary" c="hover:black" p="x2 y1"
+        @click="defaultAccountId = account.id"
+      >
+        设为默认
+      </button>
       <div
         i-ri:close-fill h-4 w-4 cursor-pointer
         transition="colors ease-in duration-300"

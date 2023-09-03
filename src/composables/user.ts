@@ -1,5 +1,7 @@
 import type { MaybeRefOrGetter } from '@vueuse/core'
 import { toValue, useFetch } from '@vueuse/core'
+import type { StorageAccount } from '~/logic'
+import { storageAccounts } from '~/logic'
 import type { Player, SklandBinding, SklandResponseBody, SklandUser } from '~/types'
 
 export function createUrl(path: string) {
@@ -26,4 +28,27 @@ export function useUserInfo(cred: MaybeRefOrGetter<string>) {
   return useFetch(createUrl('/api/v1/user/me'), { headers: { cred: toValue(cred) } }, { immediate: false })
     .get()
     .json<SklandResponseBody<SklandUser>>()
+}
+
+export function useAllBinding() {
+  const url = createUrl('/api/v1/game/player/binding')
+  const data = shallowRef<{ list: SklandBinding[]; account: StorageAccount }[]>([])
+
+  async function fetchAllBinding() {
+    data.value = await Promise.all(
+      storageAccounts.value
+        .map(a => fetch(url, { headers: { cred: a.cred } })
+          .then(async (r) => {
+            const data = (await r.json()) as SklandResponseBody<{ list: SklandBinding[] }>
+            return { list: data.data.list, account: a }
+          }),
+        ),
+    )
+  }
+
+  watch(storageAccounts, () => {
+    fetchAllBinding()
+  }, { immediate: true })
+
+  return { data }
 }

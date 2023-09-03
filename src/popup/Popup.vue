@@ -2,54 +2,59 @@
 import * as menu from '@zag-js/menu'
 import { normalizeProps, useMachine } from '@zag-js/vue'
 import { computed } from 'vue'
-import { useBinding, usePlayerInfo } from '~/composables/user'
+import { useAllBinding, usePlayerInfo } from '~/composables/user'
+import { currentAccount, storageUid } from '~/logic'
+import type { SklandBinding } from '~/types'
 
-declare const __TEST_CRED__: string
+const { data } = useAllBinding()
 
-const uid = ref('')
-
-const {
-  data: bindingData,
-} = useBinding(__TEST_CRED__)
+const cred = computed(() => currentAccount.value?.cred ?? '')
 
 const {
   data: userInfo,
   execute,
-} = usePlayerInfo(__TEST_CRED__, () => bindingData.value?.data.list[0].defaultUid ?? '')
+} = usePlayerInfo(cred, storageUid)
+
+onMounted(() => {
+  if (storageUid.value !== '')
+    execute()
+})
 
 const [state, send] = useMachine(
   menu.machine({
     'id': 'menu',
     'aria-label': 'Role',
     onSelect({ value }) {
-      uid.value = value
+      storageUid.value = value
       execute()
     },
   }),
 )
+
 const api = computed(() => menu.connect(state.value, send, normalizeProps))
+
+function getRoleList(list: SklandBinding[]) {
+  return list.filter(i => i.appCode === 'arknights').map(i => i.bindingList).flat()
+}
 </script>
 
 <template>
-  <main class="w-350px px-4 py-5 bg-main">
+  <main class="w-350px min-h-350px px-4 py-5 bg-main">
     <button v-bind="api.triggerProps">
       选择角色 <span aria-hidden>▾</span>
     </button>
     <Teleport to="body">
       <div v-bind="api.positionerProps" bg-black c-white>
         <div v-bind="api.contentProps">
-          <div
-            v-for="binding in bindingData?.data.list"
-            :key="binding.defaultUid"
-            flex="~ col" rounded-2xl
-          >
-            <div flex="~ items-baselin" select-none gap-2 p-3>
-              <h3>{{ binding.appName }}</h3>
-              <span>查询到 {{ binding.bindingList.length }} 个角色</span>
-            </div>
-            <div>
+          <div v-for="item in data" :key="item.account.id" p-4>
+            <div>账号:{{ item.account.nickname }}</div>
+            <div pl-4>
               <ul>
-                <li v-for="role in binding.bindingList" :key="role.uid" v-bind="api.getItemProps({ id: role.uid })">
+                <li
+                  v-for="role in getRoleList(item.list)"
+                  :key="role.uid"
+                  v-bind="api.getItemProps({ id: role.uid })"
+                >
                   {{ role.nickName }} uid:{{ role.uid }}
                 </li>
               </ul>
