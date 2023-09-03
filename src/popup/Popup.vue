@@ -2,8 +2,7 @@
 import * as menu from '@zag-js/menu'
 import { normalizeProps, useMachine } from '@zag-js/vue'
 import { computed } from 'vue'
-import { currentUser } from '~/composables/skland'
-import { useUserInfo } from '~/composables/user'
+import { currentUser, useUserInfo } from '~/composables/skland'
 
 const uid = ref('')
 

@@ -1,7 +1,7 @@
-import type { RemovableRef } from '@vueuse/core'
+import type { MaybeRefOrGetter, RemovableRef } from '@vueuse/core'
+import { toValue, useFetch } from '@vueuse/core'
 import { useStorageLocal } from './useStorageLocal'
-import { createUrl } from './user'
-import type { SklandBinding, SklandResponseBody, SklandUser } from '~/types'
+import type { Player, SklandBinding, SklandResponseBody, SklandUser } from '~/types'
 import { STORAGE_KEY_CURRENT_USER_ID, STORAGE_KEY_USERS } from '~/constsants'
 
 /** 森空岛用户和绑定游戏角色数据 */
@@ -18,6 +18,10 @@ type User = {
   cred: string
   accountUpdateAt: number
   bindingUpdateAt: number
+}
+
+export function createUrl(path: string) {
+  return new URL(path, 'https://zonai.skland.com').toString()
 }
 
 function initializeUsers(): RemovableRef<User[]> {
@@ -140,4 +144,14 @@ export async function refreshBindingInfo(id?: string) {
     user.binding = binding
     user.bindingUpdateAt = Date.now()
   }
+}
+
+export function useUserInfo(cred: MaybeRefOrGetter<string>, uid: MaybeRefOrGetter<string>) {
+  const url = computed(() => {
+    const params = new URLSearchParams({ uid: toValue(uid) }).toString()
+    return createUrl(`/api/v1/game/player/info?${params}`)
+  })
+  return useFetch(url, { headers: { cred: toValue(cred) } }, { immediate: false })
+    .get()
+    .json<SklandResponseBody<Player>>()
 }
