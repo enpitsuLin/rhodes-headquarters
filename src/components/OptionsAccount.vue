@@ -81,15 +81,20 @@ function onRemoveClick(id: string) {
 
   <Teleport to="body">
     <div v-if="api.isOpen" fixed inset-0>
-      <div v-bind="api.backdropProps" fixed inset-0 bg-black:20 />
+      <div v-bind="api.backdropProps" fixed inset-0 bg-black:30 filter-blur-lg />
       <div v-bind="api.containerProps" fixed inset-0 flex="~ items-center justify-center">
-        <div v-bind="api.contentProps" min-w-80 bg-white rounded-md p-5 relative>
-          <h2 v-bind="api.titleProps" text-lg mb-2 font-semibold>
+        <div
+          v-bind="api.contentProps"
+          shadow="lg"
+          min-w-80 rounded-md relative
+          bg-background c-white
+        >
+          <h2
+            v-bind="api.titleProps"
+            text-2xl font-semibold border="b white/20" p-5
+          >
             添加账号
           </h2>
-          <p v-bind="api.descriptionProps" mb-3>
-            如何获取凭据可以参考
-          </p>
           <button
             v-bind="api.closeTriggerProps"
             absolute top-5 right-5 p-1
@@ -98,11 +103,38 @@ function onRemoveClick(id: string) {
           >
             <div i-ri:close-fill w-4 h-4 />
           </button>
-          <div>
-            <input v-model="cred" placeholder="输入账号凭据">
-            <button bg="hover:primary" px-3 py-2 rounded @click="onCredChange()">
-              {{ loading ? 'loading...' : '保存' }}
-            </button>
+
+          <div p-5>
+            <h3 text-lg>
+              如何获得凭据
+            </h3>
+            <div space-y-2 py-4>
+              <p>1. 打开森空岛网页版并登录</p>
+              <p>2. 打开网页开发者工具并切换到控制台选项卡</p>
+              <p>3. 在控制台中输入以下内容并回车</p>
+              <div text-left p="x2 y1" border="~ rounded-sm">
+                localStorage.getItem('SK_OAUTH_CRED_KEY');
+              </div>
+              <p>4. 控制台返回的值就是您的凭据</p>
+            </div>
+            <div w-full flex="~ col gap-4">
+              <input
+                v-model="cred"
+                border="~ focus:primary"
+                outline-none
+                w-full bg-transparent placeholder="输入账号凭据"
+                p-3
+              >
+              <button
+                w-full
+                border="~ white hover:primary"
+                transition="all ease-in duration-300"
+                bg="transparent hover:primary" c="hover:black" p="x10 y3"
+                @click="onCredChange()"
+              >
+                {{ loading ? 'loading...' : '保存' }}
+              </button>
+            </div>
           </div>
         </div>
       </div>
