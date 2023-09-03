@@ -2,7 +2,7 @@
 import * as menu from '@zag-js/menu'
 import { normalizeProps, useMachine } from '@zag-js/vue'
 import { computed } from 'vue'
-import { useBinding, useUserInfo } from '~/composables/user'
+import { useBinding, usePlayerInfo } from '~/composables/user'
 
 declare const __TEST_CRED__: string
 
@@ -15,7 +15,7 @@ const {
 const {
   data: userInfo,
   execute,
-} = useUserInfo(__TEST_CRED__, () => bindingData.value?.data.list[0].defaultUid ?? '')
+} = usePlayerInfo(__TEST_CRED__, () => bindingData.value?.data.list[0].defaultUid ?? '')
 
 const [state, send] = useMachine(
   menu.machine({
@@ -31,7 +31,7 @@ const api = computed(() => menu.connect(state.value, send, normalizeProps))
 </script>
 
 <template>
-  <main class="w-350px px-4 py-5">
+  <main class="w-350px px-4 py-5 bg-main">
     <button v-bind="api.triggerProps">
       选择角色 <span aria-hidden>▾</span>
     </button>

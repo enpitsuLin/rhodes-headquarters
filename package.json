@@ -30,6 +30,13 @@
     "postinstall": "simple-git-hooks",
     "typecheck": "tsc --noEmit"
   },
+  "dependencies": {
+    "@zag-js/avatar": "^0.17.0",
+    "@zag-js/dialog": "^0.17.0",
+    "@zag-js/menu": "^0.17.0",
+    "@zag-js/vue": "^0.17.0",
+    "date-fns": "^2.30.0"
+  },
   "devDependencies": {
     "@antfu/eslint-config": "^0.36.0",
     "@ffflorian/jszip-cli": "^3.4.1",
@@ -74,11 +81,5 @@
   },
   "lint-staged": {
     "*": "eslint --fix"
-  },
-  "dependencies": {
-    "@zag-js/avatar": "^0.17.0",
-    "@zag-js/menu": "^0.17.0",
-    "@zag-js/vue": "^0.17.0",
-    "date-fns": "^2.30.0"
   }
 }
