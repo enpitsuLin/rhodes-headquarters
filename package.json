@@ -33,6 +33,7 @@
   "dependencies": {
     "@zag-js/avatar": "^0.17.0",
     "@zag-js/dialog": "^0.17.0",
+    "@zag-js/hover-card": "^0.17.0",
     "@zag-js/menu": "^0.17.0",
     "@zag-js/tabs": "^0.17.0",
     "@zag-js/vue": "^0.17.0",

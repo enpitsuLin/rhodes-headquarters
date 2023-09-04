@@ -7,6 +7,9 @@ dependencies:
   '@zag-js/dialog':
     specifier: ^0.17.0
     version: 0.17.0
+  '@zag-js/hover-card':
+    specifier: ^0.17.0
+    version: 0.17.0
   '@zag-js/menu':
     specifier: ^0.17.0
     version: 0.17.0
@@ -1448,6 +1451,18 @@ packages:
 
   /@zag-js/element-rect@0.17.0:
     resolution: {integrity: sha512-Zp2pIIK1zkLXqBoJ0EMKfdDm7WsC1jK9L/rNbvqwp+iTEHzFObuiuQOGc+xpRhb/kXMkUe2ERGtD7YTM+JBoBg==}
+    dev: false
+
+  /@zag-js/hover-card@0.17.0:
+    resolution: {integrity: sha512-jwEylUhH+Xwl/2BMuGvFT8nGckotaZmXOPf9wEsyKywhROIs17VDOb2SRpe9KPly0HTWkBMU/AGnR5D0iCBpWQ==}
+    dependencies:
+      '@zag-js/anatomy': 0.17.0
+      '@zag-js/core': 0.17.0
+      '@zag-js/dismissable': 0.17.0
+      '@zag-js/dom-query': 0.17.0
+      '@zag-js/popper': 0.17.0
+      '@zag-js/types': 0.17.0
+      '@zag-js/utils': 0.17.0
     dev: false
 
   /@zag-js/interact-outside@0.17.0:

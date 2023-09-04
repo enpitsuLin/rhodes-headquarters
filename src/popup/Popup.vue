@@ -72,5 +72,6 @@ function openOptionsPage() {
 
       <RhodesIslandManage :player="userInfo.data" />
     </div>
+    <PopupFooter />
   </main>
 </template>
