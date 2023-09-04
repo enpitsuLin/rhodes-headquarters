@@ -1,10 +1,10 @@
 {
-  "name": "skland-webext",
-  "displayName": "森空岛",
+  "name": "rhodes-headquarters",
+  "displayName": "罗德岛远程指挥部",
   "version": "0.0.1",
   "private": true,
   "packageManager": "pnpm@8.3.1",
-  "description": "一款森空岛的浏览器扩展",
+  "description": "一款用于监控罗德岛运行状态的浏览器扩展",
   "scripts": {
     "dev": "npm run clear && cross-env NODE_ENV=development run-p dev:*",
     "dev-firefox": "npm run clear && cross-env NODE_ENV=development EXTENSION=firefox run-p dev:*",
