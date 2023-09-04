@@ -38,7 +38,7 @@ function openOptionsPage() {
 </script>
 
 <template>
-  <main class="w-350px min-h-350px bg-main" p-2>
+  <main class="bg-main skland-container" p-2 w-350px min-h-350px>
     <div py-2 flex="~ items-center justify-between">
       <button v-bind="api.triggerProps" outline-none flex="inline items-center">
         <span text-base>选择角色 </span>

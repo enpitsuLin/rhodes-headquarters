@@ -10,10 +10,12 @@ export function useRecruits(recruits: Recruit[]) {
 
     const nowDate = computed(() => format(now.value, 'yyyy MM dd'))
     const finishAtDate = format(finishAt, 'yyyy MM dd')
+    const isFinished = computed(() => now.value > finishAt)
     return {
       finishAt: markRaw(finishAt),
       format: format(finishAt, `${nowDate.value === finishAtDate ? '今日' : '明日'} HH时mm分`),
       restTime: parseDuration(now.value, finishAt, { zero: true, format: ['hours', 'minutes'] }),
+      isFinished,
     }
   }))
 }
