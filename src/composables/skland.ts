@@ -151,7 +151,15 @@ export function useUserInfo(cred: MaybeRefOrGetter<string>, uid: MaybeRefOrGette
     const params = new URLSearchParams({ uid: toValue(uid) }).toString()
     return createUrl(`/api/v1/game/player/info?${params}`)
   })
-  return useFetch(url, { headers: { cred: toValue(cred) } }, { immediate: false })
+  return useFetch(url,
+    {
+      immediate: false,
+      beforeFetch: (ctx) => {
+        if (toValue(cred) === '')
+          ctx.cancel()
+        ctx.options.headers = { cred: toValue(cred) }
+      },
+    })
     .get()
     .json<SklandResponseBody<Player>>()
 }

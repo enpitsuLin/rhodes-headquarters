@@ -6,9 +6,11 @@ import { currentUser, useUserInfo } from '~/composables/skland'
 
 const uid = ref('')
 
-const arknightsBinding = currentUser.value?.binding.filter(i => i.appCode === 'arknights').map(i => i.bindingList).flat() ?? []
+const cred = computed(() => currentUser.value?.cred ?? '')
 
-const { data: userInfo, execute } = useUserInfo(computed(() => currentUser.value?.cred ?? ''), uid)
+const arknightsBinding = computed(() => currentUser.value?.binding.filter(i => i.appCode === 'arknights').map(i => i.bindingList).flat() ?? [])
+
+const { data: userInfo, execute } = useUserInfo(cred, uid)
 
 watch(arknightsBinding, (binding) => {
   if (binding.length === 1)
@@ -16,7 +18,7 @@ watch(arknightsBinding, (binding) => {
 }, { immediate: true })
 
 watch(uid, (uid, oldUid) => {
-  if (uid !== oldUid)
+  if (uid !== '' && cred.value !== '' && uid !== oldUid)
     execute()
 }, { immediate: true })
 

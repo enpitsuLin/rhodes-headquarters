@@ -2,7 +2,7 @@
 
 import { dirname, relative } from 'node:path'
 import type { UserConfig } from 'vite'
-import { defineConfig, loadEnv } from 'vite'
+import { defineConfig } from 'vite'
 import Vue from '@vitejs/plugin-vue'
 import Icons from 'unplugin-icons/vite'
 import IconsResolver from 'unplugin-icons/resolver'
@@ -12,7 +12,6 @@ import UnoCSS from 'unocss/vite'
 import { isDev, port, r } from './scripts/utils'
 import packageJson from './package.json'
 
-const env = loadEnv('development', './')
 export const sharedConfig: UserConfig = {
   root: r('src'),
   resolve: {
@@ -23,8 +22,6 @@ export const sharedConfig: UserConfig = {
   define: {
     __DEV__: isDev,
     __NAME__: JSON.stringify(packageJson.name),
-    // for test
-    __TEST_CRED__: JSON.stringify(env.VITE_CRED),
   },
   plugins: [
     Vue(),
