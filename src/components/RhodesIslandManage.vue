@@ -21,7 +21,7 @@ const api = computed(() => tabs.connect(state.value, send, normalizeProps))
         </h2>
         <div>Rhodes Island</div>
       </header>
-      <ul>
+      <ul px-2>
         <li v-for="item in data" :key="item.id" inline-block cursor-pointer>
           <button
             v-bind="api.getTriggerProps({ value: item.id })"
