@@ -13,7 +13,7 @@ const api = computed(() => tabs.connect(state.value, send, normalizeProps))
 </script>
 
 <template>
-  <div>
+  <div flex-1 flex="~ col">
     <nav flex="~ items-center">
       <header flex-1 c-foreground flex="~ items-end gap-2">
         <h2 text-2xl>
@@ -47,9 +47,9 @@ const api = computed(() => tabs.connect(state.value, send, normalizeProps))
       leave-to-class="op-0 -translate-x-full"
       tag="div"
       aria-label="container"
-      of-hidden p-2
+      of-hidden p-2 flex-1
     >
-      <div v-for="item in data" v-show="api.value === item.id" :key="item.id" v-bind="api.getContentProps({ value: item.id })">
+      <div v-for="item in data" v-show="api.value === item.id" v-bind="api.getContentProps({ value: item.id })" :key="item.id" h-220px>
         <Recruit v-if="item.id === 'recruitment'" :recruits="player.recruit" :hire="player.building.hire" />
 
         <div v-if="item.id === 'building'">

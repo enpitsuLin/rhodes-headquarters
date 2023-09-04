@@ -9,7 +9,7 @@ const api = computed(() => hoverCard.connect(state.value, send, normalizeProps))
 </script>
 
 <template>
-  <footer pt-2 flex="~ justify-end">
+  <footer flex="~ justify-end">
     <button v-bind="api.triggerProps" cursor-help>
       <div i-ri:question-fill h-4 w-4 />
     </button>

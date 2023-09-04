@@ -28,9 +28,10 @@ function openOptionsPage() {
   <main
     class="skland-container"
     bg="[url(/assets/popup-bg.jpg)] cover center-bottom"
-    c-foreground p-2 w-350px
+    c-foreground p-2 w-350px h-600px
+    flex="~ col"
   >
-    <div v-if="arknightsBinding.length === 0">
+    <template v-if="arknightsBinding.length === 0">
       <div py-4>
         <h2 text-xl>
           暂无账号
@@ -59,8 +60,8 @@ function openOptionsPage() {
           transition="all duration-150"
         />
       </button>
-    </div>
-    <div v-if="userInfo">
+    </template>
+    <template v-if="userInfo">
       <CharacterSwitcher
         v-model:uid="uid"
         :status="userInfo?.data.status"
@@ -69,12 +70,13 @@ function openOptionsPage() {
       <BaseStatus :status="userInfo.data.status" />
 
       <RhodesIslandManage :player="userInfo.data" />
+
       <MissionStat
         :campaign="userInfo.data.campaign"
         :tower="userInfo.data.tower"
         :routine="userInfo.data.routine"
       />
       <PopupFooter />
-    </div>
+    </template>
   </main>
 </template>

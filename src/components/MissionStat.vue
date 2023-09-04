@@ -5,7 +5,7 @@ defineProps<{ campaign: Campaign;tower: Tower; routine: Mission }>()
 </script>
 
 <template>
-  <div py-2 flex="~ col gap-2">
+  <div p-2 flex="~ col gap-2">
     <div flex="~ items-center justify-between">
       <div flex="~ gap-2 items-end">
         <span text-sm>剿灭作战</span>
