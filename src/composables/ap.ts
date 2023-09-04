@@ -20,7 +20,8 @@ export function useApInfo(ap: PlayerStatusAp) {
 
   const max = ap.max
   const current = computed(() => {
-    return Math.floor((+now.value - padTimestamp(ap.lastApAddTime)) / TIME_PRE_AP) + ap.current
+    const calcCurrent = Math.floor((+now.value - padTimestamp(ap.lastApAddTime)) / TIME_PRE_AP) + ap.current
+    return calcCurrent > max ? max : calcCurrent
   })
 
   const nextApAdd = computed(() => new Date((current.value + 1 - ap.current) * TIME_PRE_AP + padTimestamp(ap.lastApAddTime)))

@@ -33,15 +33,22 @@ const {
       <span text-3xl font-semibold font-bender>
         {{ current }}/{{ max }}
       </span>
-      <span>下次恢复: {{ nextApAddTime }}</span>
+      <span v-if="current === max">理智已完全恢复!</span>
+      <span v-else>下次恢复: {{ nextApAddTime }}</span>
     </div>
     <div flex="~ items-center justify-between">
       <div>全部恢复需要</div>
-      <div>{{ spendTime }}</div>
+      <div>
+        <span v-if="current === max">-</span>
+        <span v-else>{{ spendTime }}</span>
+      </div>
     </div>
     <div flex="~ items-center justify-between">
       <div>预计恢复时间</div>
-      <div>{{ recoveryDesc }}</div>
+      <div>
+        <span v-if="current === max">-</span>
+        <span v-else>{{ recoveryDesc }}</span>
+      </div>
     </div>
   </PopupSection>
 </template>
