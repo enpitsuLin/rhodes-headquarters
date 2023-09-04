@@ -10,13 +10,22 @@ const arknightsBinding = currentUser.value?.binding.filter(i => i.appCode === 'a
 
 const { data: userInfo, execute } = useUserInfo(computed(() => currentUser.value?.cred ?? ''), uid)
 
+watch(arknightsBinding, (binding) => {
+  if (binding.length === 1)
+    uid.value = binding[0].uid
+}, { immediate: true })
+
+watch(uid, (uid, oldUid) => {
+  if (uid !== oldUid)
+    execute()
+}, { immediate: true })
+
 const [state, send] = useMachine(
   menu.machine({
     'id': 'menu',
     'aria-label': 'Role',
     onSelect({ value }) {
       uid.value = value
-      execute()
     },
   }),
 )
@@ -29,9 +38,9 @@ function openOptionsPage() {
 </script>
 
 <template>
-  <main class="w-350px min-h-350px px-4 py-5 bg-main">
+  <main class="w-350px min-h-350px bg-main" p-2>
     <div py-2 flex="~ items-center justify-between">
-      <button v-bind="api.triggerProps" flex="inline items-center">
+      <button v-bind="api.triggerProps" outline-none flex="inline items-center">
         <span text-base>选择角色 </span>
         <div i-ri:arrow-drop-down-fill w-4 h-4 aria-hidden="true" />
       </button>
@@ -41,14 +50,18 @@ function openOptionsPage() {
     </div>
     <Teleport to="body">
       <div v-bind="api.positionerProps" bg-black c-white>
-        <div v-bind="api.contentProps">
-          <ul>
+        <div v-bind="api.contentProps" border="1 white" py-1>
+          <ul space-y-2>
             <li
               v-for="role in arknightsBinding"
               :key="role.uid"
               v-bind="api.getItemProps({ id: role.uid })"
+              transition="colors ease-in-out duration-300"
+              bg="hover:primary"
             >
-              {{ role.nickName }} uid:{{ role.uid }}
+              <div relative py-2 px-2 cursor-pointer>
+                {{ role.nickName }} uid:{{ role.uid }}
+              </div>
             </li>
           </ul>
         </div>
@@ -56,7 +69,8 @@ function openOptionsPage() {
     </Teleport>
     <div v-if="userInfo">
       <BaseStatus :status="userInfo.data.status" />
-      <Recruit :recruits="userInfo.data.recruit" :hire="userInfo.data.building.hire" />
+
+      <RhodesIslandManage :player="userInfo.data" />
     </div>
   </main>
 </template>

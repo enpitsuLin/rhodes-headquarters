@@ -8,11 +8,10 @@ const parsedRecruits = useRecruits(props.recruits)
 </script>
 
 <template>
-  <section>
-    <header flex="~ items-baseline justify-between">
-      <span text-xl>公开招募</span>
-      <span>联络次数 {{ hire.refreshCount }}/3</span>
-    </header>
+  <div>
+    <div mb-2>
+      联络次数 {{ hire.refreshCount }}/3
+    </div>
     <div grid="~ rows-4 gap-2">
       <div v-for="recruit in parsedRecruits" :key="+recruit.finishAt">
         <div>
@@ -23,5 +22,5 @@ const parsedRecruits = useRecruits(props.recruits)
         </div>
       </div>
     </div>
-  </section>
+  </div>
 </template>
