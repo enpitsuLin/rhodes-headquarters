@@ -38,8 +38,8 @@ defineProps<{ campaign: Campaign;tower: Tower; routine: Mission }>()
       </div>
     </div>
     <div flex="~ items-center justify-between">
-      <div>
-        <span>日常/周常</span>
+      <div flex="~ gap-2 items-end">
+        <span text-sm>日常/周常</span>
         <span>Routine Mission</span>
       </div>
 
