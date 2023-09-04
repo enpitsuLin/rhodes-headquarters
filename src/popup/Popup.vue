@@ -40,7 +40,11 @@ function openOptionsPage() {
 </script>
 
 <template>
-  <main class="bg-main skland-container" p-2 w-350px min-h-350px>
+  <main
+    class="skland-container"
+    bg="[url(/assets/popup-bg.jpg)] cover center-bottom"
+    c-foreground p-2 w-350px
+  >
     <div py-2 flex="~ items-center justify-between">
       <button v-bind="api.triggerProps" outline-none flex="inline items-center">
         <span text-base>选择角色 </span>
@@ -73,6 +77,11 @@ function openOptionsPage() {
       <BaseStatus :status="userInfo.data.status" />
 
       <RhodesIslandManage :player="userInfo.data" />
+      <MissionStat
+        :campaign="userInfo.data.campaign"
+        :tower="userInfo.data.tower"
+        :routine="userInfo.data.routine"
+      />
     </div>
     <PopupFooter />
   </main>
