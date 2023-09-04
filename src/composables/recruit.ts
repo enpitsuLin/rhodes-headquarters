@@ -8,12 +8,13 @@ export function useRecruits(recruits: Recruit[]) {
   return computed(() => recruits.map((recruit) => {
     const finishAt = new Date(padTimestamp(recruit.finishTs))
 
-    const nowDate = computed(() => format(now.value, 'yyyy MM dd'))
+    const nowDate = format(now.value, 'yyyy MM dd')
     const finishAtDate = format(finishAt, 'yyyy MM dd')
-    const isFinished = computed(() => now.value > finishAt)
+    const isFinished = now.value > finishAt
+
     return {
-      finishAt: markRaw(finishAt),
-      format: format(finishAt, `${nowDate.value === finishAtDate ? '今日' : '明日'} HH时mm分`),
+      finishAt,
+      format: format(finishAt, `${nowDate === finishAtDate ? '今日' : '明日'} HH时mm分`),
       restTime: parseDuration(now.value, finishAt, { zero: true, format: ['hours', 'minutes'] }),
       isFinished,
     }

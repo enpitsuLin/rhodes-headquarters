@@ -306,6 +306,7 @@ export interface Recruit {
   duration: number
   /** @deprecated 现在已移除 */
   selectTags: { tagId: number; pick: number }[]
+  /** 1-闲置 2-招募中 3-招募完成 */
   state: number
 }
 

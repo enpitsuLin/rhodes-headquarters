@@ -25,14 +25,18 @@ const parsedRecruits = useRecruits(props.recruits)
           left="-4px" top="1/2"
           font-bender
           text-base p="x2 y1" backdrop-blur-12px
-          bg="white/08 group-hover:primary"
+          bg="white/08 group-hover:primary [&.finished]:primary"
           transition="colors duration-300"
           class="-translate-y-1/2"
+          :class="[recruit.isFinished && 'finished']"
         >
-          {{ (index + 1).toString().padStart(2, '0') }}
+          <div v-if="recruit.isFinished" i-ri:check-double-fill />
+          <div v-else>
+            {{ (index + 1).toString().padStart(2, '0') }}
+          </div>
         </div>
         <div v-if="recruit.isFinished" text-base>
-          已找到职位合适的候选人
+          已成功招募到候选人
         </div>
         <div v-else grid="~ rows-2 cols-6 items-center">
           <div row-span-2 col-span-2 text-base animate-pulse>
