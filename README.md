@@ -12,7 +12,7 @@
 
 ## 下载
 
-本工具仍处于开发阶段 尚未对各位刀客塔提供下载方式
+[Chrome Webstore](https://chrome.google.com/webstore/detail/%E7%BD%97%E5%BE%B7%E5%B2%9B%E8%BF%9C%E7%A8%8B%E6%8C%87%E6%8C%A5%E9%83%A8/cbnldploflpmmkmcbhipaoojkdmillkm)
 
 ## 开发
 
