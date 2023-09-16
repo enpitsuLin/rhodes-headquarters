@@ -26,7 +26,7 @@ const users = useUsers()
   <OptionsSection title="账号管理" sub-title="Account Manage">
     <template #title-extra>
       <button
-        ref="ref" v-bind="api.triggerProps"
+        v-bind="api.triggerProps"
         border="~ white hover:primary"
         transition="all ease-in duration-300"
         bg="transparent hover:primary" c="hover:black" p="x10 y3"

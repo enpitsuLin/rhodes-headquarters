@@ -3,7 +3,7 @@ import { currentUser, useUserInfo } from '~/composables/skland'
 
 const uid = ref('')
 
-const cred = computed(() => currentUser.value?.cred ?? '')
+const cred = computed(() => currentUser.value?.grant_code ?? '')
 
 const arknightsBinding = computed(() => currentUser.value?.binding.filter(i => i.appCode === 'arknights').map(i => i.bindingList).flat() ?? [])
 
