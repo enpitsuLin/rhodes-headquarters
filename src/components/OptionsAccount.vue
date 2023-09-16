@@ -105,12 +105,8 @@ const users = useUsers()
             </h3>
             <div space-y-2 py-4>
               <p>1. 打开森空岛网页版并登录</p>
-              <p>2. 打开网页开发者工具并切换到控制台选项卡</p>
-              <p>3. 在控制台中输入以下内容并回车</p>
-              <div text-left p="x2 y1" border="~ rounded-sm">
-                localStorage.getItem('SK_OAUTH_CRED_KEY');
-              </div>
-              <p>4. 控制台返回的值就是您的凭据</p>
+              <p>2. 登录森空岛网页版后，打开 <a href="https://web-api.skland.com/account/info/hg" target="_blank">https://web-api.skland.com/account/info/hg</a> 记下 content 字段的值</p>
+              <p>3. 在下面输入获取到的值</p>
             </div>
             <div w-full flex="~ col gap-4">
               <input
