@@ -127,14 +127,14 @@ async function signIn(token: string) {
 
 /** 获取森空岛用户信息 */
 async function fetchAccountInfo(cred: string) {
-  const r = await fetch(SKLAND_ME_URL, { headers: { cred } })
+  const r = await fetch(SKLAND_ME_URL, { headers: { cred, platform: '1' } })
   const { data } = await (r.json() as Promise<SklandResponseBody<SklandUser>>)
   return data
 }
 
 /** 获取绑定游戏角色数据 */
 async function fetchBindingInfo(cred: string) {
-  const r = await fetch(SKLAND_BINDING_URL, { headers: { cred } })
+  const r = await fetch(SKLAND_BINDING_URL, { headers: { cred, platform: '1' } })
   const { data } = await (r.json() as Promise<SklandResponseBody<{ list: SklandBinding[] }>>)
   return data.list
 }
@@ -202,7 +202,7 @@ export function useUserInfo(grant_code: MaybeRefOrGetter<string>, uid: MaybeRefO
         const { cred } = await signIn(toValue(grant_code))
         if (!cred)
           ctx.cancel()
-        ctx.options.headers = { cred }
+        ctx.options.headers = { cred, platform: '1' }
       },
     })
     .get()
