@@ -81,7 +81,7 @@ const users = useUsers()
         <div
           v-bind="api.contentProps"
           shadow="lg"
-          min-w-80 rounded-md relative
+          w-100 rounded-md relative
           bg-background c-white
         >
           <h2

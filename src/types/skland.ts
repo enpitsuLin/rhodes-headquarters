@@ -1,6 +1,6 @@
 /**
  * Arknights玩家数据
- **/
+ */
 export interface Player {
   activity: Activity
   activityInfoMap: { [id: string]: ActivityInfo }
@@ -27,8 +27,8 @@ export interface Player {
 }
 
 /**
-* Arknights活动
-*/
+ * Arknights活动
+ */
 export interface Activity {
   actId: string
   actReplicaId: string
@@ -36,8 +36,8 @@ export interface Activity {
 }
 
 /**
-* Arknights活动信息
-*/
+ * Arknights活动信息
+ */
 export interface ActivityInfo {
   id: string
   name: string
@@ -48,8 +48,8 @@ export interface ActivityInfo {
 }
 
 /**
-* Arknights助战干员
-**/
+ * Arknights助战干员
+ */
 export interface AssistCharacter {
   charId: string
   equip?: Equipment
@@ -63,16 +63,16 @@ export interface AssistCharacter {
 }
 
 /**
-* Arknights干员模组
-*/
+ * Arknights干员模组
+ */
 export interface Equipment {
   id: string
   level: 0 | 1 | 2 | 3
 }
 
 /**
-* Arknights模组信息
-*/
+ * Arknights模组信息
+ */
 export interface EquipmentInfo {
   id: string
   desc: string
@@ -82,8 +82,8 @@ export interface EquipmentInfo {
 }
 
 /**
-* Arknights基建信息
-*/
+ * Arknights基建信息
+ */
 export interface Infrastructure {
   control: InfrastructureControl
   dormitories: InfrastructureDormitory[]
@@ -98,8 +98,8 @@ export interface Infrastructure {
 }
 
 /**
-* Arknights基建进驻干员
-*/
+ * Arknights基建进驻干员
+ */
 export interface ResidentCharacters {
   charId: string
   index: number
@@ -107,16 +107,16 @@ export interface ResidentCharacters {
 }
 
 /**
-* Arknights基建设施
-*/
+ * Arknights基建设施
+ */
 export interface InfrastructureRoom {
   chars: ResidentCharacters[]
   level: number
 }
 
 /**
-* Arknights基建无人机
-*/
+ * Arknights基建无人机
+ */
 export interface ArknightsBuildLabor {
   value: number
   maxValue: number
@@ -125,30 +125,30 @@ export interface ArknightsBuildLabor {
 }
 
 /**
-* Arknights基建控制中枢
-*/
+ * Arknights基建控制中枢
+ */
 export interface InfrastructureControl extends InfrastructureRoom {
 }
 
 /**
-* Arknights基建宿舍
-*/
+ * Arknights基建宿舍
+ */
 export interface InfrastructureDormitory extends InfrastructureRoom {
   comfort: number
   slotId: string
 }
 
 /**
-* Arknights基建人力办公室
-*/
+ * Arknights基建人力办公室
+ */
 export interface InfrastructureHire extends InfrastructureRoom {
   refreshCount: number
   completeWorkTime: number
 }
 
 /**
-* Arknights基建制造站
-*/
+ * Arknights基建制造站
+ */
 export interface InfrastructureManufacture extends InfrastructureRoom {
   speed: number
   complete: number
@@ -160,8 +160,8 @@ export interface InfrastructureManufacture extends InfrastructureRoom {
 }
 
 /**
-* Arknights基建会客室
-*/
+ * Arknights基建会客室
+ */
 export interface InfrastructureMeeting extends InfrastructureRoom {
   clue: {
     board: ('RHINE' | 'PENGUIN' | 'BLACKSTEEL' | 'URSUS' | 'KJERAG' | 'RHODES' | 'GLASGOW')[]
@@ -173,15 +173,15 @@ export interface InfrastructureMeeting extends InfrastructureRoom {
 }
 
 /**
-* Arknights基建发电站
-*/
+ * Arknights基建发电站
+ */
 export interface InfrastructurePower extends InfrastructureRoom {
   slotId: string
 }
 
 /**
-* Arknights基建贸易站
-*/
+ * Arknights基建贸易站
+ */
 export interface InfrastructureTrading extends InfrastructureRoom {
   stock: {
     delivery: {
@@ -202,8 +202,8 @@ export interface InfrastructureTrading extends InfrastructureRoom {
 }
 
 /**
-* Arknights基建训练室
-*/
+ * Arknights基建训练室
+ */
 export interface InfrastructureTraining extends InfrastructureRoom {
   remainPoint: number
   remainSecs: number
@@ -212,39 +212,39 @@ export interface InfrastructureTraining extends InfrastructureRoom {
 }
 
 /**
-* Arknights基建训练室受训干员
-*/
+ * Arknights基建训练室受训干员
+ */
 export interface InfrastructureTrainee extends ResidentCharacters {
   targetSkill: number
 }
 
 /**
-* Arknights剿灭作战信息
-*/
+ * Arknights剿灭作战信息
+ */
 export interface Campaign {
   records: CampaignRecord
   reward: CampaignReward
 }
 
 /**
-* Arknights剿灭作战纪录
-*/
+ * Arknights剿灭作战纪录
+ */
 export interface CampaignRecord {
   campaignId: string
   maxKills: number
 }
 
 /**
-* Arknights剿灭作战奖励
-*/
+ * Arknights剿灭作战奖励
+ */
 export interface CampaignReward {
   current: number
   total: number
 }
 
 /**
-* Arknights剿灭作战地图信息
-*/
+ * Arknights剿灭作战地图信息
+ */
 export interface CampaignLevelInfo {
   id: string
   name: string
@@ -252,16 +252,16 @@ export interface CampaignLevelInfo {
 }
 
 /**
-* Arknights剿灭作战区域信息
-*/
+ * Arknights剿灭作战区域信息
+ */
 export interface CampaignZoneInfo {
   id: string
   name: string
 }
 
 /**
-* Arknights干员
-*/
+ * Arknights干员
+ */
 export interface Character {
   charId: string
   skinId: string
@@ -284,8 +284,8 @@ export interface Character {
 }
 
 /**
-* Arknights干员信息
-*/
+ * Arknights干员信息
+ */
 export interface CharacterInfo {
   id: string
   name: string
@@ -297,8 +297,8 @@ export interface CharacterInfo {
 }
 
 /**
-* Arknights公开招募
-*/
+ * Arknights公开招募
+ */
 export interface Recruit {
   startTs: number
   finishTs: number
@@ -311,15 +311,15 @@ export interface Recruit {
 }
 
 /**
-* Arknights集成战略
-*/
+ * Arknights集成战略
+ */
 export interface Rouge {
   records: RougeRecord[]
 }
 
 /**
-* Arknights集成战略记录
-*/
+ * Arknights集成战略记录
+ */
 export interface RougeRecord {
   rougeId: string
   clearTime: number
@@ -329,8 +329,8 @@ export interface RougeRecord {
 }
 
 /**
-* Arknights集成战略主题信息
-*/
+ * Arknights集成战略主题信息
+ */
 export interface RougeThemeInfo {
   id: string
   name: string
@@ -338,24 +338,24 @@ export interface RougeThemeInfo {
 }
 
 /**
-* Arknights日常周常
-*/
+ * Arknights日常周常
+ */
 export interface Mission {
   daily: { current: number; total: number }
   weekly: { current: number; total: number }
 }
 
 /**
-* Arknights时装
-*/
+ * Arknights时装
+ */
 export interface Skin {
   id: string
   ts: number
 }
 
 /**
-* Arknights时装信息
-*/
+ * Arknights时装信息
+ */
 export interface SkinInfo {
   avatarId: string
   brandName: string
@@ -367,8 +367,8 @@ export interface SkinInfo {
 }
 
 /**
-* Arknights活动关卡信息
-*/
+ * Arknights活动关卡信息
+ */
 export interface StageLevelInfo {
   id: string
   code: string
@@ -376,8 +376,8 @@ export interface StageLevelInfo {
 }
 
 /**
-* Arknights玩家状态
-*/
+ * Arknights玩家状态
+ */
 export interface PlayerStatus {
   ap: PlayerStatusAp
   avatar: PlayerAvatar
@@ -391,8 +391,8 @@ export interface PlayerStatus {
 }
 
 /**
-* Arknights玩家理智信息
-*/
+ * Arknights玩家理智信息
+ */
 export interface PlayerStatusAp {
   current: number
   max: number
@@ -401,32 +401,32 @@ export interface PlayerStatusAp {
 }
 
 /**
-* Arknights玩家头像
-*/
+ * Arknights玩家头像
+ */
 export interface PlayerAvatar {
   type: string
   id: string
 }
 
 /**
-* Arknights玩家助理干员
-*/
+ * Arknights玩家助理干员
+ */
 export interface PlayerSecretary {
   charId: string
   skinId: string
 }
 
 /**
-* Arknights保全派驻信息
-*/
+ * Arknights保全派驻信息
+ */
 export interface Tower {
   records: TowerRecord
   reward: TowerReward
 }
 
 /**
-* Arknights保全派驻纪录
-*/
+ * Arknights保全派驻纪录
+ */
 export interface TowerRecord {
   towerId: string
   best: number
@@ -436,8 +436,8 @@ export interface TowerRecord {
 }
 
 /**
-* Arknights保全派驻奖励
-*/
+ * Arknights保全派驻奖励
+ */
 export interface TowerReward {
   higherItem: { current: number; total: number }
   lowerItem: { current: number; total: number }
@@ -445,8 +445,8 @@ export interface TowerReward {
 }
 
 /**
-* Arknights保全派驻区域信息
-*/
+ * Arknights保全派驻区域信息
+ */
 export interface TowerZoneInfo {
   id: string
   name: string
@@ -456,8 +456,8 @@ export interface TowerZoneInfo {
 }
 
 /**
-* Arknights关卡区域信息
-*/
+ * Arknights关卡区域信息
+ */
 export interface ZoneInfo {
   id: string
   name: string

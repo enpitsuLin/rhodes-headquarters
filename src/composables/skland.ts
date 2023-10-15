@@ -8,6 +8,7 @@ const SKLAND_CRED_CODE_URL = createUrl('/api/v1/user/auth/generate_cred_by_code'
 const SKLAND_BINDING_URL = createUrl('api/v1/game/player/binding')
 const SKLAND_ME_URL = createUrl('/api/v1/user/me')
 /** 签到 URL */
+/* eslint-disable unused-imports/no-unused-vars */
 const SKLAND_ATTENDANCE_URL = createUrl('/api/v1/game/attendance')
 
 /** 森空岛用户和绑定游戏角色数据 */
@@ -195,16 +196,15 @@ export function useUserInfo(grant_code: MaybeRefOrGetter<string>, uid: MaybeRefO
     const params = new URLSearchParams({ uid: toValue(uid) }).toString()
     return createUrl(`/api/v1/game/player/info?${params}`)
   })
-  return useFetch(url,
-    {
-      immediate: false,
-      beforeFetch: async (ctx) => {
-        const { cred } = await signIn(toValue(grant_code))
-        if (!cred)
-          ctx.cancel()
-        ctx.options.headers = { cred, platform: '1' }
-      },
-    })
+  return useFetch(url, {
+    immediate: false,
+    beforeFetch: async (ctx) => {
+      const { cred } = await signIn(toValue(grant_code))
+      if (!cred)
+        ctx.cancel()
+      ctx.options.headers = { cred, platform: '1' }
+    },
+  })
     .get()
     .json<SklandResponseBody<Player>>()
 }

@@ -5,8 +5,10 @@ import type { PlayerStatus } from '~/types'
 const props = defineProps<{ status: PlayerStatus }>()
 
 const {
-  spendTime, recoveryDesc,
-  current, max,
+  spendTime,
+  recoveryDesc,
+  current,
+  max,
   nextApAddTime,
 } = useApInfo(props.status.ap)
 </script>
