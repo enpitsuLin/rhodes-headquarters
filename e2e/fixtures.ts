@@ -1,48 +1,39 @@
 import path from 'node:path'
-import { setTimeout as sleep } from 'node:timers/promises'
-import fs from 'fs-extra'
 import { type BrowserContext, test as base, chromium } from '@playwright/test'
-import type { Manifest } from 'webextension-polyfill'
 
-export { name } from '../package.json'
-
-export const extensionPath = path.join(__dirname, '../extension')
+const pathToExtension = path.resolve('.output/chrome-mv3')
 
 export const test = base.extend<{
   context: BrowserContext
   extensionId: string
 }>({
-  context: async ({ headless }, use) => {
-    // workaround for the Vite server has started but contentScript is not yet.
-    await sleep(1000)
+  // eslint-disable-next-line no-empty-pattern
+  context: async ({}, use) => {
     const context = await chromium.launchPersistentContext('', {
-      headless,
+      headless: false,
       args: [
-        ...(headless ? ['--headless=new'] : []),
-        `--disable-extensions-except=${extensionPath}`,
-        `--load-extension=${extensionPath}`,
+        `--disable-extensions-except=${pathToExtension}`,
+        `--load-extension=${pathToExtension}`,
       ],
     })
     await use(context)
     await context.close()
   },
   extensionId: async ({ context }, use) => {
-    // for manifest v3:
-    let [background] = context.serviceWorkers()
-    if (!background)
-      background = await context.waitForEvent('serviceworker')
+    let background: { url: () => string }
+    if (pathToExtension.endsWith('-mv3')) {
+      [background] = context.serviceWorkers()
+      if (!background)
+        background = await context.waitForEvent('serviceworker')
+    }
+    else {
+      [background] = context.backgroundPages()
+      if (!background)
+        background = await context.waitForEvent('backgroundpage')
+    }
 
     const extensionId = background.url().split('/')[2]
     await use(extensionId)
   },
 })
-
 export const expect = test.expect
-
-export function isDevArtifact() {
-  const manifest: Manifest.WebExtensionManifest = fs.readJsonSync(path.resolve(extensionPath, 'manifest.json'))
-  return Boolean(
-    typeof manifest.content_security_policy === 'object'
-      && manifest.content_security_policy.extension_pages?.includes('localhost'),
-  )
-}
