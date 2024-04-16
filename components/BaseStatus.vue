@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import PopupSection from './PopupSection.vue'
 import { useApInfo } from '~/composables/ap'
 import type { PlayerStatus } from '~/types'
 

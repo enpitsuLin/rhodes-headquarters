@@ -3,6 +3,7 @@ import { toValue, useToggle } from '@vueuse/core'
 import * as dialog from '@zag-js/dialog'
 import { normalizeProps, useMachine } from '@zag-js/vue'
 import { computed } from 'vue'
+import OptionsSection from './OptionsSection.vue'
 import { currentUser, loginTo, setCurrentUserId, signOut, useUsers } from '~/composables/skland'
 
 const [state, send] = useMachine(dialog.machine({ id: '1' }))
@@ -77,7 +78,7 @@ const users = useUsers()
   <Teleport to="body">
     <div v-if="api.isOpen" fixed inset-0>
       <div v-bind="api.backdropProps" fixed inset-0 bg-black:30 filter-blur-lg />
-      <div v-bind="api.containerProps" fixed inset-0 flex="~ items-center justify-center">
+      <div v-bind="api.positionerProps" fixed inset-0 flex="~ items-center justify-center">
         <div
           v-bind="api.contentProps"
           shadow="lg"

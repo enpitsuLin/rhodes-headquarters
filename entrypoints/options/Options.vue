@@ -2,6 +2,8 @@
 import * as tabs from '@zag-js/tabs'
 import { normalizeProps, useMachine } from '@zag-js/vue'
 import { computed } from 'vue'
+import OptionsSettings from '@/components/OptionsSettings.vue'
+import OptionsAccount from '@/components/OptionsAccount.vue'
 
 const data = [{ id: 'account', label: '账号' }, { id: 'settings', label: '设置' }]
 

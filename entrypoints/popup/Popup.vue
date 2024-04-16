@@ -1,4 +1,9 @@
 <script setup lang="ts">
+import BaseStatus from '@/components/BaseStatus.vue'
+import CharacterSwitcher from '@/components/CharacterSwitcher.vue'
+import MissionStat from '@/components/MissionStat.vue'
+import PopupFooter from '@/components/PopupFooter.vue'
+import RhodesIslandManage from '@/components/RhodesIslandManage.vue'
 import { currentUser, useUserInfo } from '~/composables/skland'
 
 const uid = ref('')

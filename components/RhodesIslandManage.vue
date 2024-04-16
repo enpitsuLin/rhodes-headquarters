@@ -2,6 +2,7 @@
 import * as tabs from '@zag-js/tabs'
 import { normalizeProps, useMachine } from '@zag-js/vue'
 import { computed } from 'vue'
+import Recruit from './Recruit.vue'
 import type { Player } from '~/types'
 
 defineProps<{ player: Player }>()

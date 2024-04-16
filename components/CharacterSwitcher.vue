@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import * as menu from '@zag-js/menu'
 import { normalizeProps, useMachine } from '@zag-js/vue'
+import Avatar from '~/components/Avatar.vue'
 import type { PlayerStatus, SklandBindRole } from '~/types'
 
 defineProps<{ uid: string, status: PlayerStatus, characters: SklandBindRole[] }>()
@@ -62,7 +63,7 @@ function openOptionsPage() {
           v-for="role in characters"
           :key="role.uid"
           type="button"
-          v-bind="api.getItemProps({ id: role.uid })"
+          v-bind="api.getItemProps({ value: role.uid })"
           flex="~ items-center" px-3 py-2
           outline-none w-full text-left
           transition="colors ease-in-out duration-300"

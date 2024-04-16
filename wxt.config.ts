@@ -1,9 +1,6 @@
-import { resolve } from 'node:path'
 import Vue from '@vitejs/plugin-vue'
 import UnoCSS from 'unocss/vite'
-import IconsResolver from 'unplugin-icons/resolver'
 import Icons from 'unplugin-icons/vite'
-import Components from 'unplugin-vue-components/vite'
 import { defineConfig } from 'wxt'
 import pkg from './package.json'
 
@@ -32,18 +29,6 @@ export default defineConfig({
       },
       plugins: [
         Vue(),
-
-        Components({
-          dirs: [resolve('components')],
-          // generate `components.d.ts` for ts support with Volar
-          dts: resolve('components.d.ts'),
-          resolvers: [
-            // auto import icons
-            IconsResolver({
-              prefix: '',
-            }),
-          ],
-        }),
         Icons(),
         UnoCSS(),
       ],
