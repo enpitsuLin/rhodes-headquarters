@@ -32,6 +32,9 @@ dependencies:
   date-fns:
     specifier: ^3.6.0
     version: 3.6.0
+  js-md5:
+    specifier: ^0.8.3
+    version: 0.8.3
   tailwind-merge:
     specifier: ^2.2.2
     version: 2.2.2
@@ -4456,6 +4459,10 @@ packages:
       glob: 8.1.0
       nopt: 6.0.0
     dev: true
+
+  /js-md5@0.8.3:
+    resolution: {integrity: sha512-qR0HB5uP6wCuRMrWPTrkMaev7MJZwJuuw4fnwAzRgP4J4/F8RwtodOKpGp4XpqsLBFzzgqIO42efFAyz2Et6KQ==, tarball: https://registry.npmmirror.com/js-md5/-/js-md5-0.8.3.tgz}
+    dev: false
 
   /js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==, tarball: https://registry.npmmirror.com/js-tokens/-/js-tokens-4.0.0.tgz}

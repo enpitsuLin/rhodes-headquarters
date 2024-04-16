@@ -3,6 +3,7 @@ import { toValue, useFetch } from '@vueuse/core'
 import { useStorageLocal } from './storage'
 import type { Player, SklandBinding, SklandResponseBody, SklandUser } from '~/types'
 import { STORAGE_KEY_CURRENT_USER_ID, STORAGE_KEY_USERS } from '~/constsants'
+import { generateSignature } from '@/utils/signature'
 
 const SKLAND_CRED_CODE_URL = createUrl('/api/v1/user/auth/generate_cred_by_code')
 const SKLAND_BINDING_URL = createUrl('api/v1/game/player/binding')
@@ -63,11 +64,11 @@ export async function loginTo(grant_code: string) {
     return users.value.find(u => u.grant_code === grant_code)
   }
 
-  const { cred } = await signIn(grant_code)
+  const { cred, token } = await signIn(grant_code)
 
   const [me, bindingList] = await Promise.all([
-    fetchAccountInfo(cred),
-    fetchBindingInfo(cred),
+    fetchAccountInfo(cred, token),
+    fetchBindingInfo(cred, token),
   ])
 
   const existingUser = getUser()
@@ -91,9 +92,10 @@ export async function loginTo(grant_code: string) {
 }
 
 const command_header = {
-  'User-Agent': 'Skland/1.0.1 (com.hypergryph.skland; build:100001014; Android 31; ) Okhttp/4.11.0',
+  'User-Agent': 'Skland/1.5.1 (com.hypergryph.skland; build:100501001; Android 34; ) Okhttp/4.11.0',
   'Accept-Encoding': 'gzip',
   'Connection': 'close',
+  'Content-Type': 'application/json',
 }
 async function auth(token: string) {
   const r = await fetch('https://as.hypergryph.com/user/oauth2/v2/grant', {
@@ -127,15 +129,19 @@ async function signIn(token: string) {
 }
 
 /** 获取森空岛用户信息 */
-async function fetchAccountInfo(cred: string) {
-  const r = await fetch(SKLAND_ME_URL, { headers: { cred, platform: '1' } })
+async function fetchAccountInfo(cred: string, token: string) {
+  const [sign, headers] = await generateSignature(token, SKLAND_ME_URL)
+  const r = await fetch(SKLAND_ME_URL, { headers: Object.assign(headers, { sign, cred }) })
   const { data } = await (r.json() as Promise<SklandResponseBody<SklandUser>>)
   return data
 }
 
 /** 获取绑定游戏角色数据 */
-async function fetchBindingInfo(cred: string) {
-  const r = await fetch(SKLAND_BINDING_URL, { headers: { cred, platform: '1' } })
+async function fetchBindingInfo(cred: string, token: string) {
+  const [sign, headers] = await generateSignature(token, SKLAND_BINDING_URL)
+  const r = await fetch(SKLAND_BINDING_URL, {
+    headers: Object.assign(headers, { sign, cred }),
+  })
   const { data } = await (r.json() as Promise<SklandResponseBody<{ list: SklandBinding[] }>>)
   return data.list
 }
@@ -168,8 +174,8 @@ export async function refreshAccountInfo(id?: string) {
 
   const user = users.value.find(u => u.account.id === id)
   if (user) {
-    const { cred } = await signIn(user.grant_code)
-    const account = await fetchAccountInfo(cred)
+    const { cred, token } = await signIn(user.grant_code)
+    const account = await fetchAccountInfo(cred, token)
     user.account = account.user
     user.accountUpdateAt = Date.now()
   }
@@ -184,8 +190,8 @@ export async function refreshBindingInfo(id?: string) {
 
   const user = users.value.find(u => u.account.id === id)
   if (user) {
-    const { cred } = await signIn(user.grant_code)
-    const binding = await fetchBindingInfo(cred)
+    const { cred, token } = await signIn(user.grant_code)
+    const binding = await fetchBindingInfo(cred, token)
     user.binding = binding
     user.bindingUpdateAt = Date.now()
   }
@@ -199,10 +205,11 @@ export function useUserInfo(grant_code: MaybeRefOrGetter<string>, uid: MaybeRefO
   return useFetch(url, {
     immediate: false,
     beforeFetch: async (ctx) => {
-      const { cred } = await signIn(toValue(grant_code))
+      const { cred, token } = await signIn(toValue(grant_code))
+      const [sign, headers] = await generateSignature(token, ctx.url)
       if (!cred)
         ctx.cancel()
-      ctx.options.headers = { cred, platform: '1' }
+      ctx.options.headers = Object.assign(headers, { cred, sign })
     },
   })
     .get()
