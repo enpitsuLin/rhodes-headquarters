@@ -25,7 +25,7 @@ export default defineConfig<Theme>({
     },
   },
   shortcuts: {
-    'bg-main': 'bg-#121212 c-foreground',
+    'bg-main': 'bg-background c-foreground',
   },
   presets: [
     presetUno(),
