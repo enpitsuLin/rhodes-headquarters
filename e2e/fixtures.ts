@@ -7,7 +7,8 @@ export const test = base.extend<{
   context: BrowserContext
   extensionId: string
 }>({
-  context: async (_, use) => {
+  // eslint-disable-next-line no-empty-pattern
+  context: async ({}, use) => {
     const context = await chromium.launchPersistentContext('', {
       headless: false,
       args: [
