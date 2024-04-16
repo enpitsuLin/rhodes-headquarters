@@ -87,7 +87,7 @@ export function useAnimateCursor() {
       return
     outer.value.style.height = '20px'
     outer.value.style.width = '20px'
-    outer.value.style.background = 'rgba(255,255,255,0.533)'
+    outer.value.style.background = 'hsl(var(--foreground) / 0.3)'
   }
 
   function relax() {

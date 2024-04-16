@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useStyleTag } from '@vueuse/core'
 import BaseStatus from '~/components/BaseStatus.vue'
 import CharacterSwitcher from '~/components/CharacterSwitcher.vue'
 import MissionStat from '~/components/MissionStat.vue'
@@ -7,6 +8,7 @@ import RhodesIslandManage from '~/components/RhodesIslandManage.vue'
 import Cursor from '~/components/Cursor.vue'
 import DustBackground from '~/components/DustBackground.vue'
 import { currentUser, useUserInfo } from '~/composables/skland'
+import Button from '~/components/ui/button/index.vue'
 
 const uid = ref('')
 
@@ -34,8 +36,8 @@ function openOptionsPage() {
 <template>
   <main
     class="skland-container"
-    bg="[url(/popup-bg.jpg)] cover center-bottom"
-    c-foreground p-2 w-350px h-600px
+    relative c-foreground p-2 w-350px h-600px
+    backdrop="blur-5px dark:blur-unset"
     flex="~ col"
   >
     <template v-if="arknightsBinding.length === 0">
@@ -45,28 +47,10 @@ function openOptionsPage() {
         </h2>
         <span>No Account</span>
       </div>
-      <button
-        outline-none relative flex="~ items-center"
-        p="x2 y1"
-        c="#ababab hover:primary"
-        class="group"
-        @click="openOptionsPage"
-      >
-        <div
-          absolute top-0 left-0
-          h="20% group-hover:50%" w-full
-          border="~ #ababab b-0 group-hover:primary"
-          transition="all duration-150"
-        />
-        <span text-sm>前去添加</span>
-        <svg stroke="#ababab" w-16 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 48 18"><path d="M6 13 h35 l-6 -6" fill="none" /></svg>
-        <div
-          absolute bottom-0 left-0
-          h="20% group-hover:50%" w-full
-          border="~ #ababab t-0 group-hover:primary"
-          transition="all duration-150"
-        />
-      </button>
+      <Button variant="animate-outline" @click="openOptionsPage">
+        <span>前去添加</span>
+        <svg stroke="current" w-16 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 48 18"><path d="M6 13 h35 l-6 -6" fill="none" /></svg>
+      </Button>
     </template>
     <template v-if="userInfo">
       <CharacterSwitcher

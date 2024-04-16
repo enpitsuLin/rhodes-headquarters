@@ -3,12 +3,22 @@ import { presetAttributify, presetIcons, presetUno, transformerDirectives } from
 import type { Theme } from 'unocss/preset-mini'
 
 export default defineConfig<Theme>({
+  content: {
+    pipeline: {
+      include: [
+        // the default
+        /\.(vue|svelte|[jt]sx|mdx?|astro|elm|php|phtml|html)($|\?)/,
+        // include js/ts files
+        'components/**/*.ts',
+      ],
+    },
+  },
   theme: {
     colors: {
-      'primary': '#22bbff',
-      'foreground': '#fefefe',
-      'foreground-secondary': '#9a9a9a',
-      'background': '#121212',
+      primary: '#22bbff',
+      foreground: 'hsl(var(--foreground))',
+      background: 'hsl(var(--background))',
+      border: 'hsl(var(--border))',
     },
     fontFamily: {
       bender: 'Bender, sans-serif',
