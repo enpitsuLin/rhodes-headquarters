@@ -1,6 +1,6 @@
 import type { MaybeRefOrGetter, RemovableRef } from '@vueuse/core'
 import { toValue, useFetch } from '@vueuse/core'
-import { useStorageLocal } from './useStorageLocal'
+import { useStorageLocal } from './storage'
 import type { Player, SklandBinding, SklandResponseBody, SklandUser } from '~/types'
 import { STORAGE_KEY_CURRENT_USER_ID, STORAGE_KEY_USERS } from '~/constsants'
 

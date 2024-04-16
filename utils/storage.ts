@@ -1,4 +1,4 @@
-import { useStorageLocal } from '~/composables/useStorageLocal'
+import { useStorageLocal } from '@/composables/storage'
 import {
   ACCOUNTS_KEY,
   DEFAULT_ACCOUNT_ID_KEY,
