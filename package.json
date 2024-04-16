@@ -15,6 +15,7 @@
     "zip:firefox": "wxt zip --browser firefox",
     "postinstall": "wxt prepare && simple-git-hooks",
     "typecheck": "tsc --noEmit",
+    "e2e": "playwright test",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },

@@ -12,6 +12,7 @@ node_modules
 stats.html
 .wxt
 web-ext.config.ts
+playwright-report
 
 # Editor directories and files
 .vscode/*
