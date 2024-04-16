@@ -14,6 +14,9 @@ export default defineConfig({
       'storage',
     ],
     host_permissions: ['*://*/*'],
+    content_security_policy: {
+      extension_pages: 'script-src \'self\'; object-src \'self\'',
+    },
   },
   imports: {
     presets: ['vue'],
