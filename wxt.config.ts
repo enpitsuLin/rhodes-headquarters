@@ -1,6 +1,7 @@
 import Vue from '@vitejs/plugin-vue'
 import UnoCSS from 'unocss/vite'
 import Icons from 'unplugin-icons/vite'
+import VueRouter from 'unplugin-vue-router/vite'
 import { defineConfig } from 'wxt'
 import pkg from './package.json'
 
@@ -15,9 +16,6 @@ export default defineConfig({
       'storage',
     ],
     host_permissions: ['*://*/*'],
-    content_security_policy: {
-      extension_pages: 'script-src \'self\'; object-src \'self\'',
-    },
   },
   imports: {
     presets: ['vue'],
@@ -37,6 +35,9 @@ export default defineConfig({
         minify: false,
       },
       plugins: [
+        VueRouter({
+          dts: './src/typed-router.d.ts',
+        }),
         Vue(),
         Icons(),
         UnoCSS(),

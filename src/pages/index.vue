@@ -71,3 +71,9 @@ defineExpose({ users })
   </main>
   <Cursor />
 </template>
+
+<style>
+body {
+  --at-apply: bg-[url(/popup-bg-light.jpg)] dark:bg-[url(/popup-bg-dark.jpg)] bg-cover bg-center-bottom;
+}
+</style>
