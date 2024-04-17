@@ -1,9 +1,9 @@
 import type { MaybeRefOrGetter, RemovableRef } from '@vueuse/core'
 import { toValue, useFetch } from '@vueuse/core'
 import { useStorageLocal } from './storage'
-import type { Player, SklandBinding, SklandResponseBody, SklandUser } from '~/types'
+import { $fetch, onFetchRequest } from '~/composables/api'
 import { STORAGE_KEY_CURRENT_USER_ID, STORAGE_KEY_USERS } from '~/constsants'
-import { generateSignature } from '@/utils/signature'
+import type { Player, SklandBinding, SklandResponseBody, SklandUser } from '~/types'
 
 const SKLAND_CRED_CODE_URL = createUrl('/api/v1/user/auth/generate_cred_by_code')
 const SKLAND_BINDING_URL = createUrl('api/v1/game/player/binding')
@@ -24,6 +24,8 @@ type User = {
 & {
   /** 用户凭据 */
   grant_code: string
+  cred: string
+  token: string
   accountUpdateAt: number
   bindingUpdateAt: number
 }
@@ -67,8 +69,8 @@ export async function loginTo(grant_code: string) {
   const { cred, token } = await signIn(grant_code)
 
   const [me, bindingList] = await Promise.all([
-    fetchAccountInfo(cred, token),
-    fetchBindingInfo(cred, token),
+    fetchAccountInfo({ cred, token }),
+    fetchBindingInfo({ cred, token }),
   ])
 
   const existingUser = getUser()
@@ -83,6 +85,8 @@ export async function loginTo(grant_code: string) {
       account: me.user,
       binding: bindingList,
       grant_code,
+      cred,
+      token,
       accountUpdateAt: now,
       bindingUpdateAt: now,
     })
@@ -114,36 +118,26 @@ async function auth(token: string) {
 async function signIn(token: string) {
   const { code } = await auth(token)
 
-  const r = await fetch(SKLAND_CRED_CODE_URL, {
+  const res = await $fetch<SklandResponseBody<{ cred: string, userId: string, token: string }>>(SKLAND_CRED_CODE_URL, {
     method: 'POST',
-    headers: Object.assign({
-      'Content-Type': 'application/json; charset=utf-8',
-    }, command_header),
     body: JSON.stringify({
       code,
       kind: 1,
     }),
   })
-  const { data } = await r.json() as SklandResponseBody<{ cred: string, userId: string, token: string }>
-  return data
+  return res.data
 }
 
 /** 获取森空岛用户信息 */
-async function fetchAccountInfo(cred: string, token: string) {
-  const [sign, headers] = await generateSignature(token, SKLAND_ME_URL)
-  const r = await fetch(SKLAND_ME_URL, { headers: Object.assign(headers, { sign, cred }) })
-  const { data } = await (r.json() as Promise<SklandResponseBody<SklandUser>>)
-  return data
+async function fetchAccountInfo(headers?: HeadersInit) {
+  const res = await $fetch<SklandResponseBody<SklandUser>>(SKLAND_ME_URL, { headers })
+  return res.data
 }
 
 /** 获取绑定游戏角色数据 */
-async function fetchBindingInfo(cred: string, token: string) {
-  const [sign, headers] = await generateSignature(token, SKLAND_BINDING_URL)
-  const r = await fetch(SKLAND_BINDING_URL, {
-    headers: Object.assign(headers, { sign, cred }),
-  })
-  const { data } = await (r.json() as Promise<SklandResponseBody<{ list: SklandBinding[] }>>)
-  return data.list
+async function fetchBindingInfo(headers?: HeadersInit) {
+  const r = await $fetch<SklandResponseBody<{ list: SklandBinding[] }>>(SKLAND_BINDING_URL, { headers })
+  return r.data.list
 }
 
 export async function signOut(id?: string) {
@@ -174,8 +168,7 @@ export async function refreshAccountInfo(id?: string) {
 
   const user = users.value.find(u => u.account.id === id)
   if (user) {
-    const { cred, token } = await signIn(user.grant_code)
-    const account = await fetchAccountInfo(cred, token)
+    const account = await fetchAccountInfo()
     user.account = account.user
     user.accountUpdateAt = Date.now()
   }
@@ -190,26 +183,23 @@ export async function refreshBindingInfo(id?: string) {
 
   const user = users.value.find(u => u.account.id === id)
   if (user) {
-    const { cred, token } = await signIn(user.grant_code)
-    const binding = await fetchBindingInfo(cred, token)
+    const binding = await fetchBindingInfo()
     user.binding = binding
     user.bindingUpdateAt = Date.now()
   }
 }
 
-export function useUserInfo(grant_code: MaybeRefOrGetter<string>, uid: MaybeRefOrGetter<string>) {
+export function useUserInfo(uid: MaybeRefOrGetter<string>) {
   const url = computed(() => {
     const params = new URLSearchParams({ uid: toValue(uid) }).toString()
     return createUrl(`/api/v1/game/player/info?${params}`)
   })
   return useFetch(url, {
     immediate: false,
-    beforeFetch: async (ctx) => {
-      const { cred, token } = await signIn(toValue(grant_code))
-      const [sign, headers] = await generateSignature(token, ctx.url)
-      if (!cred)
-        ctx.cancel()
-      ctx.options.headers = Object.assign(headers, { cred, sign })
+    beforeFetch(ctx) {
+      const request = ctx.url
+      const options = ctx.options
+      return onFetchRequest({ request, options })
     },
   })
     .get()

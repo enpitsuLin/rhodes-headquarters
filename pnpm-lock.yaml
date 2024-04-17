@@ -35,6 +35,9 @@ dependencies:
   js-md5:
     specifier: ^0.8.3
     version: 0.8.3
+  ofetch:
+    specifier: ^1.3.4
+    version: 1.3.4
   tailwind-merge:
     specifier: ^2.2.2
     version: 2.2.2
@@ -3101,7 +3104,6 @@ packages:
 
   /destr@2.0.3:
     resolution: {integrity: sha512-2N3BOUU4gYMpTP24s5rF5iP7BDr7uNTCs4ozw3kf/eKfvWSIu93GEBi5m427YoyJoeOzQ5smuu4nNAPGb8idSQ==, tarball: https://registry.npmmirror.com/destr/-/destr-2.0.3.tgz}
-    dev: true
 
   /diff-sequences@29.6.3:
     resolution: {integrity: sha512-EjePK1srD3P08o2j4f0ExnylqRs5B9tJjcp9t1krH2qRi8CCdsYfwe9JgSLurFBWwq4uOlipzfk5fHNvwFKr8Q==, tarball: https://registry.npmmirror.com/diff-sequences/-/diff-sequences-29.6.3.tgz}
@@ -4955,7 +4957,7 @@ packages:
       acorn: 8.10.0
       pathe: 1.1.2
       pkg-types: 1.0.3
-      ufo: 1.3.0
+      ufo: 1.5.3
     dev: true
 
   /mlly@1.6.1:
@@ -5052,7 +5054,6 @@ packages:
 
   /node-fetch-native@1.6.4:
     resolution: {integrity: sha512-IhOigYzAKHd244OC0JIMIUrjzctirCmPkaIfhDeGcEETWof5zKYUW7e7MYvChGWh/4CJeXEgsRyGzuF334rOOQ==, tarball: https://registry.npmmirror.com/node-fetch-native/-/node-fetch-native-1.6.4.tgz}
-    dev: true
 
   /node-forge@1.3.1:
     resolution: {integrity: sha512-dPEtOeMvF9VMcYV/1Wb8CPoVAXtp6MKMlcbAt4ddqmGqUJ6fQZFXkNZNkNlfevtNkGtaSoXf/vNNNSvgrdXwtA==, tarball: https://registry.npmmirror.com/node-forge/-/node-forge-1.3.1.tgz}
@@ -5136,7 +5137,6 @@ packages:
       destr: 2.0.3
       node-fetch-native: 1.6.4
       ufo: 1.5.3
-    dev: true
 
   /once@1.4.0:
     resolution: {integrity: sha512-lNaJgI+2Q5URQBkccEKHTQOPaXdUxnZZElQTZY0MFUAuaEqe1E+Nyvgdz/aIyNi6Z9MzO5dv1H8n58/GELp3+w==}
@@ -6247,13 +6247,8 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
-  /ufo@1.3.0:
-    resolution: {integrity: sha512-bRn3CsoojyNStCZe0BG0Mt4Nr/4KF+rhFlnNXybgqt5pXHNFRlqinSoQaTrGyzE4X8aHplSb+TorH+COin9Yxw==}
-    dev: true
-
   /ufo@1.5.3:
     resolution: {integrity: sha512-Y7HYmWaFwPUmkoQCUIAYpKqkOf+SbVj/2fJJZ4RJMCfZp0rTGwRbzQD+HghfnhKOjL9E01okqz+ncJskGYfBNw==, tarball: https://registry.npmmirror.com/ufo/-/ufo-1.5.3.tgz}
-    dev: true
 
   /unconfig@0.3.13:
     resolution: {integrity: sha512-N9Ph5NC4+sqtcOjPfHrRcHekBCadCXWTBzp2VYYbySOHW0PfD9XLCeXshTXjkPYwLrBr9AtSeU0CZmkYECJhng==, tarball: https://registry.npmmirror.com/unconfig/-/unconfig-0.3.13.tgz}
@@ -7264,18 +7259,6 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
-  registry.npmmirror.com/destr@2.0.1:
-    resolution: {integrity: sha512-M1Ob1zPSIvlARiJUkKqvAZ3VAqQY6Jcuth/pBKQ2b1dX/Qx0OnJ8Vux6J2H5PTMQeRzWrrbTu70VxBfv/OPDJA==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/destr/-/destr-2.0.1.tgz}
-    name: destr
-    version: 2.0.1
-    dev: true
-
-  registry.npmmirror.com/destr@2.0.3:
-    resolution: {integrity: sha512-2N3BOUU4gYMpTP24s5rF5iP7BDr7uNTCs4ozw3kf/eKfvWSIu93GEBi5m427YoyJoeOzQ5smuu4nNAPGb8idSQ==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/destr/-/destr-2.0.3.tgz}
-    name: destr
-    version: 2.0.3
-    dev: true
-
   registry.npmmirror.com/dom-serializer@2.0.0:
     resolution: {integrity: sha512-wIkAryiqt/nV5EQKqQpo3SToSOV9J0DnbJqwK7Wv/Trc92zIAYZ4FlMu+JPFW1DfGFt81ZTCGgDEabffXeLyJg==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/dom-serializer/-/dom-serializer-2.0.0.tgz}
     name: dom-serializer
@@ -7438,7 +7421,7 @@ packages:
       citty: registry.npmmirror.com/citty@0.1.6
       consola: registry.npmmirror.com/consola@3.2.3
       defu: registry.npmmirror.com/defu@6.1.4
-      node-fetch-native: registry.npmmirror.com/node-fetch-native@1.6.4
+      node-fetch-native: 1.6.4
       nypm: registry.npmmirror.com/nypm@0.3.8
       ohash: registry.npmmirror.com/ohash@1.1.3
       pathe: 1.1.2
@@ -7683,7 +7666,7 @@ packages:
       acorn: 8.11.3
       pathe: 1.1.2
       pkg-types: 1.0.3
-      ufo: registry.npmmirror.com/ufo@1.3.0
+      ufo: 1.5.3
     dev: true
 
   registry.npmmirror.com/mlly@1.6.1:
@@ -7694,25 +7677,13 @@ packages:
       acorn: 8.11.3
       pathe: 1.1.2
       pkg-types: 1.0.3
-      ufo: registry.npmmirror.com/ufo@1.5.3
+      ufo: 1.5.3
     dev: true
 
   registry.npmmirror.com/natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/natural-compare/-/natural-compare-1.4.0.tgz}
     name: natural-compare
     version: 1.4.0
-    dev: true
-
-  registry.npmmirror.com/node-fetch-native@1.4.0:
-    resolution: {integrity: sha512-F5kfEj95kX8tkDhUCYdV8dg3/8Olx/94zB8+ZNthFs6Bz31UpUi8Xh40TN3thLwXgrwXry1pEg9lJ++tLWTcqA==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/node-fetch-native/-/node-fetch-native-1.4.0.tgz}
-    name: node-fetch-native
-    version: 1.4.0
-    dev: true
-
-  registry.npmmirror.com/node-fetch-native@1.6.4:
-    resolution: {integrity: sha512-IhOigYzAKHd244OC0JIMIUrjzctirCmPkaIfhDeGcEETWof5zKYUW7e7MYvChGWh/4CJeXEgsRyGzuF334rOOQ==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/node-fetch-native/-/node-fetch-native-1.6.4.tgz}
-    name: node-fetch-native
-    version: 1.6.4
     dev: true
 
   registry.npmmirror.com/normalize-path@3.0.0:
@@ -7741,17 +7712,7 @@ packages:
       consola: registry.npmmirror.com/consola@3.2.3
       execa: 8.0.1
       pathe: 1.1.2
-      ufo: registry.npmmirror.com/ufo@1.5.3
-    dev: true
-
-  registry.npmmirror.com/ofetch@1.3.3:
-    resolution: {integrity: sha512-s1ZCMmQWXy4b5K/TW9i/DtiN8Ku+xCiHcjQ6/J/nDdssirrQNOoB165Zu8EqLMA2lln1JUth9a0aW9Ap2ctrUg==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/ofetch/-/ofetch-1.3.3.tgz}
-    name: ofetch
-    version: 1.3.3
-    dependencies:
-      destr: registry.npmmirror.com/destr@2.0.1
-      node-fetch-native: registry.npmmirror.com/node-fetch-native@1.4.0
-      ufo: registry.npmmirror.com/ufo@1.3.0
+      ufo: 1.5.3
     dev: true
 
   registry.npmmirror.com/ohash@1.1.3:
@@ -7882,7 +7843,7 @@ packages:
       lodash.camelcase: registry.npmmirror.com/lodash.camelcase@4.3.0
       lodash.kebabcase: registry.npmmirror.com/lodash.kebabcase@4.1.1
       lodash.snakecase: registry.npmmirror.com/lodash.snakecase@4.1.1
-      ofetch: registry.npmmirror.com/ofetch@1.3.3
+      ofetch: 1.3.4
       open: 9.1.0
       ora: registry.npmmirror.com/ora@6.3.1
       prompts: registry.npmmirror.com/prompts@2.4.2
@@ -7906,7 +7867,7 @@ packages:
     version: 2.1.2
     dependencies:
       defu: registry.npmmirror.com/defu@6.1.4
-      destr: registry.npmmirror.com/destr@2.0.3
+      destr: 2.0.3
     dev: true
 
   registry.npmmirror.com/readable-stream@2.3.8:
@@ -8050,18 +8011,6 @@ packages:
     name: type-fest
     version: 3.13.1
     engines: {node: '>=14.16'}
-    dev: true
-
-  registry.npmmirror.com/ufo@1.3.0:
-    resolution: {integrity: sha512-bRn3CsoojyNStCZe0BG0Mt4Nr/4KF+rhFlnNXybgqt5pXHNFRlqinSoQaTrGyzE4X8aHplSb+TorH+COin9Yxw==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/ufo/-/ufo-1.3.0.tgz}
-    name: ufo
-    version: 1.3.0
-    dev: true
-
-  registry.npmmirror.com/ufo@1.5.3:
-    resolution: {integrity: sha512-Y7HYmWaFwPUmkoQCUIAYpKqkOf+SbVj/2fJJZ4RJMCfZp0rTGwRbzQD+HghfnhKOjL9E01okqz+ncJskGYfBNw==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/ufo/-/ufo-1.5.3.tgz}
-    name: ufo
-    version: 1.5.3
     dev: true
 
   registry.npmmirror.com/uhyphen@0.2.0:

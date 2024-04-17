@@ -16,7 +16,7 @@ const cred = computed(() => currentUser.value?.grant_code ?? '')
 
 const arknightsBinding = computed(() => currentUser.value?.binding.filter(i => i.appCode === 'arknights').map(i => i.bindingList).flat() ?? [])
 
-const { data: userInfo, execute } = useUserInfo(cred, uid)
+const { data: userInfo, execute } = useUserInfo(uid)
 
 watch(arknightsBinding, (binding) => {
   if (binding.length === 1)
