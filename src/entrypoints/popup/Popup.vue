@@ -4,7 +4,7 @@ import {
   currentUid,
   roleInfo,
   useArknightRoleInfo,
-} from '@/composables/arknights'
+} from '~/composables/arknights'
 import BaseStatus from '~/components/BaseStatus.vue'
 import CharacterSwitcher from '~/components/CharacterSwitcher.vue'
 import Cursor from '~/components/Cursor.vue'
@@ -13,7 +13,6 @@ import MissionStat from '~/components/MissionStat.vue'
 import PopupFooter from '~/components/PopupFooter.vue'
 import RhodesIslandManage from '~/components/RhodesIslandManage.vue'
 import Button from '~/components/ui/button/index.vue'
-import { currentUser } from '~/composables/skland'
 
 const cred = computed(() => currentUser.value?.cred ?? '')
 
@@ -22,6 +21,11 @@ const execute = useArknightRoleInfo()
 watch(currentUid, (uid, oldUid) => {
   if (uid !== '' && cred.value !== '' && uid !== oldUid)
     execute()
+}, { immediate: true })
+
+watch(bindingArknightRoles, (roles) => {
+  if (roles.length > 0)
+    currentUid.value = roles[0].uid
 }, { immediate: true })
 
 function openOptionsPage() {

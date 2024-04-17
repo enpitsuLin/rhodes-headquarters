@@ -1,16 +1,13 @@
 import type { RemovableRef } from '@vueuse/core'
 import { toValue } from '@vueuse/core'
+import { ofetch } from 'ofetch'
 import { useStorageLocal } from './storage'
 import { $fetch } from '~/composables/api'
 import { STORAGE_KEY_CURRENT_USER_ID, STORAGE_KEY_USERS } from '~/constsants'
 import type { SklandBinding, SklandResponseBody, SklandUser } from '~/types'
 
-const SKLAND_CRED_CODE_URL = createUrl('/api/v1/user/auth/generate_cred_by_code')
 const SKLAND_BINDING_URL = createUrl('api/v1/game/player/binding')
 const SKLAND_ME_URL = createUrl('/api/v1/user/me')
-/** 签到 URL */
-/* eslint-disable unused-imports/no-unused-vars */
-const SKLAND_ATTENDANCE_URL = createUrl('/api/v1/game/attendance')
 
 /** 森空岛用户和绑定游戏角色数据 */
 export interface User {
@@ -63,8 +60,9 @@ export async function loginTo(certificate: string) {
     return users.value.find(u => u.certificate === certificate)
   }
 
-  const { code: grant_code } = await auth(certificate)
-  const { cred, token } = await signIn(grant_code)
+  const {
+    data: { cred, token },
+  } = await authorize(certificate)
 
   const [me, bindingList] = await Promise.all([
     fetchAccountInfo({ cred, token }),
@@ -92,35 +90,17 @@ export async function loginTo(certificate: string) {
   setCurrentUserId(me.user.id)
 }
 
-const command_header = {
-  'User-Agent': 'Skland/1.5.1 (com.hypergryph.skland; build:100501001; Android 34; ) Okhttp/4.11.0',
-  'Accept-Encoding': 'gzip',
-  'Connection': 'close',
-  'Content-Type': 'application/json',
-}
-async function auth(certificate: string) {
-  const r = await fetch('https://as.hypergryph.com/user/oauth2/v2/grant', {
-    method: 'POST',
-    headers: command_header,
-    body: JSON.stringify({
-      appCode: '4ca99fa6b56cc2ba',
-      token: certificate,
-      type: 0,
-    }),
-  })
-  const data = await r.json()
-  return data.data as { code: string, uid: string }
-}
-
-async function signIn(grant_code: string) {
-  const res = await $fetch<SklandResponseBody<{ cred: string, userId: string, token: string }>>(SKLAND_CRED_CODE_URL, {
-    method: 'POST',
-    body: JSON.stringify({
-      code: grant_code,
-      kind: 1,
-    }),
-  })
-  return res.data
+async function authorize(token: string) {
+  const r = await ofetch<{ data: { cred: string, token: string, userId: string } }>(
+    '/api/auth',
+    {
+      method: 'POST',
+      body: {
+        token,
+      },
+    },
+  )
+  return r
 }
 
 /** 获取森空岛用户信息 */
@@ -159,8 +139,9 @@ export async function refreshCredAndToken(id?: string) {
     ? users.value.find(u => u.account.id === id)
     : toValue(currentUser)
   if (user) {
-    const { code: grant_code } = await auth(user.certificate)
-    const { cred, token } = await signIn(grant_code)
+    const {
+      data: { cred, token },
+    } = await authorize(user.certificate)
     user.cred = cred
     user.token = token
     user.updatedAt = Date.now()

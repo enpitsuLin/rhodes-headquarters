@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 import App from './Options.vue'
-import { setupApp } from '@/utils/common-setup'
+import { setupApp } from '~/utils/common-setup'
 import '~/styles'
 
 const app = createApp(App)
