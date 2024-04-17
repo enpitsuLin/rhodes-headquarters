@@ -4,7 +4,7 @@ import { $fetch } from './api'
 import {
   STORAGE_KEY_CURRENT_ROLE_UID
   , STORAGE_KEY_ROLE_INFO,
-} from '@/constsants'
+} from '~/constsants'
 import type { Player, SklandResponseBody } from '@/types'
 
 export const bindingArknightRoles = computed(() => {

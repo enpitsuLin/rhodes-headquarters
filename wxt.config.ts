@@ -6,6 +6,7 @@ import pkg from './package.json'
 
 export default defineConfig({
   manifestVersion: 3,
+  srcDir: 'src',
   manifest: {
     name: pkg.displayName || pkg.name,
     version: pkg.version,

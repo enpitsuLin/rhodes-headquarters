@@ -1,28 +1,14 @@
+/// <reference lib="webworker"/>
 import { onMessage, sendMessage } from 'webext-bridge/background'
 import type { Tabs } from 'wxt/browser'
-import { isFirefox, isForbiddenUrl } from '@/utils/env'
+import { handleApiCall } from '~/api'
 
 export default defineBackground(() => {
-  // only on dev mode
-  if (import.meta.hot) {
-    // load latest content script
-    // Firefox fetch files from cache instead of reloading changes from disk,
-    // hmr will not work as Chromium based browser
-    browser.webNavigation.onCommitted.addListener(({ tabId, frameId, url }) => {
-      // Filter out non main window events.
-      if (frameId !== 0)
-        return
-
-      if (isForbiddenUrl(url))
-        return
-
-      // inject the latest scripts
-      browser.tabs.executeScript(tabId, {
-        file: `${isFirefox ? '' : '.'}/dist/contentScripts/index.global.js`,
-        runAt: 'document_end',
-      }).catch(error => console.error(error))
-    })
-  }
+  globalThis.addEventListener('fetch', async (event) => {
+    const { pathname } = new URL(event.request.url)
+    if (pathname.startsWith('/api'))
+      event.respondWith(handleApiCall(event))
+  })
 
   browser.runtime.onInstalled.addListener((): void => {
     // eslint-disable-next-line no-console
@@ -68,3 +54,7 @@ export default defineBackground(() => {
     }
   })
 })
+
+declare module '.' {
+  const globalThis: ServiceWorkerGlobalScope
+}
