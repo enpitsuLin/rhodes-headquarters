@@ -73,6 +73,7 @@ export async function onFetchRequest({ request, options }: FetchContext) {
       else {
         cred = currentUser.value.cred
         token = currentUser.value.token
+        headers.append('cred', cred)
       }
     }
 
@@ -88,8 +89,7 @@ export async function onFetchRequest({ request, options }: FetchContext) {
 
     const sign = generateMD5Hash(hmacSha256ed)
 
-    !headers.has('sign') && headers.append('sign', sign)
-    !headers.has('cred') && headers.append('cred', cred)
+    headers.append('sign', sign)
     Object.entries(header).forEach(([key, value]) => {
       headers.append(key, value)
     })

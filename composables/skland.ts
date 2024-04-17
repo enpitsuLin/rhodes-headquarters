@@ -13,21 +13,20 @@ const SKLAND_ME_URL = createUrl('/api/v1/user/me')
 const SKLAND_ATTENDANCE_URL = createUrl('/api/v1/game/attendance')
 
 /** 森空岛用户和绑定游戏角色数据 */
-type User = {
+interface User {
   /** 森空岛用户信息 */
   account: SklandUser['user']
-} &
-{
   /** 绑定游戏角色数据 */
   binding: SklandBinding[]
-}
-& {
-  /** 用户凭据 */
+  updatedAt: number
+  /** 用户提交的凭据 */
+  certificate: string
+  /** auth 接口得到的权限码 */
   grant_code: string
+  /** `generate_cred_by_code` 得到的 cred */
   cred: string
+  /** `generate_cred_by_code` 得到的 code */
   token: string
-  accountUpdateAt: number
-  bindingUpdateAt: number
 }
 
 export function createUrl(path: string) {
@@ -61,11 +60,12 @@ export function useUsers() {
   return users
 }
 
-export async function loginTo(grant_code: string) {
+export async function loginTo(certificate: string) {
   function getUser() {
-    return users.value.find(u => u.grant_code === grant_code)
+    return users.value.find(u => u.certificate === certificate)
   }
 
+  const { code: grant_code } = await auth(certificate)
   const { cred, token } = await signIn(grant_code)
 
   const [me, bindingList] = await Promise.all([
@@ -84,11 +84,11 @@ export async function loginTo(grant_code: string) {
     users.value.push({
       account: me.user,
       binding: bindingList,
+      certificate,
       grant_code,
       cred,
       token,
-      accountUpdateAt: now,
-      bindingUpdateAt: now,
+      updatedAt: now,
     })
   }
 
@@ -101,13 +101,13 @@ const command_header = {
   'Connection': 'close',
   'Content-Type': 'application/json',
 }
-async function auth(token: string) {
+async function auth(certificate: string) {
   const r = await fetch('https://as.hypergryph.com/user/oauth2/v2/grant', {
     method: 'POST',
     headers: command_header,
     body: JSON.stringify({
       appCode: '4ca99fa6b56cc2ba',
-      token,
+      token: certificate,
       type: 0,
     }),
   })
@@ -115,13 +115,11 @@ async function auth(token: string) {
   return data.data as { code: string, uid: string }
 }
 
-async function signIn(token: string) {
-  const { code } = await auth(token)
-
+async function signIn(grant_code: string) {
   const res = await $fetch<SklandResponseBody<{ cred: string, userId: string, token: string }>>(SKLAND_CRED_CODE_URL, {
     method: 'POST',
     body: JSON.stringify({
-      code,
+      code: grant_code,
       kind: 1,
     }),
   })
@@ -170,7 +168,7 @@ export async function refreshAccountInfo(id?: string) {
   if (user) {
     const account = await fetchAccountInfo()
     user.account = account.user
-    user.accountUpdateAt = Date.now()
+    user.updatedAt = Date.now()
   }
 }
 
@@ -185,7 +183,7 @@ export async function refreshBindingInfo(id?: string) {
   if (user) {
     const binding = await fetchBindingInfo()
     user.binding = binding
-    user.bindingUpdateAt = Date.now()
+    user.updatedAt = Date.now()
   }
 }
 
