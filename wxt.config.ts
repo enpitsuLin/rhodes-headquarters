@@ -34,6 +34,15 @@ export default defineConfig({
         Vue(),
         Icons(),
         UnoCSS(),
+        {
+          name: 'dev-tool-prod-prune',
+          apply: 'build',
+          transform(code, id) {
+            if (id.includes('utils/dev-tools'))
+              return { code: '', id }
+            return { code, id }
+          },
+        },
       ],
     }
   },

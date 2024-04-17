@@ -17,9 +17,11 @@
     "typecheck": "tsc --noEmit",
     "e2e": "playwright test",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "devtools": "vue-devtools"
   },
   "dependencies": {
+    "@vue/devtools": "^7.0.27",
     "@zag-js/avatar": "^0.46.0",
     "@zag-js/dialog": "^0.46.0",
     "@zag-js/hover-card": "^0.46.0",
