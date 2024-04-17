@@ -59,7 +59,7 @@ const whiteList = [
 ] satisfies string[]
 
 export async function onFetchRequest({ request, options }: FetchContext) {
-  const { pathname, searchParams } = new URL(request instanceof Request ? request.url : request)
+  const { pathname, searchParams } = new URL(request instanceof Request ? request.url : request, options.baseURL)
   const headers = new Headers(options.headers)
 
   if (!whiteList.includes(pathname)) {
@@ -79,7 +79,10 @@ export async function onFetchRequest({ request, options }: FetchContext) {
 
     const toEncodeParams = options.method?.toUpperCase() === 'POST'
       ? getParamsFromBody(options.body)
-      : searchParams.toString()
+      : options.query
+        ? new URLSearchParams(options.query).toString()
+        : searchParams.toString()
+
     const timestamp = getUnixTime(Date.now() - 2 * MILLISECOND_PER_SECOND).toString()
     const header = { ...signatureRequiredHeaders, timestamp }
 

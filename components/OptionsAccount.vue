@@ -4,7 +4,9 @@ import * as dialog from '@zag-js/dialog'
 import { normalizeProps, useMachine } from '@zag-js/vue'
 import { computed } from 'vue'
 import OptionsSection from './OptionsSection.vue'
+import type { User } from '~/composables/skland'
 import { currentUser, loginTo, setCurrentUserId, signOut, useUsers } from '~/composables/skland'
+import { roleInfo } from '@/composables/arknights'
 
 const [state, send] = useMachine(dialog.machine({ id: '1' }))
 const api = computed(() => dialog.connect(state.value, send, normalizeProps))
@@ -21,6 +23,12 @@ async function onCredChange() {
   api.value.close()
 }
 const users = useUsers()
+
+function onLogOut(user: User) {
+  signOut(user.account.id)
+  if (users.value.length === 0)
+    roleInfo.value = null
+}
 </script>
 
 <template>
@@ -70,7 +78,7 @@ const users = useUsers()
         i-ri:close-fill h-4 w-4 cursor-pointer
         transition="colors ease-in duration-300"
         bg="hover:primary"
-        @click="signOut(user.account.id)"
+        @click="onLogOut(user)"
       />
     </div>
   </OptionsSection>

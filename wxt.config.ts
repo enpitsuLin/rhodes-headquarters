@@ -29,6 +29,8 @@ export default defineConfig({
       define: {
         __DEV__: env.mode === 'serve',
         __NAME__: JSON.stringify(pkg.name),
+        // eslint-disable-next-line node/prefer-global/process
+        __ENABLE_DEVTOOL__: process.env.ENABLE_DEVTOOL,
       },
       plugins: [
         Vue(),

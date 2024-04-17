@@ -1,9 +1,9 @@
-import type { MaybeRefOrGetter, RemovableRef } from '@vueuse/core'
-import { toValue, useFetch } from '@vueuse/core'
+import type { RemovableRef } from '@vueuse/core'
+import { toValue } from '@vueuse/core'
 import { useStorageLocal } from './storage'
-import { $fetch, onFetchRequest } from '~/composables/api'
+import { $fetch } from '~/composables/api'
 import { STORAGE_KEY_CURRENT_USER_ID, STORAGE_KEY_USERS } from '~/constsants'
-import type { Player, SklandBinding, SklandResponseBody, SklandUser } from '~/types'
+import type { SklandBinding, SklandResponseBody, SklandUser } from '~/types'
 
 const SKLAND_CRED_CODE_URL = createUrl('/api/v1/user/auth/generate_cred_by_code')
 const SKLAND_BINDING_URL = createUrl('api/v1/game/player/binding')
@@ -13,7 +13,7 @@ const SKLAND_ME_URL = createUrl('/api/v1/user/me')
 const SKLAND_ATTENDANCE_URL = createUrl('/api/v1/game/attendance')
 
 /** 森空岛用户和绑定游戏角色数据 */
-interface User {
+export interface User {
   /** 森空岛用户信息 */
   account: SklandUser['user']
   /** 绑定游戏角色数据 */
@@ -89,7 +89,7 @@ export async function loginTo(certificate: string) {
     })
   }
 
-  currentUserId.value = me.user.id
+  setCurrentUserId(me.user.id)
 }
 
 const command_header = {
@@ -195,30 +195,4 @@ export async function refreshBindingInfo(id?: string) {
     user.binding = binding
     user.updatedAt = Date.now()
   }
-}
-
-export function useUserInfo(uid: MaybeRefOrGetter<string>) {
-  const url = computed(() => {
-    const params = new URLSearchParams({ uid: toValue(uid) }).toString()
-    return createUrl(`/api/v1/game/player/info?${params}`)
-  })
-  const ret = useFetch(url, {
-    immediate: false,
-    beforeFetch(ctx) {
-      const request = ctx.url
-      const options = ctx.options
-      return onFetchRequest({ request, options })
-    },
-    async onFetchError({ data }) {
-      if (data.code === 10000) {
-        await refreshCredAndToken()
-        ret.execute()
-      }
-      return {}
-    },
-  })
-    .get()
-    .json<SklandResponseBody<Player>>()
-
-  return ret
 }
