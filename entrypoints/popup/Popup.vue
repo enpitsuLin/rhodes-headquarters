@@ -1,18 +1,17 @@
 <script setup lang="ts">
-import { useStyleTag } from '@vueuse/core'
 import BaseStatus from '~/components/BaseStatus.vue'
 import CharacterSwitcher from '~/components/CharacterSwitcher.vue'
+import Cursor from '~/components/Cursor.vue'
+import DustBackground from '~/components/DustBackground.vue'
 import MissionStat from '~/components/MissionStat.vue'
 import PopupFooter from '~/components/PopupFooter.vue'
 import RhodesIslandManage from '~/components/RhodesIslandManage.vue'
-import Cursor from '~/components/Cursor.vue'
-import DustBackground from '~/components/DustBackground.vue'
-import { currentUser, useUserInfo } from '~/composables/skland'
 import Button from '~/components/ui/button/index.vue'
+import { currentUser, useUserInfo } from '~/composables/skland'
 
 const uid = ref('')
 
-const cred = computed(() => currentUser.value?.grant_code ?? '')
+const cred = computed(() => currentUser.value?.cred ?? '')
 
 const arknightsBinding = computed(() => currentUser.value?.binding.filter(i => i.appCode === 'arknights').map(i => i.bindingList).flat() ?? [])
 
@@ -31,6 +30,9 @@ watch(uid, (uid, oldUid) => {
 function openOptionsPage() {
   browser.runtime.openOptionsPage()
 }
+
+const users = useUsers()
+defineExpose({ users })
 </script>
 
 <template>

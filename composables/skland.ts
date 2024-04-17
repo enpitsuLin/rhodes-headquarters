@@ -21,8 +21,6 @@ interface User {
   updatedAt: number
   /** 用户提交的凭据 */
   certificate: string
-  /** auth 接口得到的权限码 */
-  grant_code: string
   /** `generate_cred_by_code` 得到的 cred */
   cred: string
   /** `generate_cred_by_code` 得到的 code */
@@ -85,7 +83,6 @@ export async function loginTo(certificate: string) {
       account: me.user,
       binding: bindingList,
       certificate,
-      grant_code,
       cred,
       token,
       updatedAt: now,
@@ -148,13 +145,26 @@ export async function signOut(id?: string) {
   const index = users.value.findIndex(u => u.account.id === id)
 
   if (index !== -1) {
-    if (!users.value.some((u, i) => u.grant_code === currentUser.value?.grant_code && i !== index)) {
+    if (!users.value.some((u, i) => u.certificate === currentUser.value?.certificate && i !== index)) {
       currentUserId.value = ''
       users.value.splice(index, 1)
     }
   }
 
   currentUserId.value = users.value[0]?.account?.id
+}
+
+export async function refreshCredAndToken(id?: string) {
+  const user = id
+    ? users.value.find(u => u.account.id === id)
+    : toValue(currentUser)
+  if (user) {
+    const { code: grant_code } = await auth(user.certificate)
+    const { cred, token } = await signIn(grant_code)
+    user.cred = cred
+    user.token = token
+    user.updatedAt = Date.now()
+  }
 }
 
 export async function refreshAccountInfo(id?: string) {
@@ -192,14 +202,23 @@ export function useUserInfo(uid: MaybeRefOrGetter<string>) {
     const params = new URLSearchParams({ uid: toValue(uid) }).toString()
     return createUrl(`/api/v1/game/player/info?${params}`)
   })
-  return useFetch(url, {
+  const ret = useFetch(url, {
     immediate: false,
     beforeFetch(ctx) {
       const request = ctx.url
       const options = ctx.options
       return onFetchRequest({ request, options })
     },
+    async onFetchError({ data }) {
+      if (data.code === 10000) {
+        await refreshCredAndToken()
+        ret.execute()
+      }
+      return {}
+    },
   })
     .get()
     .json<SklandResponseBody<Player>>()
+
+  return ret
 }
