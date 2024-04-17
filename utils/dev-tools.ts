@@ -1,3 +1,4 @@
 import { devtools } from '@vue/devtools'
 
-devtools.connect()
+if (import.meta.env.ENABLE_DEVTOOL)
+  devtools.connect()
