@@ -11,6 +11,7 @@ export interface Message<T = unknown> {
 export const messageSchame = z.object({
   type: z.string(),
   data: z.any().optional(),
+  returnMessage: z.string().optional(),
 })
 
 export function createMessage<T = unknown>(type: string, data?: T) {
@@ -18,4 +19,23 @@ export function createMessage<T = unknown>(type: string, data?: T) {
     type,
     data,
   }
+}
+
+export function sendMessage<Data, Return = void>(
+  port: Runtime.Port,
+  message: Message<Data>,
+) {
+  const returnMessage = `${message.type}:resolved`
+  const extendsMessage = Object.assign(message, { returnMessage })
+
+  return new Promise<Return>((resolve) => {
+    const onMessage = (message: Message<Return>) => {
+      if (message.type === returnMessage)
+        resolve(message.data!)
+
+      port.onMessage.hasListener(onMessage) && port.onMessage.removeListener(onMessage)
+    }
+    port.onMessage.addListener(onMessage)
+    port.postMessage(extendsMessage)
+  })
 }

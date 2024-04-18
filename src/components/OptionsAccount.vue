@@ -25,11 +25,12 @@ function onLogOut(account: Account) {
   accounts.value = accounts.value.filter(a => a.id !== pendingDelAccountId)
 }
 
-function onLogIn() {
+async function onLogIn() {
   if (toValue(token).length === 0)
     return
   toggleLoading(true)
-  port.postMessage(
+  await sendMessage(
+    port,
     createMessage(
       'login',
       { token: token.value },
