@@ -2,7 +2,7 @@
   "name": "rhodes-headquarters",
   "displayName": "罗德岛远程指挥部",
   "type": "module",
-  "version": "0.1.0",
+  "version": "0.1.0-beta.0",
   "private": true,
   "packageManager": "pnpm@8.15.7",
   "description": "一款用于监控罗德岛运行状态的浏览器扩展",
