@@ -81,13 +81,13 @@ export async function getPlayerBinding({ token, cred }: { token: string, cred: s
 }
 
 export async function getBindingInfo({ token, cred, uid }: { token: string, cred: string, uid: string }) {
-  const pathname = `api/v1/game/player/info?uid=${uid}`
-  const headers = await generateSignatureHeader({ token, pathname, cred })
+  const pathname = `/api/v1/game/player/info`
+  const headers = await generateSignatureHeader({ token, pathname, cred, params: `uid=${uid}` })
   const {
     data,
   } = await $fetch<SklandResponse<BindingInfo>>(
     pathname,
-    { headers },
+    { headers, query: { uid } },
   )
 
   return data

@@ -51,7 +51,7 @@ export async function generateSignatureHeader({ token, cred, params, pathname }:
   pathname: string
   params?: string
 }) {
-  const timestamp = getUnixTime(Date.now() - 3 * MILLISECOND_PER_SECOND).toString()
+  const timestamp = getUnixTime(Date.now() - 5 * MILLISECOND_PER_SECOND).toString()
 
   const headers = { ...signatureRequiredHeaders, timestamp }
 
