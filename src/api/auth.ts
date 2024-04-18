@@ -1,4 +1,4 @@
-import { createError, defineEventHandler, readValidatedBody, setCookie } from 'h3'
+import { createError, defineEventHandler, readValidatedBody } from 'h3'
 import * as z from 'zod'
 import { indexedDbStorage, signIn } from '@/utils/background'
 

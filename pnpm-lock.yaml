@@ -142,9 +142,6 @@ devDependencies:
   vue-demi:
     specifier: ^0.14.7
     version: 0.14.7(vue@3.4.22)
-  webext-bridge:
-    specifier: ^6.0.1
-    version: 6.0.1
   wxt:
     specifier: ^0.17.12
     version: registry.npmmirror.com/wxt@0.17.12(@types/node@20.12.7)
@@ -1839,10 +1836,6 @@ packages:
 
   /@types/webextension-polyfill@0.10.7:
     resolution: {integrity: sha512-10ql7A0qzBmFB+F+qAke/nP1PIonS0TXZAOMVOxEUsm+lGSW6uwVcISFNa0I4Oyj0884TZVWGGMIWeXOVSNFHw==, tarball: https://registry.npmmirror.com/@types/webextension-polyfill/-/webextension-polyfill-0.10.7.tgz}
-    dev: true
-
-  /@types/webextension-polyfill@0.8.3:
-    resolution: {integrity: sha512-GN+Hjzy9mXjWoXKmaicTegv3FJ0WFZ3aYz77Wk8TMp1IY3vEzvzj1vnsa0ggV7vMI1i+PUxe4qqnIJKCzf9aTg==, tarball: https://registry.npmmirror.com/@types/webextension-polyfill/-/webextension-polyfill-0.8.3.tgz}
     dev: true
 
   /@types/yauzl@2.10.3:
@@ -5765,11 +5758,6 @@ packages:
     dev: true
     optional: true
 
-  /nanoevents@6.0.2:
-    resolution: {integrity: sha512-FRS2otuFcPPYDPYViNWQ42+1iZqbXydinkRHTHFxrF4a1CpBfmydR9zkI44WSXAXCyPrkcGtPk5CnpW6Y3lFKQ==}
-    engines: {node: ^12.0.0 || ^14.0.0 || >=16.0.0}
-    dev: true
-
   /nanoid@3.3.7:
     resolution: {integrity: sha512-eSRppjcPIatRIMC1U6UngP8XFcz8MQWGQdt1MTBQ7NaAmvXDfvNxbvWV3x2y6CdEUciCSsDHDQZbhYaB8QEo2g==, tarball: https://registry.npmmirror.com/nanoid/-/nanoid-3.3.7.tgz}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
@@ -6577,13 +6565,6 @@ packages:
     dev: false
     optional: true
 
-  /serialize-error@9.1.1:
-    resolution: {integrity: sha512-6uZQLGyUkNA4N+Zii9fYukmNu9PEA1F5rqcwXzN/3LtBjwl2dFBbVZ1Zyn08/CGkB4H440PIemdOQBt1Wvjbrg==}
-    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
-    dependencies:
-      type-fest: 2.19.0
-    dev: true
-
   /setimmediate@1.0.5:
     resolution: {integrity: sha512-MATJdZp8sLqDl/68LfQmbP8zKPLQNV6BIZoIgrscFDQ+RsvK/BxeDQOgyxKKoh0y/8h3BqVFnCqQ/gd+reiIXA==, tarball: https://registry.npmmirror.com/setimmediate/-/setimmediate-1.0.5.tgz}
     dev: true
@@ -6979,10 +6960,6 @@ packages:
 
   /through@2.3.8:
     resolution: {integrity: sha512-w89qg7PI8wAdvX60bMDP+bFoD5Dvhm9oLheFp5O4a2QF0cSBGsBX4qZmadPMvVqlLJBBci+WqGGOAPvcDeNSVg==, tarball: https://registry.npmmirror.com/through/-/through-2.3.8.tgz}
-    dev: true
-
-  /tiny-uid@1.1.2:
-    resolution: {integrity: sha512-0beRFXR+fv4C40ND2PqgNjq6iyB1dKXciKJjslLw0kPYCcR82aNd2b+Tt2yy06LimIlvtoehgvrm/fUZCutSfg==}
     dev: true
 
   /tinybench@2.7.0:
@@ -7667,20 +7644,6 @@ packages:
     dependencies:
       glob-to-regexp: 0.4.1
       graceful-fs: 4.2.11
-    dev: true
-
-  /webext-bridge@6.0.1:
-    resolution: {integrity: sha512-GruIrN+vNwbxVCi8UW4Dqk5YkcGA9V0ZfJ57jXP9JXHbrsDs5k2N6NNYQR5e+wSCnQpGYOGAGihwUpKlhg8QIw==}
-    dependencies:
-      '@types/webextension-polyfill': 0.8.3
-      nanoevents: 6.0.2
-      serialize-error: 9.1.1
-      tiny-uid: 1.1.2
-      webextension-polyfill: 0.9.0
-    dev: true
-
-  /webextension-polyfill@0.9.0:
-    resolution: {integrity: sha512-LTtHb0yR49xa9irkstDxba4GATDAcDw3ncnFH9RImoFwDlW47U95ME5sn5IiQX2ghfaECaf6xyXM8yvClIBkkw==}
     dev: true
 
   /webidl-conversions@7.0.0:

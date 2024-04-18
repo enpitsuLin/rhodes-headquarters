@@ -1,18 +1,17 @@
 <script setup lang="ts">
+import { useEventListener } from '@vueuse/core'
+import BaseStatus from '~/components/BaseStatus.vue'
+import CharacterSwitcher from '~/components/CharacterSwitcher.vue'
+import MissionStat from '~/components/MissionStat.vue'
+import PopupFooter from '~/components/PopupFooter.vue'
+import RhodesIslandManage from '~/components/RhodesIslandManage.vue'
+import Button from '~/components/ui/button/index.vue'
 import {
   bindingArknightRoles,
   currentUid,
   roleInfo,
   useArknightRoleInfo,
 } from '~/composables/arknights'
-import BaseStatus from '~/components/BaseStatus.vue'
-import CharacterSwitcher from '~/components/CharacterSwitcher.vue'
-import Cursor from '~/components/Cursor.vue'
-import DustBackground from '~/components/DustBackground.vue'
-import MissionStat from '~/components/MissionStat.vue'
-import PopupFooter from '~/components/PopupFooter.vue'
-import RhodesIslandManage from '~/components/RhodesIslandManage.vue'
-import Button from '~/components/ui/button/index.vue'
 
 const cred = computed(() => currentUser.value?.cred ?? '')
 
