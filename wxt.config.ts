@@ -10,7 +10,8 @@ export default defineConfig({
   srcDir: 'src',
   manifest: {
     name: pkg.displayName || pkg.name,
-    version: pkg.version,
+    version: pkg.publishVersion,
+    version_name: pkg.version,
     description: pkg.description,
     permissions: [
       'storage',
