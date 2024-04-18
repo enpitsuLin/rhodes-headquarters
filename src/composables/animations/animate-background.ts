@@ -83,8 +83,8 @@ export class CanvasDust {
   private resize = () => {
     const canvas = this.canvas
 
-    const width = ((this.canvas.parentElement as HTMLDivElement).clientWidth ?? window.innerWidth)
-    const height = ((this.canvas.parentElement as HTMLDivElement).clientHeight ?? window.innerHeight)
+    const width = window.innerWidth
+    const height = window.innerHeight
     this.width = width
     this.height = height
     this.dustQuantity = Math.floor((width + height) / 38)

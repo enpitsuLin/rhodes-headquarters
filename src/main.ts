@@ -2,11 +2,11 @@ import type {
   RouteRecordRaw,
 } from 'vue-router/auto'
 import {
-  RouterView,
   createRouter,
   createWebHashHistory,
 } from 'vue-router/auto'
 import '~/styles'
+import App from './App.vue'
 
 const router = createRouter({
   history: createWebHashHistory(),
@@ -25,7 +25,7 @@ const router = createRouter({
   },
 })
 
-const app = createApp(() => h(RouterView))
+const app = createApp(App)
 
 app.use(router)
 app.mount('#app')

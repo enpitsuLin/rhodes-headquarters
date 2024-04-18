@@ -67,9 +67,7 @@ defineExpose({ users })
       <MissionStat :campaign="roleInfo.campaign" :tower="roleInfo.tower" :routine="roleInfo.routine" />
       <PopupFooter />
     </template>
-    <DustBackground />
   </main>
-  <Cursor />
 </template>
 
 <style>
