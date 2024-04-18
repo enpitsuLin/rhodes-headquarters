@@ -2,9 +2,9 @@
 import * as menu from '@zag-js/menu'
 import { normalizeProps, useMachine } from '@zag-js/vue'
 import Avatar from '~/components/Avatar.vue'
-import type { PlayerStatus, SklandBindRole } from '~/types'
+import type { BindingRole, Status } from '~/types'
 
-defineProps<{ uid: string, status: PlayerStatus, characters: SklandBindRole[] }>()
+defineProps<{ uid: string, status: Status, characters: BindingRole[] }>()
 const emit = defineEmits<{
   (event: 'update:uid', id: string): void
 }>()

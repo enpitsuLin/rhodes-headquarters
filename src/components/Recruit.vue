@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useRecruits } from '~/composables/recruit'
+import { useRecruits } from '@/composables/status/recruit'
 import type { InfrastructureHire, Recruit } from '~/types'
 
 const props = defineProps<{ recruits: Recruit[], hire: InfrastructureHire }>()

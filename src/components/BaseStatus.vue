@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import PopupSection from './PopupSection.vue'
-import { useApInfo } from '~/composables/ap'
-import type { PlayerStatus } from '~/types'
+import { useApInfo } from '@/composables/status/ap'
+import type { Status } from '~/types'
 
-const props = defineProps<{ status: PlayerStatus }>()
+const props = defineProps<{ status: Status }>()
 
 const {
   spendTime,

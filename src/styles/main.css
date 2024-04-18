@@ -27,6 +27,10 @@ body,
   --border: 0 0% 100%;
 }
 
+body {
+  --at-apply: bg-[url(/popup-bg-light.jpg)] dark:bg-[url(/popup-bg-dark.jpg)] bg-cover bg-center-bottom;
+}
+
 a,input,button,textarea,[data-cursor-interacting]{
   cursor: var(--cursor) 3 3, pointer;
 }

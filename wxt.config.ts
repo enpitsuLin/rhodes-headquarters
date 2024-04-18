@@ -15,6 +15,7 @@ export default defineConfig({
     description: pkg.description,
     permissions: [
       'storage',
+      'alarms',
     ],
     host_permissions: ['*://*/*'],
   },
