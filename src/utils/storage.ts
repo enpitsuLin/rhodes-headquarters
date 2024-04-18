@@ -5,7 +5,7 @@ import {
   PLAYER_CACHE_KEY,
   PLAYER_UID_KEY,
 } from '~/constsants'
-import type { Player, SklandUser } from '~/types'
+import type { BindingInfo, SklandUser } from '~/types'
 
 export type StorageAccount = {
   cred: string
@@ -23,7 +23,7 @@ export const currentAccount = computed(() => {
 
 export const storageUid = useStorageLocal(PLAYER_UID_KEY, '')
 
-export const storagePlayerInfo = useStorageLocal<Record<string, Player & { updateAt: number }>>(PLAYER_CACHE_KEY, {})
+export const storagePlayerInfo = useStorageLocal<Record<string, BindingInfo & { updateAt: number }>>(PLAYER_CACHE_KEY, {})
 
 export function removeAccount(id: string) {
   if (id === currentAccountId.value)

@@ -1,4 +1,6 @@
-export * from './skland'
+export * from './info'
+export * from './character'
+export * from './building'
 
 export interface SklandResponseBody<T> {
   code: number

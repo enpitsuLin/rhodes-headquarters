@@ -3,9 +3,9 @@ import * as tabs from '@zag-js/tabs'
 import { normalizeProps, useMachine } from '@zag-js/vue'
 import { computed } from 'vue'
 import Recruit from './Recruit.vue'
-import type { Player } from '~/types'
+import type { BindingInfo } from '~/types'
 
-defineProps<{ player: Player }>()
+defineProps<{ player: BindingInfo }>()
 
 const data = [{ id: 'recruitment', label: '公招' }, { id: 'building', label: '基建' }]
 

@@ -5,7 +5,7 @@ import {
   STORAGE_KEY_CURRENT_ROLE_UID
   , STORAGE_KEY_ROLE_INFO,
 } from '~/constsants'
-import type { Player, SklandResponseBody } from '@/types'
+import type { BindingInfo, SklandResponseBody } from '@/types'
 
 export const bindingArknightRoles = computed(() => {
   return currentUser.value?.binding
@@ -19,7 +19,7 @@ export const currentUid = useStorageLocal(
   () => bindingArknightRoles.value?.[0]?.uid ?? '',
 )
 
-export const roleInfo = useStorageLocal<Player | null>(
+export const roleInfo = useStorageLocal<BindingInfo | null>(
   STORAGE_KEY_ROLE_INFO,
   null,
   {
@@ -28,7 +28,7 @@ export const roleInfo = useStorageLocal<Player | null>(
 )
 
 export async function refreshUidInfo(uid: string) {
-  const res = await $fetch<SklandResponseBody<Player>>(
+  const res = await $fetch<SklandResponseBody<BindingInfo>>(
     '/api/v1/game/player/info',
     {
       query: { uid },
