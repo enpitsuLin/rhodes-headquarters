@@ -17,6 +17,7 @@ export default defineBackground(() => {
               logInOrRefreshAccount(message.data.token).then(() => {
                 // @ts-expect-error: void already added
                 resolve()
+                refreshCharacterInfo()
               })
             }
           }),
@@ -28,6 +29,15 @@ export default defineBackground(() => {
         }
       }
     })
+  })
+
+  browser.alarms.create('test', {
+    periodInMinutes: 10,
+  })
+
+  browser.alarms.onAlarm.addListener((alarm) => {
+    if (alarm.name === 'test')
+      refreshCharacterInfo()
   })
 })
 

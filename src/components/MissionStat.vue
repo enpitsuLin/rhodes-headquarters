@@ -1,7 +1,24 @@
 <script setup lang="ts">
-import type { Campaign, Mission, Tower } from '~/types'
+import { useIntervalFn } from '@vueuse/core'
+import type { Account } from '@/store/account'
+import { chararcterStorage } from '@/store/info'
+import * as API from '~/api'
 
-defineProps<{ campaign: Campaign, tower: Tower, routine: Mission }>()
+const props = defineProps<{ account: Account, uid: string }>()
+const authorizeData = useAuthorize(props.account)
+const characterInfo = useWxtStorage(chararcterStorage)
+
+useIntervalFn(
+  async () => {
+    const data = await API.skland.getBindingInfo({
+      uid: props.uid,
+      cred: authorizeData.value.cred,
+      token: authorizeData.value.token,
+    })
+    characterInfo.value = data
+  },
+  1000 * 60 * 10,
+)
 </script>
 
 <template>
@@ -12,7 +29,11 @@ defineProps<{ campaign: Campaign, tower: Tower, routine: Mission }>()
         <span>Annihilation</span>
       </div>
       <div>
-        <span c-red>{{ campaign.reward.current }}</span>/<span>{{ campaign.reward.total }}</span>
+        <span c-red>
+          {{ characterInfo?.campaign.reward.current }}
+        </span>/<span>
+          {{ characterInfo?.campaign.reward.total }}
+        </span>
       </div>
     </div>
     <div flex="~ items-center justify-between">
@@ -23,16 +44,16 @@ defineProps<{ campaign: Campaign, tower: Tower, routine: Mission }>()
       <div flex="inline gap-2">
         <div>
           <span c-purple>
-            {{ tower.reward.higherItem.current }}
+            {{ characterInfo?.tower.reward.higherItem.current }}
           </span>/<span>
-            {{ tower.reward.higherItem.total }}
+            {{ characterInfo?.tower.reward.higherItem.total }}
           </span>
         </div>
         <div>
           <span c-yellow>
-            {{ tower.reward.lowerItem.current }}
+            {{ characterInfo?.tower.reward.lowerItem.current }}
           </span>/<span>
-            {{ tower.reward.lowerItem.total }}
+            {{ characterInfo?.tower.reward.lowerItem.total }}
           </span>
         </div>
       </div>
@@ -46,16 +67,16 @@ defineProps<{ campaign: Campaign, tower: Tower, routine: Mission }>()
       <div flex="inline gap-2">
         <div>
           <span c-primary>
-            {{ routine.daily.current }}
+            {{ characterInfo?.routine.daily.current }}
           </span>/<span>
-            {{ routine.daily.total }}
+            {{ characterInfo?.routine.daily.total }}
           </span>
         </div>
         <div>
           <span c-primary>
-            {{ routine.weekly.current }}
+            {{ characterInfo?.routine.weekly.current }}
           </span>/<span>
-            {{ routine.weekly.total }}
+            {{ characterInfo?.routine.weekly.total }}
           </span>
         </div>
       </div>

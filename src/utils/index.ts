@@ -1,7 +1,8 @@
 import type { Account } from '@/store/account'
-import { accountsStorage } from '@/store/account'
+import { accountsStorage, currentAccountStorage, currentChararcterUidStorage } from '@/store/account'
 import type { Authorize } from '@/store/authorize'
 import { authorizeMappingStorage } from '@/store/authorize'
+import { chararcterStorage } from '@/store/info'
 import * as API from '~/api'
 
 async function grantAuthorizeCode({
@@ -59,8 +60,23 @@ export async function logInOrRefreshAccount(token: string) {
       token,
     })
   }
+  const availableUid = accounts.map(a =>
+    a.binding.map(b => b.bindingList),
+  ).flat(2)[0].uid
   await Promise.all([
     accountsStorage.setValue(accounts),
     authorizeMappingStorage.setValue(accountMapping),
+    currentChararcterUidStorage.setValue(availableUid),
+    currentAccountStorage.setValue(accounts[0].id),
   ])
+}
+
+export async function refreshCharacterInfo() {
+  const uid = await currentChararcterUidStorage.getValue()
+  const currentAccount = await currentAccountStorage.getValue()
+  const accountMapping = await authorizeMappingStorage.getValue()
+
+  const authorizeData = accountMapping[currentAccount]
+  const info = await API.skland.getBindingInfo({ ...authorizeData, uid })
+  chararcterStorage.setValue(info)
 }

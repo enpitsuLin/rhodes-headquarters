@@ -1,6 +1,6 @@
 import type { MaybeRefOrGetter } from '@vueuse/core'
 import type { Account } from '@/store/account'
-import { accountsStorage, currentAccountStorage } from '@/store/account'
+import { accountsStorage, currentAccountStorage, currentChararcterUidStorage } from '@/store/account'
 import { authorizeMappingStorage } from '@/store/authorize'
 
 export function useAccounts() {
@@ -46,5 +46,18 @@ export function useBindings(account: MaybeRefOrGetter<Account | null>) {
     return toValue(account)
       ?.binding
       .map(b => b.bindingList).flat() ?? []
+  })
+}
+
+export function useCurrentCharacter() {
+  const allAccount = useAccounts()
+
+  const currentUid = useWxtStorage(currentChararcterUidStorage)
+  return computed(() => {
+    const allCharacters = allAccount.value.map((account) => {
+      return account.binding.map(b => b.bindingList).flat()
+    }).flat()
+
+    return allCharacters.find(c => c.uid === currentUid.value) ?? null
   })
 }

@@ -1,13 +1,17 @@
 <script setup lang="ts">
 import { useAccounts, useBindings, useCurrentAccount } from '@/composables/account'
+import { currentChararcterUidStorage } from '@/store/account'
 import BaseStatus from '~/components/BaseStatus.vue'
 import CharacterSwitcher from '~/components/CharacterSwitcher.vue'
+import MissionStat from '~/components/MissionStat.vue'
+import PopupFooter from '~/components/PopupFooter.vue'
+import RhodesIslandManage from '~/components/RhodesIslandManage.vue'
 import Button from '~/components/ui/button/index.vue'
 
 const accounts = useAccounts()
 const currentAccount = useCurrentAccount()
 const characters = useBindings(currentAccount)
-const currentUid = ref('')
+const currentUid = useWxtStorage(currentChararcterUidStorage)
 
 function openOptionsPage() {
   browser.runtime.openOptionsPage()
@@ -43,6 +47,12 @@ function openOptionsPage() {
         :characters="characters"
       />
       <BaseStatus :status="currentAccount.gameStatus" />
+      <RhodesIslandManage />
+      <MissionStat
+        :account="currentAccount"
+        :uid="currentUid"
+      />
+      <PopupFooter />
     </template>
   </main>
 </template>
