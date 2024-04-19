@@ -1,8 +1,15 @@
 html,
 body,
 #app {
-  margin: 0;
-  padding: 0;
+  --at-apply: p-0 m-0 h-full w-full;
+}
+
+body {
+  --at-apply: bg-[url(/popup-bg-light.jpg)] dark:bg-[url(/popup-bg-dark.jpg)] bg-cover bg-center-bottom bg-main;
+}
+
+#app {
+  --at-apply: w-350px h-600px;
 }
 
 @font-face {
@@ -16,7 +23,7 @@ body,
   --cursor: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAGCAYAAADgzO9IAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAACxMAAAsTAQCanBgAAABESURBVBhXYwACHiCuAuKzUAxig8QYMoH4PxoGiTFcQRKA4StMQAIrYAZikApvMA8BGkASN4D4KxALAvFzIJ7CwMAwGwDaihLfRIaxUAAAAABJRU5ErkJggg");
   --foreground: 0 0% 0%;
   --background: 0 0% 80%;
-  --border: 0 0% 0%;
+  --border: 0 0% 54%;
   cursor: var(--cursor) 3 3, default;
 }
 
@@ -24,11 +31,11 @@ body,
   --cursor: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAGBAMAAAAS4vJ7AAAAElBMVEX///////////////////////+65XQCAAAABXRSTlPUzXppDN7WmLAAAAAZSURBVAjXY3ASVGEwDQ1mYA0NAGEQGyQGAC9SA/00lbgwAAAAAElFTkSuQmCC");
   --foreground: 0 0% 100%;
   --background: 0 0% 7%;
-  --border: 0 0% 100%;
+  --border: 0 0% 54%;
 }
 
 body {
-  --at-apply: bg-[url(/popup-bg-light.jpg)] dark:bg-[url(/popup-bg-dark.jpg)] bg-cover bg-center-bottom;
+  --at-apply: flex items-center justify-center;
 }
 
 a,input,button,textarea,[data-cursor-interacting]{

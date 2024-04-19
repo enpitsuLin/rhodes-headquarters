@@ -63,7 +63,6 @@
     "typescript": "^5.4.5",
     "unocss": "^0.59.3",
     "unplugin-auto-import": "^0.17.5",
-    "unplugin-icons": "^0.18.5",
     "unplugin-vue-router": "^0.8.6",
     "vitest": "^1.5.0",
     "vue": "^3.4.22",
