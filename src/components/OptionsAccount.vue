@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Account } from '@/store/account'
+import Button from '~/components/ui/button/index.vue'
 
 defineProps<{ account: Account }>()
 
