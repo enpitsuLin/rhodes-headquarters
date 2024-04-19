@@ -17,7 +17,7 @@ withDefaults(defineProps<ButtonProps>(), {
       v-if="variant === 'animate-outline'"
       absolute top-0 left-0
       h="20% group-hover:50%" w-full
-      border="~ foreground b-0 group-hover:primary"
+      border="border foreground b-0 group-hover:primary"
       transition="all duration-150"
     />
     <slot />
@@ -25,7 +25,7 @@ withDefaults(defineProps<ButtonProps>(), {
       v-if="variant === 'animate-outline'"
       absolute bottom-0 left-0
       h="20% group-hover:50%" w-full
-      border="~ foreground t-0 group-hover:primary"
+      border="border foreground t-0 group-hover:primary"
       transition="all duration-150"
     />
   </component>
