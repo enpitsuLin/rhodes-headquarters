@@ -1,6 +1,5 @@
 import Vue from '@vitejs/plugin-vue'
 import UnoCSS from 'unocss/vite'
-import Icons from 'unplugin-icons/vite'
 import VueRouter from 'unplugin-vue-router/vite'
 import { defineConfig } from 'wxt'
 import pkg from './package.json'
@@ -41,7 +40,6 @@ export default defineConfig({
           dts: './src/typed-router.d.ts',
         }),
         Vue(),
-        Icons(),
         UnoCSS(),
         {
           name: 'dev-tool-prod-prune',
