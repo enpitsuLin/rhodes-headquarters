@@ -23,7 +23,7 @@ const api = computed(() => tabs.connect(state.value, send, normalizeProps))
         <div>Rhodes Island</div>
       </header>
       <ul px-2>
-        <li v-for="item in data" :key="item.id" inline-block cursor-pointer>
+        <li v-for="item in data" :key="item.id" inline-block>
           <button
             v-bind="api.getTriggerProps({ value: item.id })"
             block relative px-2 py-3 mx-1 font-bold
