@@ -1,29 +1,53 @@
-import type {
-  MaybeRefOrGetter,
-  RemovableRef,
-  UseStorageAsyncOptions,
-} from '@vueuse/core'
-import {
-  useStorageAsync,
-} from '@vueuse/core'
-import { storage } from 'wxt/storage'
+import type { WxtStorageItem } from 'wxt/storage'
 
-export function useStorage<T>(key: string, initialValue: MaybeRefOrGetter<T>, options?: UseStorageAsyncOptions<T>): RemovableRef<T> {
-  return useStorageAsync(key, initialValue, storage, options)
-}
+export function useWxtStorage<
+  Value extends (string | number | boolean | object | null),
+  // eslint-disable-next-line ts/ban-types
+  MetaData extends Record<string, unknown> = {},
+>(item: WxtStorageItem<Value, MetaData>, shallow?: boolean) {
+  const rawInit: Value = item.defaultValue
 
-export function useStorageLocal<T>(key: string, initialValue: MaybeRefOrGetter<T>, options?: UseStorageAsyncOptions<T>): RemovableRef<T> {
-  return useStorageAsync(`local:${key}`, initialValue, storage, options)
-}
+  const data = (shallow ? shallowRef : ref)(item.defaultValue) as Ref<Value>
 
-export function useSessionStorage<T>(key: string, initialValue: MaybeRefOrGetter<T>, options?: UseStorageAsyncOptions<T>): RemovableRef<T> {
-  return useStorageAsync(`session:${key}`, initialValue, storage, options)
-}
+  async function read(newValue?: Value) {
+    try {
+      newValue = newValue ?? await item.getValue()
+      if (!newValue)
+        data.value = rawInit
+      else
+        data.value = newValue
+    }
+    catch (error) {
+      // TODO: onError options
+    }
+  }
 
-export function useSyncStorage<T>(key: string, initialValue: MaybeRefOrGetter<T>, options?: UseStorageAsyncOptions<T>): RemovableRef<T> {
-  return useStorageAsync(`sync:${key}`, initialValue, storage, options)
-}
+  read()
 
-export function useManagedStorage<T>(key: string, initialValue: MaybeRefOrGetter<T>, options?: UseStorageAsyncOptions<T>): RemovableRef<T> {
-  return useStorageAsync(`managed:${key}`, initialValue, storage, options)
+  item.watch((newValue, oldValue) => {
+    if (newValue === oldValue)
+      return
+    read(newValue)
+  })
+
+  watch(
+    data,
+    async () => {
+      try {
+        if (data.value == null)
+          await item.removeValue()
+        else
+          await item.setValue(toRaw(data.value))
+      }
+      catch (e) {
+        // TODO: onError options
+      }
+    },
+    {
+      deep: true,
+      flush: 'pre',
+    },
+  )
+
+  return data
 }

@@ -1,7 +1,7 @@
 import { format } from 'date-fns'
 import { useNow } from '@vueuse/core'
 import type { Recruit } from '~/types'
-import { padTimestamp, parseDuration } from '@/utils/time'
+import { padTimestamp, parseDuration } from '~/utils/time'
 
 export function useRecruits(recruits: Recruit[]) {
   const now = useNow()

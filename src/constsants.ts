@@ -9,3 +9,5 @@ export const STORAGE_KEY_CURRENT_USER_ID = 'skland-webext:current-user-id'
 
 export const STORAGE_KEY_CURRENT_ROLE_UID = 'skland-webext:current-role-id'
 export const STORAGE_KEY_ROLE_INFO = 'skland-webext:role-info'
+
+export const PORT_NAME = 'skland-webext-port'

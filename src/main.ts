@@ -7,6 +7,12 @@ import {
 } from 'vue-router/auto'
 import '~/styles'
 import App from './App.vue'
+import { PORT_NAME } from './constsants'
+import { PORT_INJECT_KEY } from '~/composables/port'
+
+const port = browser.runtime.connect({
+  name: PORT_NAME,
+})
 
 const router = createRouter({
   history: createWebHashHistory(),
@@ -26,6 +32,8 @@ const router = createRouter({
 })
 
 const app = createApp(App)
+
+app.provide(PORT_INJECT_KEY, port)
 
 app.use(router)
 app.mount('#app')

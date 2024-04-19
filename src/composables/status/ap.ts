@@ -1,11 +1,11 @@
 import { useNow } from '@vueuse/core'
 import { format } from 'date-fns'
-import { padTimestamp, parseDuration } from '@/utils/time'
-import type { PlayerStatusAp } from '~/types'
+import { padTimestamp, parseDuration } from '~/utils/time'
+import type { ActionPoint } from '~/types'
 
 const TIME_PRE_AP = 6 * 60 * 1000
 
-export function useApInfo(ap: PlayerStatusAp) {
+export function useApInfo(ap: ActionPoint) {
   const completeRecoveryTime = padTimestamp(ap.completeRecoveryTime)
 
   const now = useNow()
