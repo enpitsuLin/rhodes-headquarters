@@ -5,7 +5,7 @@
   "version": "0.1.0-beta.2",
   "publishVersion": "0.1.0.2",
   "private": true,
-  "packageManager": "pnpm@8.15.7",
+  "packageManager": "pnpm@9.0.4",
   "description": "一款用于监控罗德岛运行状态的浏览器扩展",
   "scripts": {
     "dev": "wxt",
