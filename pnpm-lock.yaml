@@ -38,6 +38,9 @@ dependencies:
   date-fns:
     specifier: ^3.6.0
     version: 3.6.0
+  https-proxy-agent:
+    specifier: ^7.0.4
+    version: 7.0.4
   idb-keyval:
     specifier: ^6.2.1
     version: 6.2.1
@@ -2592,7 +2595,6 @@ packages:
       debug: 4.3.4
     transitivePeerDependencies:
       - supports-color
-    dev: true
 
   /ajv@6.12.6:
     resolution: {integrity: sha512-j3fVLgvTo527anyYyJOGTYJbG+vnnQYvE0m5mmkc1TK+nxAppkCLMIL0aZ4dblVCNoGShhm+kzE4ZUykBoMg4g==, tarball: https://registry.npmmirror.com/ajv/-/ajv-6.12.6.tgz}
@@ -4640,7 +4642,6 @@ packages:
       debug: 4.3.4
     transitivePeerDependencies:
       - supports-color
-    dev: true
 
   /human-signals@2.1.0:
     resolution: {integrity: sha512-B4FFZ6q/T2jhhksgkbEW3HBvWIfDW85snkQgawt07S7J5QXTk6BkNV+0yAeZrM5QpMAdYlocGoljn0sJ/WQkFw==, tarball: https://registry.npmmirror.com/human-signals/-/human-signals-2.1.0.tgz}

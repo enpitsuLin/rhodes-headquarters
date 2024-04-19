@@ -28,6 +28,13 @@ async function grantAuthorizeCode({
   accounts.push(newAccount)
 }
 
+async function checkAccount({ accountMapping, account }: { accountMapping: Record<string, Authorize>, account: Account }) {
+  const credData = accountMapping[account.id]
+  if (!credData)
+    throw new Error(`unexpected error: ID ${account.id} has no its credData`)
+  return API.skland.checkAccessToken(credData)
+}
+
 async function refreshAccount({ accountMapping, account, token }: { token: string, accountMapping: Record<string, Authorize>, account: Account }) {
   const credData = accountMapping[account.id]
   if (!credData)
@@ -72,11 +79,21 @@ export async function logInOrRefreshAccount(token: string) {
 }
 
 export async function refreshCharacterInfo() {
+  const accounts = await accountsStorage.getValue()
   const uid = await currentChararcterUidStorage.getValue()
-  const currentAccount = await currentAccountStorage.getValue()
+  const currentAccountId = await currentAccountStorage.getValue()
+  const account = accounts.find(account => account.id === currentAccountId)
+  if (!account)
+    throw new Error(`Unexpected Error: account with id [${currentAccountId}] not found`)
   const accountMapping = await authorizeMappingStorage.getValue()
 
-  const authorizeData = accountMapping[currentAccount]
+  const valid = await checkAccount({ accountMapping, account })
+  if (!valid) {
+    const authorizeCode = await API.hypergrayph.grantAuthorizeCode(account.token)
+    const { userId, ...credData } = await API.skland.generateCredByCode(authorizeCode)
+    accountMapping[userId] = credData
+  }
+  const authorizeData = accountMapping[currentAccountId]
   const info = await API.skland.getBindingInfo({ ...authorizeData, uid })
   chararcterStorage.setValue(info)
 }
