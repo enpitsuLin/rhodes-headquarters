@@ -40,8 +40,8 @@ async function onLogIn() {
 </script>
 
 <template>
-  <header px-4 pt-6 flex="~ justify-between">
-    <div>
+  <header px-4 pt-6 flex="~ items-center justify-between">
+    <div flex-1>
       <h2 text-xl>
         账号管理
       </h2>
