@@ -1,14 +1,20 @@
 import path from 'node:path'
-import { type BrowserContext, test as base, chromium } from '@playwright/test'
+import type { BrowserContext, Page } from '@playwright/test'
+import { test as base, chromium } from '@playwright/test'
+import { PopupPage } from './pages/popup'
+import { OptionsPage } from './pages/options'
 
 const pathToExtension = path.resolve('.output/chrome-mv3')
 
 export const test = base.extend<{
   context: BrowserContext
   extensionId: string
+  popupPage: PopupPage
+  optionsPage: OptionsPage
 }>({
+
   // eslint-disable-next-line no-empty-pattern
-  context: async ({}, use) => {
+  context: async ({ }, use) => {
     const context = await chromium.launchPersistentContext('', {
       headless: false,
       args: [
@@ -18,6 +24,20 @@ export const test = base.extend<{
     })
     await use(context)
     await context.close()
+  },
+  optionsPage: async ({ page, extensionId }, use) => {
+    const optionsPage = new OptionsPage(
+      page,
+      extensionId,
+    )
+    await use(optionsPage)
+  },
+  popupPage: async ({ page, extensionId }, use) => {
+    const popupPage = new PopupPage(
+      page,
+      extensionId,
+    )
+    await use(popupPage)
   },
   extensionId: async ({ context }, use) => {
     let background: { url: () => string }
