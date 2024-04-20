@@ -1,0 +1,151 @@
+{
+  "code": 0,
+  "message": "OK",
+  "timestamp": "1713614395",
+  "data": {
+    "user": {
+      "id": "<skland_user_id>",
+      "nickname": "<skland_nickname>",
+      "profile": "",
+      "avatarCode": 6,
+      "avatar": "https://bbs.hycdn.cn/asset/avatar/110ab906d9f8f9f3e3b2b0d1d4992c6a.webp",
+      "backgroundCode": 1,
+      "isCreator": false,
+      "creatorIdentifiers": [],
+      "status": 1,
+      "operationStatus": 30,
+      "identity": 1,
+      "kind": 1,
+      "latestIpLocation": "<laset_ip_location>",
+      "moderatorStatus": 4,
+      "moderatorChangeTime": 0,
+      "gender": 1,
+      "birthday": "<birthday>",
+      "scoreInfoList": [
+        {
+          "gameId": 1,
+          "level": 2,
+          "iconUrl": "https://bbs.hycdn.cn/asset/score/level-icon/Lv2.webp",
+          "checkedDays": 35,
+          "score": 741,
+          "gameName": "明日方舟",
+          "levelUrl": "https://bbs.hycdn.cn/asset/score/level-name-thin/Lv2.webp"
+        },
+        {
+          "gameId": 2,
+          "level": 2,
+          "iconUrl": "https://bbs.hycdn.cn/asset/score/level-icon/Lv2.webp",
+          "checkedDays": 35,
+          "score": 740,
+          "gameName": "来自星尘",
+          "levelUrl": "https://bbs.hycdn.cn/asset/score/level-name-thin/Lv2.webp"
+        },
+        {
+          "gameId": 3,
+          "level": 2,
+          "iconUrl": "https://bbs.hycdn.cn/asset/score/level-icon/Lv2.webp",
+          "checkedDays": 35,
+          "score": 740,
+          "gameName": "明日方舟：终末地",
+          "levelUrl": "https://bbs.hycdn.cn/asset/score/level-name-thin/Lv2.webp"
+        },
+        {
+          "gameId": 4,
+          "level": 2,
+          "iconUrl": "https://bbs.hycdn.cn/asset/score/level-icon/Lv2.webp",
+          "checkedDays": 35,
+          "score": 740,
+          "gameName": "泡姆泡姆",
+          "levelUrl": "https://bbs.hycdn.cn/asset/score/level-name-thin/Lv2.webp"
+        },
+        {
+          "gameId": 100,
+          "level": 2,
+          "iconUrl": "https://bbs.hycdn.cn/asset/score/level-icon/Lv2.webp",
+          "checkedDays": 35,
+          "score": 742,
+          "gameName": "纳斯特港",
+          "levelUrl": "https://bbs.hycdn.cn/asset/score/level-name-thin/Lv2.webp"
+        }
+      ],
+      "hgId": "<hg_id>"
+    },
+    "userRts": {
+      "liked": "0",
+      "collect": "0",
+      "comment": "0",
+      "follow": "0",
+      "fans": "0",
+      "black": "0",
+      "pub": "0"
+    },
+    "relation": {
+      "follow": false,
+      "fans": false,
+      "black": false,
+      "blacked": false,
+      "fansAtTs": 0
+    },
+    "userSanctionList": [],
+    "gameStatus": {
+      "uid": "<arknights_character_uid>",
+      "name": "<arknight_character_name>",
+      "level": 130,
+      "avatar": {
+        "type": "ICON",
+        "id": "avatar_special_01"
+      },
+      "registerTs": 1565005111,
+      "mainStageProgress": "main_13-17",
+      "secretary": {
+        "charId": "char_2023_ling",
+        "skinId": "char_2023_ling@ncg#1"
+      },
+      "resume": "相关功能优化中，签名暂无法保存，请等待后续开放。（修改任务不受影响）",
+      "subscriptionEnd": 1712174399,
+      "ap": {
+        "current": 131,
+        "max": 131,
+        "lastApAddTime": 1700000000,
+        "completeRecoveryTime": 1700000000
+      },
+      "storeTs": 1713592025,
+      "lastOnlineTs": 1713591924,
+      "charCnt": 0,
+      "furnitureCnt": 0,
+      "skinCnt": 0
+    },
+    "moderator": {
+      "isModerator": false
+    },
+    "userInfoApply": {
+      "nickname": "",
+      "profile": ""
+    },
+    "teenager": {
+      "userId": "<skland_user_id>",
+      "status": 1,
+      "allow": true,
+      "popup": true
+    },
+    "teenagerMeta": {
+      "duration": 2400,
+      "start": "06:00",
+      "end": "22:00"
+    },
+    "entries": [
+      {
+        "title": "任务中心",
+        "subtitle": "解锁版区等级",
+        "iconUrl": "https://bbs.hycdn.cn/asset/user/task-center.webp",
+        "scheme": "skland://rn?moduleName=GameLevel&gameId=1"
+      },
+      {
+        "title": "活动中心",
+        "subtitle": "领取超多福利",
+        "iconUrl": "https://bbs.hycdn.cn/asset/user/activity-center.webp",
+        "scheme": "skland://rn?moduleName=NotificationActivityCenter"
+      }
+    ]
+  }
+}

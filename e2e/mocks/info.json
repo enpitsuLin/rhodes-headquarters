@@ -1,0 +1,1269 @@
+{
+  "code": 0,
+  "message": "OK",
+  "timestamp": "1713614397",
+  "data": {
+    "currentTs": 1713614397,
+    "showConfig": {
+      "charSwitch": true,
+      "skinSwitch": true,
+      "standingsSwitch": true
+    },
+    "status": {
+      "uid": "<arknights_character_uid>",
+      "name": "<arknight_character_name>",
+      "level": 130,
+      "avatar": {
+        "type": "ICON",
+        "id": "avatar_special_01"
+      },
+      "registerTs": 1565005111,
+      "mainStageProgress": "main_13-17",
+      "secretary": {
+        "charId": "char_2023_ling",
+        "skinId": "char_2023_ling@ncg#1"
+      },
+      "resume": "相关功能优化中，签名暂无法保存，请等待后续开放。（修改任务不受影响）",
+      "subscriptionEnd": 1712174399,
+      "ap": {
+        "current": 131,
+        "max": 131,
+        "lastApAddTime": 1700000000,
+        "completeRecoveryTime": 1700000000
+      },
+      "storeTs": 1713592025,
+      "lastOnlineTs": 1713591924,
+      "charCnt": 0,
+      "furnitureCnt": 0,
+      "skinCnt": 0
+    },
+    "building": {
+      "tiredChars": [],
+      "powers": [
+        {
+          "slotId": "slot_26",
+          "level": 3,
+          "chars": [
+            {
+              "charId": "char_134_ifrit",
+              "ap": 8442225,
+              "lastApAddTime": 1713591924,
+              "index": 0,
+              "bubble": {
+                "normal": {
+                  "add": -1,
+                  "ts": 0
+                },
+                "assist": {
+                  "add": -1,
+                  "ts": 0
+                }
+              },
+              "workTime": 2637
+            }
+          ]
+        },
+        {
+          "slotId": "slot_16",
+          "level": 3,
+          "chars": [
+            {
+              "charId": "char_277_sqrrel",
+              "ap": 8444700,
+              "lastApAddTime": 1713591924,
+              "index": 0,
+              "bubble": {
+                "normal": {
+                  "add": -1,
+                  "ts": 0
+                },
+                "assist": {
+                  "add": -1,
+                  "ts": 0
+                }
+              },
+              "workTime": 2604
+            }
+          ]
+        },
+        {
+          "slotId": "slot_15",
+          "level": 3,
+          "chars": [
+            {
+              "charId": "char_107_liskam",
+              "ap": 8443500,
+              "lastApAddTime": 1713591924,
+              "index": 0,
+              "bubble": {
+                "normal": {
+                  "add": -1,
+                  "ts": 0
+                },
+                "assist": {
+                  "add": -1,
+                  "ts": 0
+                }
+              },
+              "workTime": 2620
+            }
+          ]
+        }
+      ],
+      "manufactures": [
+        {
+          "slotId": "slot_25",
+          "level": 3,
+          "chars": [
+            {
+              "charId": "char_237_gravel",
+              "ap": 4670645,
+              "lastApAddTime": 1713591924,
+              "index": 0,
+              "bubble": {
+                "normal": {
+                  "add": -1,
+                  "ts": 0
+                },
+                "assist": {
+                  "add": -1,
+                  "ts": 0
+                }
+              },
+              "workTime": 61067
+            },
+            {
+              "charId": "char_4106_bryota",
+              "ap": 4670645,
+              "lastApAddTime": 1713591924,
+              "index": 1,
+              "bubble": {
+                "normal": {
+                  "add": -1,
+                  "ts": 0
+                },
+                "assist": {
+                  "add": -1,
+                  "ts": 0
+                }
+              },
+              "workTime": 61067
+            },
+            {
+              "charId": "char_284_spot",
+              "ap": 4670645,
+              "lastApAddTime": 1713591924,
+              "index": 2,
+              "bubble": {
+                "normal": {
+                  "add": -1,
+                  "ts": 0
+                },
+                "assist": {
+                  "add": -1,
+                  "ts": 0
+                }
+              },
+              "workTime": 61067
+            }
+          ],
+          "completeWorkTime": 1713646654,
+          "lastUpdateTime": 1713591924,
+          "formulaId": "4",
+          "capacity": 54,
+          "weight": 2,
+          "complete": 1,
+          "remain": 98,
+          "speed": 2
+        },
+        {
+          "slotId": "slot_14",
+          "level": 3,
+          "chars": [
+            {
+              "charId": "char_378_asbest",
+              "ap": 8388000,
+              "lastApAddTime": 1713591924,
+              "index": 0,
+              "bubble": {
+                "normal": {
+                  "add": -1,
+                  "ts": 0
+                },
+                "assist": {
+                  "add": -1,
+                  "ts": 0
+                }
+              },
+              "workTime": 2800
+            },
+            {
+              "charId": "char_281_popka",
+              "ap": 8388000,
+              "lastApAddTime": 1713591924,
+              "index": 1,
+              "bubble": {
+                "normal": {
+                  "add": -1,
+                  "ts": 0
+                },
+                "assist": {
+                  "add": -1,
+                  "ts": 0
+                }
+              },
+              "workTime": 2800
+            },
+            {
+              "charId": "char_4062_totter",
+              "ap": 8458000,
+              "lastApAddTime": 1713591924,
+              "index": 2,
+              "bubble": {
+                "normal": {
+                  "add": -1,
+                  "ts": 0
+                },
+                "assist": {
+                  "add": -1,
+                  "ts": 0
+                }
+              },
+              "workTime": 2800
+            }
+          ],
+          "completeWorkTime": 1713624077,
+          "lastUpdateTime": 1713591924,
+          "formulaId": "3",
+          "capacity": 30,
+          "weight": 0,
+          "complete": 0,
+          "remain": 99,
+          "speed": 1.85
+        },
+        {
+          "slotId": "slot_7",
+          "level": 3,
+          "chars": [
+            {
+              "charId": "char_235_jesica",
+              "ap": 4876175,
+              "lastApAddTime": 1713591924,
+              "index": 0,
+              "bubble": {
+                "normal": {
+                  "add": -1,
+                  "ts": 0
+                },
+                "assist": {
+                  "add": -1,
+                  "ts": 0
+                }
+              },
+              "workTime": 57905
+            },
+            {
+              "charId": "char_210_stward",
+              "ap": 4876175,
+              "lastApAddTime": 1713591924,
+              "index": 1,
+              "bubble": {
+                "normal": {
+                  "add": -1,
+                  "ts": 0
+                },
+                "assist": {
+                  "add": -1,
+                  "ts": 0
+                }
+              },
+              "workTime": 57905
+            },
+            {
+              "charId": "char_240_wyvern",
+              "ap": 4876175,
+              "lastApAddTime": 1713591924,
+              "index": 2,
+              "bubble": {
+                "normal": {
+                  "add": -1,
+                  "ts": 0
+                },
+                "assist": {
+                  "add": -1,
+                  "ts": 0
+                }
+              },
+              "workTime": 57905
+            }
+          ],
+          "completeWorkTime": 1713649054,
+          "lastUpdateTime": 1713591924,
+          "formulaId": "3",
+          "capacity": 54,
+          "weight": 0,
+          "complete": 0,
+          "remain": 99,
+          "speed": 1.8
+        },
+        {
+          "slotId": "slot_6",
+          "level": 3,
+          "chars": [
+            {
+              "charId": "char_141_nights",
+              "ap": 4400180,
+              "lastApAddTime": 1713591924,
+              "index": 0,
+              "bubble": {
+                "normal": {
+                  "add": -1,
+                  "ts": 0
+                },
+                "assist": {
+                  "add": -1,
+                  "ts": 0
+                }
+              },
+              "workTime": 65228
+            },
+            {
+              "charId": "char_128_plosis",
+              "ap": 4400180,
+              "lastApAddTime": 1713591924,
+              "index": 1,
+              "bubble": {
+                "normal": {
+                  "add": -1,
+                  "ts": 0
+                },
+                "assist": {
+                  "add": -1,
+                  "ts": 0
+                }
+              },
+              "workTime": 65228
+            },
+            {
+              "charId": "char_181_flower",
+              "ap": 4400180,
+              "lastApAddTime": 1713591924,
+              "index": 2,
+              "bubble": {
+                "normal": {
+                  "add": -1,
+                  "ts": 0
+                },
+                "assist": {
+                  "add": -1,
+                  "ts": 0
+                }
+              },
+              "workTime": 65228
+            }
+          ],
+          "completeWorkTime": 1713652103,
+          "lastUpdateTime": 1713591924,
+          "formulaId": "4",
+          "capacity": 54,
+          "weight": 2,
+          "complete": 1,
+          "remain": 98,
+          "speed": 1.85
+        }
+      ],
+      "tradings": [
+        {
+          "slotId": "slot_24",
+          "level": 3,
+          "chars": [
+            {
+              "index": 0,
+              "charId": "char_4032_provs",
+              "ap": 4312040,
+              "lastApAddTime": 1713591924,
+              "bubble": {
+                "normal": {
+                  "add": -1,
+                  "ts": 0
+                },
+                "assist": {
+                  "add": -1,
+                  "ts": 0
+                }
+              },
+              "workTime": 2721
+            },
+            {
+              "index": 1,
+              "charId": "char_103_angel",
+              "ap": 4312040,
+              "lastApAddTime": 1713591924,
+              "bubble": {
+                "normal": {
+                  "add": -1,
+                  "ts": 0
+                },
+                "assist": {
+                  "add": -1,
+                  "ts": 0
+                }
+              },
+              "workTime": 2721
+            },
+            {
+              "index": 2,
+              "charId": "char_196_sunbr",
+              "ap": 3106420,
+              "lastApAddTime": 1713591924,
+              "bubble": {
+                "normal": {
+                  "add": -1,
+                  "ts": 0
+                },
+                "assist": {
+                  "add": -1,
+                  "ts": 0
+                }
+              },
+              "workTime": 2721
+            }
+          ],
+          "completeWorkTime": 1713597856,
+          "lastUpdateTime": 1713591924,
+          "strategy": "O_GOLD",
+          "stock": [
+            {
+              "instId": 12079,
+              "type": "O_GOLD",
+              "delivery": [
+                {
+                  "id": "3003",
+                  "count": 4,
+                  "type": "MATERIAL"
+                }
+              ],
+              "gain": {
+                "id": "4001",
+                "count": 2000,
+                "type": "GOLD"
+              },
+              "isViolated": true
+            }
+          ],
+          "stockLimit": 10
+        },
+        {
+          "slotId": "slot_5",
+          "level": 3,
+          "chars": [
+            {
+              "index": 0,
+              "charId": "char_282_catap",
+              "ap": 4542600,
+              "lastApAddTime": 1713591924,
+              "bubble": {
+                "normal": {
+                  "add": -1,
+                  "ts": 0
+                },
+                "assist": {
+                  "add": -1,
+                  "ts": 0
+                }
+              },
+              "workTime": 2703
+            },
+            {
+              "index": 1,
+              "charId": "char_283_midn",
+              "ap": 8531880,
+              "lastApAddTime": 1713591924,
+              "bubble": {
+                "normal": {
+                  "add": -1,
+                  "ts": 0
+                },
+                "assist": {
+                  "add": -1,
+                  "ts": 0
+                }
+              },
+              "workTime": 2703
+            },
+            {
+              "index": 2,
+              "charId": "char_185_frncat",
+              "ap": 8464305,
+              "lastApAddTime": 1713591924,
+              "bubble": {
+                "normal": {
+                  "add": -1,
+                  "ts": 0
+                },
+                "assist": {
+                  "add": -1,
+                  "ts": 0
+                }
+              },
+              "workTime": 2703
+            }
+          ],
+          "completeWorkTime": 1713598733,
+          "lastUpdateTime": 1713591924,
+          "strategy": "O_GOLD",
+          "stock": [
+            {
+              "instId": 12078,
+              "type": "O_GOLD",
+              "delivery": [
+                {
+                  "id": "3003",
+                  "count": 4,
+                  "type": "MATERIAL"
+                }
+              ],
+              "gain": {
+                "id": "4001",
+                "count": 2000,
+                "type": "GOLD"
+              },
+              "isViolated": false
+            }
+          ],
+          "stockLimit": 10
+        }
+      ],
+      "dormitories": [
+        {
+          "slotId": "slot_28",
+          "level": 4,
+          "chars": [
+            {
+              "index": 0,
+              "charId": "char_4065_judge",
+              "ap": 926250,
+              "lastApAddTime": 1713591924,
+              "bubble": {
+                "normal": {
+                  "add": -1,
+                  "ts": 0
+                },
+                "assist": {
+                  "add": -1,
+                  "ts": 0
+                }
+              },
+              "workTime": 2470
+            },
+            {
+              "index": 1,
+              "charId": "char_385_finlpp",
+              "ap": 926250,
+              "lastApAddTime": 1713591924,
+              "bubble": {
+                "normal": {
+                  "add": -1,
+                  "ts": 0
+                },
+                "assist": {
+                  "add": -1,
+                  "ts": 0
+                }
+              },
+              "workTime": 2470
+            },
+            {
+              "index": 2,
+              "charId": "char_118_yuki",
+              "ap": 1285625,
+              "lastApAddTime": 1713591924,
+              "bubble": {
+                "normal": {
+                  "add": -1,
+                  "ts": 0
+                },
+                "assist": {
+                  "add": -1,
+                  "ts": 0
+                }
+              },
+              "workTime": 2470
+            },
+            {
+              "index": 3,
+              "charId": "char_290_vigna",
+              "ap": 1285625,
+              "lastApAddTime": 1713591924,
+              "bubble": {
+                "normal": {
+                  "add": -1,
+                  "ts": 0
+                },
+                "assist": {
+                  "add": -1,
+                  "ts": 0
+                }
+              },
+              "workTime": 2470
+            },
+            {
+              "index": 4,
+              "charId": "char_241_panda",
+              "ap": 1285625,
+              "lastApAddTime": 1713591924,
+              "bubble": {
+                "normal": {
+                  "add": -1,
+                  "ts": 0
+                },
+                "assist": {
+                  "add": -1,
+                  "ts": 0
+                }
+              },
+              "workTime": 2470
+            }
+          ],
+          "comfort": 4000
+        },
+        {
+          "slotId": "slot_20",
+          "level": 3,
+          "chars": [
+            {
+              "index": 0,
+              "charId": "char_109_fmout",
+              "ap": 1892175,
+              "lastApAddTime": 1713591924,
+              "bubble": {
+                "normal": {
+                  "add": -1,
+                  "ts": 0
+                },
+                "assist": {
+                  "add": -1,
+                  "ts": 0
+                }
+              },
+              "workTime": 2456
+            },
+            {
+              "index": 1,
+              "charId": "char_1027_greyy2",
+              "ap": 1894875,
+              "lastApAddTime": 1713591924,
+              "bubble": {
+                "normal": {
+                  "add": -1,
+                  "ts": 0
+                },
+                "assist": {
+                  "add": -1,
+                  "ts": 0
+                }
+              },
+              "workTime": 2456
+            },
+            {
+              "index": 2,
+              "charId": "char_253_greyy",
+              "ap": 1895175,
+              "lastApAddTime": 1713591924,
+              "bubble": {
+                "normal": {
+                  "add": -1,
+                  "ts": 0
+                },
+                "assist": {
+                  "add": -1,
+                  "ts": 0
+                }
+              },
+              "workTime": 2456
+            },
+            {
+              "index": 3,
+              "charId": "char_427_vigil",
+              "ap": 1892175,
+              "lastApAddTime": 1713591924,
+              "bubble": {
+                "normal": {
+                  "add": -1,
+                  "ts": 0
+                },
+                "assist": {
+                  "add": -1,
+                  "ts": 0
+                }
+              },
+              "workTime": 2456
+            },
+            {
+              "index": 4,
+              "charId": "char_456_ash",
+              "ap": 2802750,
+              "lastApAddTime": 1713591924,
+              "bubble": {
+                "normal": {
+                  "add": -1,
+                  "ts": 0
+                },
+                "assist": {
+                  "add": -1,
+                  "ts": 0
+                }
+              },
+              "workTime": 2456
+            }
+          ],
+          "comfort": 3000
+        },
+        {
+          "slotId": "slot_9",
+          "level": 3,
+          "chars": [
+            {
+              "index": 0,
+              "charId": "char_102_texas",
+              "ap": 3486519,
+              "lastApAddTime": 1713591924,
+              "bubble": {
+                "normal": {
+                  "add": -1,
+                  "ts": 0
+                },
+                "assist": {
+                  "add": -1,
+                  "ts": 0
+                }
+              },
+              "workTime": 2441
+            },
+            {
+              "index": 1,
+              "charId": "char_140_whitew",
+              "ap": 5882134,
+              "lastApAddTime": 1713591924,
+              "bubble": {
+                "normal": {
+                  "add": -1,
+                  "ts": 0
+                },
+                "assist": {
+                  "add": -1,
+                  "ts": 0
+                }
+              },
+              "workTime": 2441
+            },
+            {
+              "index": 2,
+              "charId": "char_338_iris",
+              "ap": 8640000,
+              "lastApAddTime": 1713591924,
+              "bubble": {
+                "normal": {
+                  "add": -1,
+                  "ts": 0
+                },
+                "assist": {
+                  "add": -1,
+                  "ts": 0
+                }
+              },
+              "workTime": 2441
+            },
+            {
+              "index": 3,
+              "charId": "char_365_aprl",
+              "ap": 8640000,
+              "lastApAddTime": 1713591924,
+              "bubble": {
+                "normal": {
+                  "add": -1,
+                  "ts": 0
+                },
+                "assist": {
+                  "add": -1,
+                  "ts": 0
+                }
+              },
+              "workTime": 2441
+            },
+            {
+              "index": 4,
+              "charId": "char_4047_pianst",
+              "ap": 8640000,
+              "lastApAddTime": 1713591924,
+              "bubble": {
+                "normal": {
+                  "add": -1,
+                  "ts": 0
+                },
+                "assist": {
+                  "add": -1,
+                  "ts": 0
+                }
+              },
+              "workTime": 2441
+            }
+          ],
+          "comfort": 2985
+        },
+        {
+          "slotId": "slot_3",
+          "level": 2,
+          "chars": [
+            {
+              "index": 0,
+              "charId": "char_501_durin",
+              "ap": 8640000,
+              "lastApAddTime": 1713591924,
+              "bubble": {
+                "normal": {
+                  "add": -1,
+                  "ts": 0
+                },
+                "assist": {
+                  "add": -1,
+                  "ts": 0
+                }
+              },
+              "workTime": 66326
+            },
+            {
+              "index": 1,
+              "charId": "char_302_glaze",
+              "ap": 8640000,
+              "lastApAddTime": 1713591924,
+              "bubble": {
+                "normal": {
+                  "add": -1,
+                  "ts": 0
+                },
+                "assist": {
+                  "add": -1,
+                  "ts": 0
+                }
+              },
+              "workTime": 66326
+            },
+            {
+              "index": 2,
+              "charId": "char_4042_lumen",
+              "ap": 8640000,
+              "lastApAddTime": 1713591924,
+              "bubble": {
+                "normal": {
+                  "add": -1,
+                  "ts": 0
+                },
+                "assist": {
+                  "add": -1,
+                  "ts": 0
+                }
+              },
+              "workTime": 66326
+            },
+            {
+              "index": 3,
+              "charId": "char_151_myrtle",
+              "ap": 8640000,
+              "lastApAddTime": 1713591924,
+              "bubble": {
+                "normal": {
+                  "add": -1,
+                  "ts": 0
+                },
+                "assist": {
+                  "add": -1,
+                  "ts": 0
+                }
+              },
+              "workTime": 66326
+            },
+            {
+              "index": 4,
+              "charId": "char_222_bpipe",
+              "ap": 8640000,
+              "lastApAddTime": 1713591924,
+              "bubble": {
+                "normal": {
+                  "add": -1,
+                  "ts": 0
+                },
+                "assist": {
+                  "add": -1,
+                  "ts": 0
+                }
+              },
+              "workTime": 66326
+            }
+          ],
+          "comfort": 2000
+        }
+      ],
+      "meeting": {
+        "slotId": "slot_36",
+        "level": 3,
+        "chars": [
+          {
+            "index": 0,
+            "charId": "char_236_rope",
+            "ap": 8450850,
+            "lastApAddTime": 1713591924,
+            "bubble": {
+              "normal": {
+                "add": -1,
+                "ts": 0
+              },
+              "assist": {
+                "add": -1,
+                "ts": 0
+              }
+            },
+            "workTime": 2522
+          },
+          {
+            "index": 1,
+            "charId": "char_133_mm",
+            "ap": 8450850,
+            "lastApAddTime": 1713591924,
+            "bubble": {
+              "normal": {
+                "add": -1,
+                "ts": 0
+              },
+              "assist": {
+                "add": -1,
+                "ts": 0
+              }
+            },
+            "workTime": 2522
+          }
+        ],
+        "clue": {
+          "own": 5,
+          "received": 2,
+          "dailyReward": false,
+          "needReceive": 0,
+          "board": [
+            "BLACKSTEEL",
+            "GLASGOW",
+            "KJERAG",
+            "RHODES",
+            "URSUS"
+          ],
+          "sharing": true,
+          "shareCompleteTime": 1713675741
+        },
+        "lastUpdateTime": 1713591924,
+        "completeWorkTime": 1713599995
+      },
+      "hire": {
+        "slotId": "slot_23",
+        "level": 3,
+        "chars": [
+          {
+            "index": 0,
+            "charId": "char_180_amgoat",
+            "ap": 8452800,
+            "lastApAddTime": 1713591924,
+            "bubble": {
+              "normal": {
+                "add": -1,
+                "ts": 0
+              },
+              "assist": {
+                "add": -1,
+                "ts": 0
+              }
+            },
+            "workTime": 2496
+          }
+        ],
+        "state": 1,
+        "refreshCount": 0,
+        "completeWorkTime": 1713594869,
+        "slotState": 2
+      },
+      "training": {
+        "slotId": "slot_13",
+        "level": 3,
+        "trainee": {
+          "charId": "char_245_cello",
+          "targetSkill": -1,
+          "ap": 8640000,
+          "lastApAddTime": 1713591924
+        },
+        "trainer": {
+          "charId": "char_1023_ghost2",
+          "ap": 868650,
+          "lastApAddTime": 1713591924
+        },
+        "remainPoint": 0.15,
+        "speed": 1.05,
+        "lastUpdateTime": 1713591924,
+        "remainSecs": 0,
+        "slotState": 2
+      },
+      "labor": {
+        "maxValue": 200,
+        "value": 13,
+        "lastUpdateTime": 1713591924,
+        "remainSecs": 41850
+      },
+      "furniture": {
+        "total": 467
+      },
+      "elevators": [
+        {
+          "slotId": "slot_37",
+          "slotState": 2,
+          "level": 1
+        },
+        {
+          "slotId": "slot_38",
+          "slotState": 2,
+          "level": 1
+        },
+        {
+          "slotId": "slot_33",
+          "slotState": 2,
+          "level": 1
+        },
+        {
+          "slotId": "slot_27",
+          "slotState": 2,
+          "level": 1
+        },
+        {
+          "slotId": "slot_30",
+          "slotState": 2,
+          "level": 1
+        },
+        {
+          "slotId": "slot_35",
+          "slotState": 2,
+          "level": 1
+        },
+        {
+          "slotId": "slot_18",
+          "slotState": 2,
+          "level": 1
+        },
+        {
+          "slotId": "slot_21",
+          "slotState": 2,
+          "level": 1
+        },
+        {
+          "slotId": "slot_8",
+          "slotState": 2,
+          "level": 1
+        },
+        {
+          "slotId": "slot_11",
+          "slotState": 2,
+          "level": 1
+        },
+        {
+          "slotId": "slot_1",
+          "slotState": 2,
+          "level": 1
+        },
+        {
+          "slotId": "slot_4",
+          "slotState": 2,
+          "level": 1
+        }
+      ],
+      "corridors": [
+        {
+          "slotId": "slot_29",
+          "slotState": 2,
+          "level": 1
+        },
+        {
+          "slotId": "slot_31",
+          "slotState": 2,
+          "level": 1
+        },
+        {
+          "slotId": "slot_19",
+          "slotState": 2,
+          "level": 1
+        },
+        {
+          "slotId": "slot_17",
+          "slotState": 2,
+          "level": 1
+        },
+        {
+          "slotId": "slot_22",
+          "slotState": 2,
+          "level": 1
+        },
+        {
+          "slotId": "slot_10",
+          "slotState": 2,
+          "level": 1
+        },
+        {
+          "slotId": "slot_12",
+          "slotState": 2,
+          "level": 1
+        },
+        {
+          "slotId": "slot_2",
+          "slotState": 2,
+          "level": 1
+        }
+      ],
+      "control": {
+        "slotId": "slot_34",
+        "slotState": 2,
+        "level": 5,
+        "chars": [
+          {
+            "charId": "char_4071_peper",
+            "ap": 6644190,
+            "lastApAddTime": 1713591924,
+            "index": 0,
+            "bubble": {
+              "normal": {
+                "add": -1,
+                "ts": 0
+              },
+              "assist": {
+                "add": -1,
+                "ts": 0
+              }
+            },
+            "workTime": 66527
+          },
+          {
+            "charId": "char_003_kalts",
+            "ap": 4490970,
+            "lastApAddTime": 1713591924,
+            "index": 1,
+            "bubble": {
+              "normal": {
+                "add": -1,
+                "ts": 0
+              },
+              "assist": {
+                "add": -1,
+                "ts": 0
+              }
+            },
+            "workTime": 138301
+          },
+          {
+            "charId": "char_457_blitz",
+            "ap": 3367620,
+            "lastApAddTime": 1713591924,
+            "index": 2,
+            "bubble": {
+              "normal": {
+                "add": -1,
+                "ts": 0
+              },
+              "assist": {
+                "add": -1,
+                "ts": 0
+              }
+            },
+            "workTime": 2665
+          },
+          {
+            "charId": "char_458_rfrost",
+            "ap": 6644190,
+            "lastApAddTime": 1713591924,
+            "index": 3,
+            "bubble": {
+              "normal": {
+                "add": -1,
+                "ts": 0
+              },
+              "assist": {
+                "add": -1,
+                "ts": 0
+              }
+            },
+            "workTime": 2665
+          },
+          {
+            "charId": "char_459_tachak",
+            "ap": 8560050,
+            "lastApAddTime": 1713591924,
+            "index": 4,
+            "bubble": {
+              "normal": {
+                "add": -1,
+                "ts": 0
+              },
+              "assist": {
+                "add": -1,
+                "ts": 0
+              }
+            },
+            "workTime": 2665
+          }
+        ]
+      }
+    },
+    "recruit": [
+      {
+        "startTs": 1700000000,
+        "finishTs": 1700000000,
+        "state": 2
+      },
+      {
+        "startTs": 1700000000,
+        "finishTs": 1700000000,
+        "state": 2
+      },
+      {
+        "startTs": 1700000000,
+        "finishTs": 1700000000,
+        "state": 2
+      },
+      {
+        "startTs": 1700000000,
+        "finishTs": 1700000000,
+        "state": 2
+      }
+    ],
+    "campaign": {
+      "reward": {
+        "current": 1800,
+        "total": 1800
+      }
+    },
+    "tower": {
+      "reward": {
+        "higherItem": {
+          "current": 24,
+          "total": 24
+        },
+        "lowerItem": {
+          "current": 60,
+          "total": 60
+        },
+        "termTs": 1715803199
+      }
+    },
+    "routine": {
+      "daily": {
+        "current": 10,
+        "total": 10
+      },
+      "weekly": {
+        "current": 13,
+        "total": 13
+      }
+    }
+  }
+}

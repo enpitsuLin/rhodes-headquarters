@@ -1,0 +1,25 @@
+{
+  "code": 0,
+  "message": "OK",
+  "timestamp": "1713614396",
+  "data": {
+    "list": [
+      {
+        "appCode": "arknights",
+        "appName": "明日方舟",
+        "bindingList": [
+          {
+            "uid": "<arknights_character_uid>",
+            "isOfficial": true,
+            "isDefault": true,
+            "channelMasterId": "1",
+            "channelName": "官服",
+            "nickName": "<arknights_character_name>",
+            "isDelete": false
+          }
+        ],
+        "defaultUid": ""
+      }
+    ]
+  }
+}

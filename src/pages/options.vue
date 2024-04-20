@@ -41,7 +41,7 @@ async function onLogIn() {
       </h2>
       <p>Account</p>
     </div>
-    <Button v-bind="api.triggerProps">
+    <Button v-bind="api.triggerProps" data-testid="add-account">
       <span>新增账号</span>
     </Button>
   </header>
@@ -53,7 +53,7 @@ async function onLogIn() {
     </ul>
   </main>
   <Teleport to="body">
-    <div v-if="api.isOpen" fixed inset-0>
+    <div v-if="api.isOpen" fixed inset-0 data-testid="account-add-dialog">
       <div v-bind="api.backdropProps" fixed inset-0 bg-border:10 backdrop-blur-3 />
       <div v-bind="api.positionerProps" fixed inset-0 flex="~ items-center justify-center">
         <div v-bind="api.contentProps" shadow="lg" w-100 relative bg-background:60 c-foreground>
@@ -81,11 +81,12 @@ async function onLogIn() {
                 </p>
                 <p>3. 在下面输入获取到的值</p>
               </div>
-              <input v-model="token" outline="~ border focus:primary" w-full bg-transparent placeholder="输入账号凭据" p-3>
+              <input v-model="token" data-testid="token-input" outline="~ border focus:primary" w-full bg-transparent placeholder="输入账号凭据" p-3>
             </div>
 
             <button
               type="button"
+              data-testid="login-button"
               :disabled="loading"
               w-full bg-background py-4
               c="foreground active:op-80" @click="onLogIn()"
