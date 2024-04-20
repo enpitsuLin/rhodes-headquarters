@@ -32,9 +32,6 @@ export default defineConfig({
         // eslint-disable-next-line node/prefer-global/process
         __ENABLE_DEVTOOL__: process.env.ENABLE_DEVTOOL,
       },
-      build: {
-        minify: false,
-      },
       plugins: [
         VueRouter({
           dts: './src/typed-router.d.ts',
