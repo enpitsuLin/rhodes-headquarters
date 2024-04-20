@@ -1,0 +1,9 @@
+{
+  "data": {
+    "uid": "<user_id>",
+    "code": "<mock_code>"
+  },
+  "msg": "OK",
+  "status": 0,
+  "type": "A"
+}

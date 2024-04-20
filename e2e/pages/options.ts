@@ -1,6 +1,6 @@
 import type { Page } from '@playwright/test'
 
-export class PopupPage {
+export class OptionsPage {
   constructor(
     public readonly page: Page,
     public readonly extendsionId: string,
@@ -13,6 +13,6 @@ export class PopupPage {
   }
 
   get url() {
-    return `chrome-extension://${this.extendsionId}/popup.html`
+    return `chrome-extension://${this.extendsionId}/options.html`
   }
 }

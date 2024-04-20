@@ -16,7 +16,7 @@
     "zip:firefox": "wxt zip --browser firefox",
     "postinstall": "wxt prepare && simple-git-hooks",
     "typecheck": "tsc --noEmit",
-    "e2e": "playwright test",
+    "e2e": "PW_EXPERIMENTAL_SERVICE_WORKER_NETWORK_EVENTS=1 playwright test",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "devtools": "vue-devtools"

@@ -30,7 +30,7 @@ function openOptionsPage() {
         </h2>
         <span>No Account</span>
       </div>
-      <Button variant="animate-outline" @click="openOptionsPage">
+      <Button variant="animate-outline" data-testid="option-button" @click="openOptionsPage">
         <span>前去添加</span>
         <svg
           stroke="current" w-16 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"

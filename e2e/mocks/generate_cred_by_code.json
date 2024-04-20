@@ -1,0 +1,10 @@
+{
+  "code": 0,
+  "message": "OK",
+  "timestamp": "1713614395",
+  "data": {
+    "cred": "<oauth_cred>",
+    "userId": "<skland_user_id>",
+    "token": "<oauth_token>"
+  }
+}
