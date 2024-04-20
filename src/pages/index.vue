@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useAccounts, useBindings, useCurrentAccount } from '@/composables/account'
 import { currentChararcterUidStorage } from '@/store/account'
+import { chararcterStorage } from '@/store/info'
 import BaseStatus from '~/components/BaseStatus.vue'
 import CharacterSwitcher from '~/components/CharacterSwitcher.vue'
 import MissionStat from '~/components/MissionStat.vue'
@@ -11,6 +12,7 @@ import Button from '~/components/ui/button/index.vue'
 const accounts = useAccounts()
 const currentAccount = useCurrentAccount()
 const characters = useBindings(currentAccount)
+const characterInfo = useWxtStorage(chararcterStorage)
 const currentUid = useWxtStorage(currentChararcterUidStorage)
 
 function openOptionsPage() {
@@ -43,7 +45,7 @@ function openOptionsPage() {
     <template v-else-if="currentAccount">
       <CharacterSwitcher
         v-model:uid="currentUid"
-        :status="currentAccount.gameStatus"
+        :status="characterInfo?.status ?? currentAccount.gameStatus"
         :characters="characters"
       />
       <BaseStatus :status="currentAccount.gameStatus" />

@@ -1,24 +1,9 @@
 <script setup lang="ts">
-import { useIntervalFn } from '@vueuse/core'
 import type { Account } from '@/store/account'
 import { chararcterStorage } from '@/store/info'
-import * as API from '~/api'
 
-const props = defineProps<{ account: Account, uid: string }>()
-const authorizeData = useAuthorize(props.account)
+defineProps<{ account: Account, uid: string }>()
 const characterInfo = useWxtStorage(chararcterStorage)
-
-useIntervalFn(
-  async () => {
-    const data = await API.skland.getBindingInfo({
-      uid: props.uid,
-      cred: authorizeData.value.cred,
-      token: authorizeData.value.token,
-    })
-    characterInfo.value = data
-  },
-  1000 * 60 * 10,
-)
 </script>
 
 <template>
