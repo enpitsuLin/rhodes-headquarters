@@ -3,10 +3,10 @@ import { toValue, useToggle } from '@vueuse/core'
 import * as dialog from '@zag-js/dialog'
 import { normalizeProps, useMachine } from '@zag-js/vue'
 import { computed } from 'vue'
-import { usePort } from '@/composables/port'
+import { getAccountService } from '@/utils/proxy-service'
 import { useSetCurrentAccount } from '@/composables/account'
-import Button from '~/components/ui/button/index.vue'
 import OptionsAccount from '@/components/OptionsAccount.vue'
+import Button from '~/components/ui/button/index.vue'
 
 const [state, send] = useMachine(dialog.machine({ id: '1' }))
 const api = computed(() => dialog.connect(state.value, send, normalizeProps))
@@ -17,23 +17,17 @@ const [loading, toggleLoading] = useToggle(false)
 const accounts = useAccounts()
 const setCurrentAccountId = useSetCurrentAccount()
 
-const port = usePort()
-
 function onLogOut(pendingDelAccountId: string) {
   accounts.value = accounts.value.filter(a => a.id !== pendingDelAccountId)
 }
+
+const accountService = getAccountService()
 
 async function onLogIn() {
   if (toValue(token).length === 0)
     return
   toggleLoading(true)
-  await sendMessage(
-    port,
-    createMessage(
-      'login',
-      { token: token.value },
-    ),
-  )
+  await accountService.logInOrRefreshAccount(token.value)
   toggleLoading(false)
   api.value.close()
 }
@@ -62,11 +56,7 @@ async function onLogIn() {
     <div v-if="api.isOpen" fixed inset-0>
       <div v-bind="api.backdropProps" fixed inset-0 bg-border:10 backdrop-blur-3 />
       <div v-bind="api.positionerProps" fixed inset-0 flex="~ items-center justify-center">
-        <div
-          v-bind="api.contentProps"
-          shadow="lg" w-100 relative
-          bg-background:60 c-foreground
-        >
+        <div v-bind="api.contentProps" shadow="lg" w-100 relative bg-background:60 c-foreground>
           <button
             flex="~ items-center justify-center" size-7 rounded-full
             class="absolute -top-3.5 -right-3.5 dark:bg-#595959" v-bind="api.closeTriggerProps"
@@ -91,19 +81,14 @@ async function onLogIn() {
                 </p>
                 <p>3. 在下面输入获取到的值</p>
               </div>
-              <input
-                v-model="token"
-                outline="~ border focus:primary"
-                w-full bg-transparent placeholder="输入账号凭据"
-                p-3
-              >
+              <input v-model="token" outline="~ border focus:primary" w-full bg-transparent placeholder="输入账号凭据" p-3>
             </div>
 
             <button
               type="button"
-              w-full bg-background
-              py-4 c="foreground active:op-80"
-              @click="onLogIn()"
+              :disabled="loading"
+              w-full bg-background py-4
+              c="foreground active:op-80" @click="onLogIn()"
             >
               {{ loading ? 'loading...' : '保存' }}
             </button>
