@@ -59,9 +59,9 @@ test.describe('Options', () => {
 
       expect(tokenInput).toBeVisible()
 
-      await tokenInput.fill('uj9A1WodkuJPN8iEy3gYXdP3')
+      await tokenInput.fill('<token>')
 
-      expect(tokenInput).toHaveValue('uj9A1WodkuJPN8iEy3gYXdP3')
+      expect(tokenInput).toHaveValue('<token>')
 
       const loginButton = optionsPage.page.getByTestId('login-button')
 
