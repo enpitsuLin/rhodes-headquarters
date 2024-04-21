@@ -16,9 +16,9 @@ export const test = base.extend<{
   // eslint-disable-next-line no-empty-pattern
   context: async ({ }, use) => {
     const context = await chromium.launchPersistentContext('', {
-      // eslint-disable-next-line node/prefer-global/process
-      headless: !!process.env.CI,
+      headless: false,
       args: [
+        `--headless=new`,
         `--disable-extensions-except=${pathToExtension}`,
         `--load-extension=${pathToExtension}`,
       ],
