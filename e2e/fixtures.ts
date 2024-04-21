@@ -1,8 +1,8 @@
 import path from 'node:path'
-import type { BrowserContext, Page } from '@playwright/test'
+import type { BrowserContext } from '@playwright/test'
 import { test as base, chromium } from '@playwright/test'
-import { PopupPage } from './pages/popup'
 import { OptionsPage } from './pages/options'
+import { PopupPage } from './pages/popup'
 
 const pathToExtension = path.resolve('.output/chrome-mv3')
 
@@ -16,7 +16,8 @@ export const test = base.extend<{
   // eslint-disable-next-line no-empty-pattern
   context: async ({ }, use) => {
     const context = await chromium.launchPersistentContext('', {
-      headless: false,
+      // eslint-disable-next-line node/prefer-global/process
+      headless: !!process.env.CI,
       args: [
         `--disable-extensions-except=${pathToExtension}`,
         `--load-extension=${pathToExtension}`,
