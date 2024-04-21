@@ -1,4 +1,5 @@
 import { defineProxyService } from '@webext-core/proxy-service'
+import { accountsStorage, currentAccountStorage } from '@/store/account'
 
 class AccountService {
   static readonly refreshInfoAlarmName = 'refresh-info'
@@ -10,16 +11,19 @@ class AccountService {
   }
 
   async logInOrRefreshAccount(token: string) {
-    await logInOrRefreshAccount(token)
-    this.createRefreshInfoAlarm()
-    return true
+    return await logInOrRefreshAccount(token)
   }
 
   async refreshCharacterInfo() {
-    await refreshCharacterInfo()
+    const accounts = await accountsStorage.getValue()
+    const currentAccountId = await currentAccountStorage.getValue()
+    const account = accounts.find(account => account.id === currentAccountId)
+
+    if (account)
+      await refreshCharacterInfo()
   }
 
-  private createRefreshInfoAlarm() {
+  async createRefreshInfoAlarm() {
     browser.alarms.create(AccountService.refreshInfoAlarmName, {
       periodInMinutes: 10,
       when: 0,
