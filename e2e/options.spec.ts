@@ -19,6 +19,11 @@ const apiResponseMap = new Map<string, any>(
 )
 
 test.describe('Options', () => {
+  // eslint-disable-next-line no-empty-pattern
+  test.beforeEach(async ({}, testInfo) => {
+    testInfo.snapshotSuffix = ''
+  })
+
   test(
     'Option page and login skland user',
     async ({ page, optionsPage, popupPage, context }) => {
@@ -74,7 +79,9 @@ test.describe('Options', () => {
         document.querySelector('canvas')?.remove()
       })
 
-      expect(await popupPage.page.screenshot()).toMatchSnapshot()
+      const main = popupPage.page.locator('main.skland-container')
+
+      await expect(main).toHaveScreenshot('options-page.png')
     },
   )
 })
