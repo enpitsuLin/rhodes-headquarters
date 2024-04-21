@@ -11,7 +11,8 @@ class AccountService {
   }
 
   async logInOrRefreshAccount(token: string) {
-    return await logInOrRefreshAccount(token)
+    await logInOrRefreshAccount(token)
+    await this.refreshCharacterInfo()
   }
 
   async refreshCharacterInfo() {
