@@ -55,5 +55,6 @@ defineProps<Props>()
     >
       <slot />
     </main>
+    <slot name="fab" />
   </div>
 </template>
