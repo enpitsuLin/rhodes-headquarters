@@ -19,9 +19,8 @@ class AccountService {
     const accounts = await accountsStorage.getValue()
     const currentAccountId = await currentAccountStorage.getValue()
     const account = accounts.find(account => account.id === currentAccountId)
-
     if (account)
-      await refreshCharacterInfo()
+      await logInOrRefreshAccount(account.token)
   }
 
   async createRefreshInfoAlarm() {

@@ -39,12 +39,10 @@ async function refreshAccount({ accountMapping, account, token }: { token: strin
   const credData = accountMapping[account.id]
   if (!credData)
     throw new Error(`unexpected error: ID ${account.id} has no its credData`)
-  const valid = await API.skland.checkAccessToken(credData)
-  if (!valid) {
-    const authorizeCode = await API.hypergrayph.grantAuthorizeCode(token)
-    const { userId, ...credData } = await API.skland.generateCredByCode(authorizeCode)
-    accountMapping[userId] = credData
-  }
+
+  const authorizeCode = await API.hypergrayph.grantAuthorizeCode(token)
+  const { userId, ...newCredData } = await API.skland.generateCredByCode(authorizeCode)
+  accountMapping[userId] = newCredData
   const { user, gameStatus } = await API.skland.getUserInfo(credData)
   const binding = await API.skland.getPlayerBinding(credData)
   account.gameStatus = gameStatus
