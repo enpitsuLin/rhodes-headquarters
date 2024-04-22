@@ -15,7 +15,7 @@ export default defineConfig<Theme>({
   },
   theme: {
     colors: {
-      primary: '#22bbff',
+      primary: 'hsl(211 57% 58)',
       foreground: 'hsl(var(--foreground))',
       background: 'hsl(var(--background))',
       border: 'hsl(var(--border))',

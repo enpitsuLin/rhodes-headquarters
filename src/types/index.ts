@@ -32,4 +32,8 @@ export interface User {
   id: string
   nickname: string
   avatar: string
+  pendant?: {
+    iconUrl: string
+    id: number
+  }
 }
