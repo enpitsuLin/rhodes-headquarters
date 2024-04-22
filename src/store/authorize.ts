@@ -1,4 +1,4 @@
-import { AUTHORIZE_KEY_MAPPING } from './key-definitions'
+import { AUTHORIZE_MAPPING_KEY } from './key-definitions'
 
 export interface Authorize {
   cred: string
@@ -6,7 +6,7 @@ export interface Authorize {
 }
 
 export const authorizeMappingStorage = storage.defineItem<Record<string, Authorize>>(
-  AUTHORIZE_KEY_MAPPING,
+  AUTHORIZE_MAPPING_KEY,
   {
     defaultValue: {},
     version: 1,
