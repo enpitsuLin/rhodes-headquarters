@@ -13,6 +13,7 @@ defineProps<Props>()
     <header
       h-160px w-full
       relative of-hidden
+      select-none
       class="from-#0C4D78:0 to-#0C4D78:80 bg-gradient-linear"
     >
       <div absolute left="-20px" bottom="-20px">
