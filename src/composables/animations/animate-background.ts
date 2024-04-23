@@ -1,8 +1,8 @@
 class Dust {
   public x: number
   public y: number
-  public vx: number = Math.random() * 1 + 1
-  public vy: number = Math.random() * 1 + 0.01
+  public vx: number = (Math.random() * 1 + 1) * 0.5
+  public vy: number = (Math.random() * 1 + 0.01) * 0.5
   public shadowBlur: number = Math.random() * 3
   public shadowX: number = (Math.random() * 2) - 1
   public shadowY: number = (Math.random() * 2) - 1
