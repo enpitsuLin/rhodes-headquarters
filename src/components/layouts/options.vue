@@ -9,7 +9,7 @@ defineProps<Props>()
 </script>
 
 <template>
-  <div bg="#222325" h-full w-full relative>
+  <div bg="background" h-full w-full relative>
     <header
       h-160px w-full
       relative of-hidden
@@ -19,7 +19,7 @@ defineProps<Props>()
       <div absolute left="-20px" bottom="-20px">
         <span
           text-nowrap font-bold text-65px
-          tracking="-11%" c="#222325"
+          tracking="-11%" c="background"
         >
           {{ backgroundTitle }}
         </span>
