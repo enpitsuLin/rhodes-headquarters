@@ -53,5 +53,5 @@ body {
 
 
 a,input,button,textarea,[data-cursor-interacting] {
-	cursor: var(--cursor) 3 3, pointer;
+	cursor: var(--cursor) 3 3, pointer !important;
 }
