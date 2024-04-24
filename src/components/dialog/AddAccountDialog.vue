@@ -37,10 +37,10 @@ watch(nodeRef, () => {
 })
 
 const { isLoading, execute } = useAsyncState(
-  async () => {
+  () => {
     if (token.value)
-      await accountService.logInOrRefreshAccount(token.value)
-    throw new Error('凭证为空')
+      return accountService.logInOrRefreshAccount(token.value).then(() => true)
+    else throw new Error('凭证为空')
   },
   false,
   {
