@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import SectionTitle from '~/components/home/SectionTitle.vue'
 import { useApInfo } from '@/composables/status/ap'
 import type { Status } from '@/types'
 

@@ -1,5 +1,4 @@
 import { defineProxyService } from '@webext-core/proxy-service'
-import type { Options } from '@zag-js/toast'
 import { accountsStorage, currentAccountStorage } from '@/store/account'
 
 class AccountService {
@@ -21,7 +20,7 @@ class AccountService {
     const currentAccountId = await currentAccountStorage.getValue()
     const account = accounts.find(account => account.id === currentAccountId)
     if (account)
-      await logInOrRefreshAccount(account.token)
+      await refreshCharacterInfo()
   }
 
   async createRefreshInfoAlarm() {

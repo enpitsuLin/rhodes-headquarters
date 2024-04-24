@@ -3,12 +3,15 @@ import { useRouter } from 'vue-router/auto'
 import { useMagicKeys } from '@vueuse/core'
 import { useAccounts, useCurrentAccount } from '@/composables/account'
 import LayoutDefault from '~/components/layouts/default.vue'
-import SectionTitle from '~/components/home/SectionTitle.vue'
 import SectionSanity from '~/components/home/SectionSanity.vue'
+import SectionRecruit from '~/components/home/SectionRecruit.vue'
+import { chararcterStorage } from '@/store/info'
 
 const router = useRouter()
 const accounts = useAccounts()
 const currentAccount = useCurrentAccount()
+
+const characterInfo = useWxtStorage(chararcterStorage)
 
 const { meta, control } = useMagicKeys()
 
@@ -77,7 +80,11 @@ function onOptionClick() {
         </svg>
       </header>
       <SectionSanity :status="currentAccount.gameStatus" />
-      <SectionTitle title="罗德岛" sub="Rhodes Island" />
+      <SectionRecruit
+        v-if="characterInfo"
+        :recruits="characterInfo.recruit"
+        :hire="characterInfo.building.hire"
+      />
     </template>
   </LayoutDefault>
 </template>
