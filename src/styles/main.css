@@ -9,7 +9,7 @@ body {
 }
 
 #app {
-	--at-apply: w-350px h-600px;
+	--at-apply: w-350px h-600px shadow-md;
 }
 
 @font-face {
