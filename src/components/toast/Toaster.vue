@@ -6,7 +6,12 @@ const { api } = useToast()
 </script>
 
 <template>
-  <div v-for="placement in api.getPlacements()" :key="placement" v-bind="api.getGroupProps({ placement })">
+  <div
+    v-for="placement in api.getPlacements()"
+    :key="placement"
+    v-bind="api.getGroupProps({ placement })"
+    class="z-9999!"
+  >
     <Toast
       v-for="t in api.getToastsByPlacement(placement)"
       :key="t.id"

@@ -11,6 +11,7 @@ const open = ref(false)
       shadow shadow-black:50
       absolute right-24px bottom-24px
       size-50px rounded-full bg="#35373c"
+      scale="active:90" transition="transform"
       @click="open = true"
     >
       <div

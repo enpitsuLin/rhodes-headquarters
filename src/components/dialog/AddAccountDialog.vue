@@ -9,6 +9,8 @@ const nodeRef = ref<HTMLDivElement | null>(null)
 
 const accountService = getAccountService()
 
+const toast = useToast()
+
 const token = ref('')
 const errorMessage = ref('')
 
@@ -48,6 +50,10 @@ const { isLoading, execute } = useAsyncState(
   {
     immediate: false,
     onSuccess() {
+      toast.create({
+        title: '新增成功',
+        notification: false,
+      })
       token.value = ''
       open.value = false
     },

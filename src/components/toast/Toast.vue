@@ -12,7 +12,7 @@ const api = computed(() => toast.connect(state.value, send, normalizeProps))
 <template>
   <div
     v-bind="api.rootProps"
-    p="x-4 y-2" bg-background shadow min-w-40
+    p="x-4 y-2" bg="#35373c" rounded-sm shadow-lg min-w-250px
     transition="all duration-400 ease-[cubic-bezier(0.21,1.02,0.73,1)] data-[state=closed]:ease-[cubic-bezier(0.06,0.71,0.55,1)]"
     class="will-change-transform [translate:var(--x)_var(--y)] scale-$scale z-$z-index h-$height opacity-$opacity"
   >

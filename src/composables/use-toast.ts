@@ -8,7 +8,13 @@ const ToastInjectKey = Symbol('ToastContext') as InjectionKey<ComputedRef<toast.
 
 interface Toast {
   api: ComputedRef<toast.GroupApi>
-  create: (options: Options<string>) => Promise<string | undefined>
+  create: (options: Options<string> & {
+    /**
+     * enable notification
+     * @default true
+     */
+    notification?: boolean
+  }) => Promise<string | undefined>
 }
 
 async function isPopUp() {
@@ -26,15 +32,18 @@ export function useToast() {
   const api = inject(ToastInjectKey)!
 
   const toast: Toast = {
-    async create(options: Options<string>) {
-      if (await isPopUp()) {
-        return await browser.notifications.create({
-          type: 'basic',
-          title: options.title ?? '',
-          message: options.description ?? '',
-          iconUrl: browser.runtime.getURL('/icon.svg'),
-        })
+    async create({ notification = true, ...options }) {
+      if (notification) {
+        if (await isPopUp()) {
+          return await browser.notifications.create({
+            type: 'basic',
+            title: options.title ?? '',
+            message: options.description ?? '',
+            iconUrl: browser.runtime.getURL('/icon.svg'),
+          })
+        }
       }
+
       return api.value.create(options)
     },
     api,

@@ -1,8 +1,10 @@
 <script setup lang="ts">
+import { useRouter } from 'vue-router/auto'
 import { useAccounts, useCurrentAccount } from '@/composables/account'
 import { useToast } from '@/composables/use-toast'
 import LayoutDefault from '~/components/layouts/default.vue'
 
+const router = useRouter()
 const accounts = useAccounts()
 const currentAccount = useCurrentAccount()
 
@@ -19,6 +21,9 @@ function onClick() {
   <LayoutDefault>
     <template v-if="accounts.length === 0">
       <h2>TODO</h2>
+      <button @click="router.push('/options')">
+        router
+      </button>
     </template>
     <template v-else-if="currentAccount">
       <header
