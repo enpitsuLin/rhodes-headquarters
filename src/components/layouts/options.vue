@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { useRoute, useRouter } from 'vue-router/auto'
+import { useUrlSearchParams } from '@vueuse/core'
+import { useRouter } from 'vue-router/auto'
 
 interface Props {
   title: string
@@ -8,6 +9,20 @@ interface Props {
 }
 
 defineProps<Props>()
+
+const query = useUrlSearchParams<{ to?: string }>()
+
+const router = useRouter()
+
+if (query.to === 'preferences') {
+  router
+    .replace({
+      name: '/preferences',
+    })
+    .then(() => {
+      delete query.to
+    })
+}
 
 const showBack = location.pathname !== '/options.html'
 </script>

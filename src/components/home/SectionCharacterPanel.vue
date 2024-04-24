@@ -35,9 +35,14 @@ watch(nodeRef, () => {
 
 function toOptions() {
   // TODO 确定一下 PC 上 control 键，可以判断环境再判断键位
-  if (meta.value || control.value)
-    browser.runtime.openOptionsPage()
-  else router.push('/preferences')
+  if (meta.value || control.value) {
+    browser.tabs.create({
+      url: browser.runtime.getURL('/options.html?to=preferences'),
+    })
+  }
+  else {
+    router.push('/preferences')
+  }
 }
 </script>
 
