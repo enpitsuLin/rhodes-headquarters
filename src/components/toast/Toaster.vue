@@ -2,7 +2,7 @@
 import Toast from './Toast.vue'
 import { useToast } from '@/composables/use-toast'
 
-const api = useToast()
+const { api } = useToast()
 </script>
 
 <template>

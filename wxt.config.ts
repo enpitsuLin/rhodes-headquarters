@@ -15,6 +15,7 @@ export default defineConfig({
     permissions: [
       'storage',
       'alarms',
+      'notifications',
     ],
     host_permissions: ['*://*/*'],
   },

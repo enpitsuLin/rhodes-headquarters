@@ -1,4 +1,5 @@
 import { defineProxyService } from '@webext-core/proxy-service'
+import type { Options } from '@zag-js/toast'
 import { accountsStorage, currentAccountStorage } from '@/store/account'
 
 class AccountService {
