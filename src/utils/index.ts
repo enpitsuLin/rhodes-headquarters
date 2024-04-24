@@ -43,8 +43,8 @@ async function refreshAccount({ accountMapping, account, token }: { token: strin
   const authorizeCode = await API.hypergrayph.grantAuthorizeCode(token)
   const { userId, ...newCredData } = await API.skland.generateCredByCode(authorizeCode)
   accountMapping[userId] = newCredData
-  const { user, gameStatus } = await API.skland.getUserInfo(credData)
-  const binding = await API.skland.getPlayerBinding(credData)
+  const { user, gameStatus } = await API.skland.getUserInfo(newCredData)
+  const binding = await API.skland.getPlayerBinding(newCredData)
   account.gameStatus = gameStatus
   account.user = user
   account.binding = binding
@@ -68,6 +68,7 @@ export async function logInOrRefreshAccount(token: string) {
   const availableUid = accounts.map(a =>
     a.binding.map(b => b.bindingList),
   ).flat(2)[0].uid
+
   await Promise.all([
     accountsStorage.setValue(accounts),
     authorizeMappingStorage.setValue(accountMapping),

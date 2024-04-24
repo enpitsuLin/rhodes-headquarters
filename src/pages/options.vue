@@ -4,9 +4,12 @@ import AddAccountFab from '@/components/account/AddAccountFab.vue'
 import OptionLayout from '~/components/layouts/options.vue'
 
 const accounts = useAccounts()
+const authorizeMapping = useAuthorizeMapping()
 const currentAccount = useCurrentAccount()
 function onDelete(id: string) {
   accounts.value = accounts.value.filter(a => a.id !== id)
+  if (authorizeMapping.value[id])
+    delete authorizeMapping.value[id]
 }
 </script>
 
