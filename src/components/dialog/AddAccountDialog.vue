@@ -1,41 +1,25 @@
 <script setup lang="ts">
-import * as presence from '@zag-js/presence'
-import * as dialog from '@zag-js/dialog'
-import { normalizeProps, useMachine } from '@zag-js/vue'
+import { useToggle } from '@vueuse/core'
+import { useDialog } from '@/composables/use-dialog'
+import { usePresence } from '@/composables/use-presence'
 
 const open = defineModel<boolean>('open', { required: true })
 
 const nodeRef = ref<HTMLDivElement | null>(null)
 
-const [state, send] = useMachine(
-  dialog.machine({
-    'id': '1',
-    'open.controlled': true,
-    'open': open.value,
-    onOpenChange(details) {
-      open.value = details.open
-    },
-  }),
-  {
-    context: computed(() => ({ open: open.value })),
+const api = useDialog({
+  open,
+  onOpenChange(to) {
+    open.value = to
   },
-)
+})
 
-const api = computed(() => dialog.connect(state.value, send, normalizeProps))
-
-const [pState, pSend] = useMachine(
-  presence.machine({
-    present: api.value.open,
-    onExitComplete: () => {
-      open.value = false
-    },
-  }),
-  {
-    context: computed(() => ({ present: api.value.open })),
+const presenceApi = usePresence({
+  present: computed(() => api.value.open),
+  onExitComplete: () => {
+    open.value = false
   },
-)
-
-const presenceApi = computed(() => presence.connect(pState.value, pSend, normalizeProps))
+})
 
 watch(nodeRef, () => {
   if (nodeRef.value) {
@@ -44,6 +28,21 @@ watch(nodeRef, () => {
       presenceApi.value.setNode(node)
   }
 })
+
+const token = ref('')
+const [loading, toggleLoading] = useToggle(false)
+
+const accountService = getAccountService()
+
+async function onLogIn() {
+  if (toValue(token).length === 0)
+    return
+  toggleLoading(true)
+  await accountService.logInOrRefreshAccount(token.value)
+  toggleLoading(false)
+  token.value = ''
+  open.value = false
+}
 </script>
 
 <template>
@@ -59,7 +58,7 @@ watch(nodeRef, () => {
           ref="nodeRef"
           v-bind="api.contentProps" shadow="lg" w-320px relative
           flex="~ col" bg-background
-          class="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-90 data-[state=open]:slide-in-from-bottom-10 data-[state=closed]:fade-out"
+          class="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-300 data-[state=open]:fade-in-90 data-[state=open]:slide-in-from-bottom-10 data-[state=closed]:fade-out"
         >
           <header v-bind="api.titleProps" h-50px relative flex="~ items-end" border="l-5px primary" select-none>
             <div flex="~ items-baseline" pb-1 pl-4>
@@ -98,22 +97,34 @@ watch(nodeRef, () => {
             </div>
           </header>
           <main>
-            <div p-5>
-              <h3 text-lg>
-                如何获得凭据
-              </h3>
-              <div space-y-2 py-4>
-                <p>1. 打开森空岛网页版并登录</p>
-                <p>
-                  2. 登录森空岛网页版后，打开 <a
-                    href="https://web-api.skland.com/account/info/hg"
-                    target="_blank"
-                  >https://web-api.skland.com/account/info/hg</a> 记下 content 字段的值
-                </p>
-                <p>3. 在下面输入获取到的值</p>
+            <div space-y-2 p-4>
+              <p>1. 打开森空岛网页版并登录</p>
+              <p>
+                2. 登录森空岛网页版后，打开 <a
+                  href="https://web-api.skland.com/account/info/hg"
+                  target="_blank"
+                >https://web-api.skland.com/account/info/hg</a> 记下 content 字段的值
+              </p>
+              <p>3. 在下面输入获取到的值</p>
+              <div flex="~">
+                <input
+                  v-model="token"
+                  type="text"
+                  bg-background border="~ border focus:primary"
+                  flex-1 p="x-3 y2" outline-none
+                >
               </div>
             </div>
           </main>
+          <footer p="t-5px b-13px" flex="~ justify-center">
+            <button
+              :disabled="loading"
+              w-250px h-32px p-10px bg="primary" flex="inline justify-center items-center"
+              @click="onLogIn"
+            >
+              {{ loading ? 'Loading...' : '新增账户' }}
+            </button>
+          </footer>
         </div>
       </div>
     </div>
