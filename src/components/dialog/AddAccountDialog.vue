@@ -1,11 +1,16 @@
 <script setup lang="ts">
-import { useToggle } from '@vueuse/core'
+import { useAsyncState } from '@vueuse/core'
 import { useDialog } from '@/composables/use-dialog'
 import { usePresence } from '@/composables/use-presence'
 
 const open = defineModel<boolean>('open', { required: true })
 
 const nodeRef = ref<HTMLDivElement | null>(null)
+
+const accountService = getAccountService()
+
+const token = ref('')
+const errorMessage = ref('')
 
 const api = useDialog({
   open,
@@ -18,6 +23,8 @@ const presenceApi = usePresence({
   present: computed(() => api.value.open),
   onExitComplete: () => {
     open.value = false
+    errorMessage.value = ''
+    token.value = ''
   },
 })
 
@@ -29,20 +36,27 @@ watch(nodeRef, () => {
   }
 })
 
-const token = ref('')
-const [loading, toggleLoading] = useToggle(false)
-
-const accountService = getAccountService()
-
-async function onLogIn() {
-  if (toValue(token).length === 0)
-    return
-  toggleLoading(true)
-  await accountService.logInOrRefreshAccount(token.value)
-  toggleLoading(false)
-  token.value = ''
-  open.value = false
-}
+const { isLoading, execute } = useAsyncState(
+  async () => {
+    if (token.value)
+      await accountService.logInOrRefreshAccount(token.value)
+    throw new Error('凭证为空')
+  },
+  false,
+  {
+    immediate: false,
+    onSuccess() {
+      token.value = ''
+      open.value = false
+    },
+    onError(e) {
+      if ((e as Error).toString().includes('FetchError'))
+        errorMessage.value = '验证出错'
+      else
+        errorMessage.value = (e as Error).message
+    },
+  },
+)
 </script>
 
 <template>
@@ -106,23 +120,28 @@ async function onLogIn() {
                 >https://web-api.skland.com/account/info/hg</a> 记下 content 字段的值
               </p>
               <p>3. 在下面输入获取到的值</p>
-              <div flex="~">
+              <div flex="~" relative>
                 <input
                   v-model="token"
                   type="text"
-                  bg-background border="~ border focus:primary"
+                  bg-background border="~ border [&.warning]:red focus:primary"
                   flex-1 p="x-3 y2" outline-none
+                  :class="!!errorMessage && 'warning animate-shake'"
+                  @focus="errorMessage = ''"
                 >
+                <p absolute text-xs c-red bottom="-4.5">
+                  {{ errorMessage }}
+                </p>
               </div>
             </div>
           </main>
           <footer p="t-5px b-13px" flex="~ justify-center">
             <button
-              :disabled="loading"
+              :disabled="isLoading"
               w-250px h-32px p-10px bg="primary" flex="inline justify-center items-center"
-              @click="onLogIn"
+              @click="execute()"
             >
-              {{ loading ? 'Loading...' : '新增账户' }}
+              {{ isLoading ? 'Loading...' : '新增账户' }}
             </button>
           </footer>
         </div>

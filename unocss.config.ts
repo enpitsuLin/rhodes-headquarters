@@ -60,6 +60,17 @@ export default defineConfig<Theme>({
         '--un-exit-translate-y': 'initial',
       },
     ],
+    [
+      'animate-shake',
+      {
+        'animation-name': 'animate-shaking',
+        'animation-duration': 'var(--un-animate-duration)',
+        'animation-iteration-count': 'var(--un-animate-iteration-count, 2)',
+        '--un-animate-duration': '150ms',
+        '--un-from-translate-x': 'initial',
+        '--un-to-translate-x': 'initial',
+      },
+    ],
     [/^fade-in-?(.+)?$/, ([, d]) => ({ '--un-enter-opacity': `${Number(handleMatchNumber(d) || 0) / 100}` })],
     [/^fade-out-?(.+)?$/, ([, d]) => ({ '--un-exit-opacity': `${Number(handleMatchNumber(d) || 0) / 100}` })],
     [/^zoom-in-?(.+)?$/, ([, d]) => ({ '--un-enter-scale': `${Number(handleMatchNumber(d) || 0) / 100}` })],

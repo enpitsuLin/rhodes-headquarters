@@ -31,6 +31,16 @@ body {
 		opacity: var(--un-exit-opacity, 1);
 		transform: translate3d(var(--un-exit-translate-x, 0), var(--un-exit-translate-y, 0), 0) scale3d(var(--un-exit-scale, 1), var(--un-exit-scale, 1), var(--un-exit-scale, 1)) rotate(var(--un-exit-rotate, 0))
 	}
+
+}
+
+@keyframes animate-shaking {
+	from {
+		transform: translateX(var(--un-from-translate-x, -2px))
+	}
+	to {
+		transform: translateX(var(--un-to-translate-x, 2px))
+	}
 }
 
 :root {
