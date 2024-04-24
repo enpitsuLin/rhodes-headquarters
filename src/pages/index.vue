@@ -1,9 +1,18 @@
 <script setup lang="ts">
 import { useAccounts, useCurrentAccount } from '@/composables/account'
+import { useToast } from '@/composables/use-toast'
 import LayoutDefault from '~/components/layouts/default.vue'
 
 const accounts = useAccounts()
 const currentAccount = useCurrentAccount()
+
+const toast = useToast()
+
+function onClick() {
+  toast.create({
+    title: 'Hello',
+  })
+}
 </script>
 
 <template>
@@ -59,6 +68,9 @@ const currentAccount = useCurrentAccount()
           </defs>
         </svg>
       </header>
+      <button @click="onClick">
+        toast
+      </button>
     </template>
   </LayoutDefault>
 </template>

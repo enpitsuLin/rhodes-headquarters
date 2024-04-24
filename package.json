@@ -30,6 +30,7 @@
     "@zag-js/menu": "^0.48.0",
     "@zag-js/presence": "^0.48.0",
     "@zag-js/tabs": "^0.48.0",
+    "@zag-js/toast": "^0.48.0",
     "@zag-js/vue": "^0.48.0",
     "buffer": "^6.0.3",
     "class-variance-authority": "^0.7.0",
