@@ -5,6 +5,9 @@ import OptionLayout from '~/components/layouts/options.vue'
 
 const accounts = useAccounts()
 const currentAccount = useCurrentAccount()
+function onDelete(id: string) {
+  accounts.value = accounts.value.filter(a => a.id !== id)
+}
 </script>
 
 <template>
@@ -17,6 +20,7 @@ const currentAccount = useCurrentAccount()
         <AccountItem
           :account="account"
           :current="account.id === currentAccount?.id"
+          @delete="onDelete"
         />
       </li>
     </ul>
