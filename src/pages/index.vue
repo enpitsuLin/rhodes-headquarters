@@ -64,7 +64,9 @@ function onOptionClick() {
           </div>
         </div>
         <div>
-          switcher
+          <button bg-white c-black rounded-full p-1>
+            <svg xmlns="http://www.w3.org/2000/svg" size="16px" width="32" height="32" viewBox="0 0 48 48"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M42 19H6M30 7l12 12M6.799 29h36m-36 0l12 12" /></svg>
+          </button>
         </div>
         <svg
           absolute right-0 bottom-1
