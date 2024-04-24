@@ -140,7 +140,9 @@ const { isLoading, execute } = useAsyncState(
           <footer p="t-5px b-13px" flex="~ justify-center">
             <button
               :disabled="isLoading"
-              w-250px h-32px p-10px bg="primary" flex="inline justify-center items-center"
+              w-250px h-32px p-10px
+              bg="[url(./btn-bg.svg)]"
+              flex="inline justify-center items-center"
               @click="execute()"
             >
               {{ isLoading ? 'Loading...' : '新增账户' }}
