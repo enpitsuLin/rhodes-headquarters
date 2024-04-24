@@ -6,6 +6,8 @@ import LayoutDefault from '~/components/layouts/default.vue'
 import SectionSanity from '~/components/home/SectionSanity.vue'
 import SectionRecruit from '~/components/home/SectionRecruit.vue'
 import { chararcterStorage } from '@/store/info'
+import SectionMission from '@/components/home/SectionMission.vue'
+import SectionTip from '@/components/home/SectionTip.vue'
 
 const router = useRouter()
 const accounts = useAccounts()
@@ -85,6 +87,8 @@ function onOptionClick() {
         :recruits="characterInfo.recruit"
         :hire="characterInfo.building.hire"
       />
+      <SectionMission />
+      <SectionTip />
     </template>
   </LayoutDefault>
 </template>
