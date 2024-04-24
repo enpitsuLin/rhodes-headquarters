@@ -3,13 +3,13 @@ body,
 #app {
 	--at-apply: p-0 m-0 h-full w-full;
 }
-
+ 
 body {
-	--at-apply: bg-neutral-900 bg-cover bg-center-bottom c-white;
+	--at-apply: relative flex items-center justify-center bg-neutral-900 bg-cover bg-center-bottom c-white;
 }
 
 #app {
-	--at-apply: w-350px h-600px shadow-md;
+	--at-apply: w-350px h-600px shadow-md relative;
 }
 
 @font-face {
@@ -51,9 +51,6 @@ body {
 	cursor: var(--cursor) 3 3, default;
 }
 
-body {
-	--at-apply: flex items-center justify-center;
-}
 
 a,input,button,textarea,[data-cursor-interacting] {
 	cursor: var(--cursor) 3 3, pointer;

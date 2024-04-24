@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useRoute, useRouter } from 'vue-router/auto'
+
 interface Props {
   title: string
   backgroundTitle: string
@@ -6,6 +8,8 @@ interface Props {
 }
 
 defineProps<Props>()
+
+const showBack = location.pathname !== '/options.html'
 </script>
 
 <template>
@@ -16,6 +20,13 @@ defineProps<Props>()
       select-none
       class="from-#0C4D78:0 to-#0C4D78:80 bg-gradient-linear"
     >
+      <div v-if="showBack" pt-3>
+        <button @click="$router.go(-1)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+            <path fill="currentColor" d="m14 18l-6-6l6-6l1.4 1.4l-4.6 4.6l4.6 4.6z" />
+          </svg>
+        </button>
+      </div>
       <div absolute left="-20px" bottom="-20px">
         <span
           text-nowrap font-bold text-65px
@@ -59,4 +70,29 @@ defineProps<Props>()
     </main>
     <slot name="fab" />
   </div>
+
+  <nav
+    v-if="!showBack"
+    absolute left-0 right-0
+    flex="~" border="t-1 border/30"
+  >
+    <RouterLink
+      to="/options" role="button"
+      w="1/2" bg-background:60 py-3
+      block text-center font-bold
+      border="b-3 transparent [&.active]:primary"
+      active-class="active"
+    >
+      账号管理
+    </RouterLink>
+    <RouterLink
+      to="/preferences" role="button"
+      w="1/2" bg-background:60 py-3
+      block text-center font-bold
+      border="b-3 transparent [&.active]:primary"
+      active-class="active"
+    >
+      系统设置
+    </RouterLink>
+  </nav>
 </template>

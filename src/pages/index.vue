@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router/auto'
+import { useMagicKeys } from '@vueuse/core'
 import { useAccounts, useCurrentAccount } from '@/composables/account'
 import { useToast } from '@/composables/use-toast'
 import LayoutDefault from '~/components/layouts/default.vue'
@@ -8,6 +9,8 @@ const router = useRouter()
 const accounts = useAccounts()
 const currentAccount = useCurrentAccount()
 
+const { meta, control } = useMagicKeys()
+
 const toast = useToast()
 
 function onClick() {
@@ -15,13 +18,20 @@ function onClick() {
     title: 'Hello',
   })
 }
+
+function onOptionClick() {
+  // TODO 确定一下 PC 上 control 键，可以判断环境再判断键位
+  if (meta.value || control.value)
+    browser.runtime.openOptionsPage()
+  else router.push('/options')
+}
 </script>
 
 <template>
   <LayoutDefault>
     <template v-if="accounts.length === 0">
       <h2>TODO</h2>
-      <button @click="router.push('/options')">
+      <button @click="onOptionClick">
         router
       </button>
     </template>
