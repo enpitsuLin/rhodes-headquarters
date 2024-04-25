@@ -55,11 +55,11 @@ function toPreferences() {
 function toOptions() {
   if (meta.value || control.value) {
     browser.tabs.create({
-      url: browser.runtime.getURL('/options.html?to=preferences'),
+      url: browser.runtime.getURL('/options.html'),
     })
   }
   else {
-    router.push('/preferences')
+    router.push('/options')
   }
 }
 </script>
