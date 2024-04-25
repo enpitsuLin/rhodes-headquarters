@@ -1,17 +1,11 @@
 <script setup lang="ts">
 import SectionTitle from '~/components/home/SectionTitle.vue'
-import { useApInfo } from '@/composables/status/ap'
+import { useApInfo, useSanityInfo } from '@/composables/status/ap'
 import type { Status } from '@/types'
 
 const props = defineProps<{ status: Status }>()
 
-const {
-  spendTime,
-  recoveryDesc,
-  current,
-  max,
-  nextApAddTime,
-} = useApInfo(props.status.ap)
+const { max, current, completeRecovery, nextAdd } = useSanityInfo(props.status.ap)
 </script>
 
 <template>
@@ -28,17 +22,17 @@ const {
         <div flex="~ justify-between items-center">
           <span leading-27px font-bold text-24px>{{ current }}/{{ max }}</span>
           <span v-if="current === max">理智已完全恢复!</span>
-          <span v-else>下次恢复: {{ nextApAddTime }}</span>
+          <span v-else>下次恢复: {{ nextAdd.duration.readable }}</span>
         </div>
         <div flex="~ justify-between items-center" leading-17px>
           <span>全部恢复需要:</span>
           <span v-if="current === max">-</span>
-          <span v-else>{{ spendTime }}</span>
+          <span v-else>{{ completeRecovery.duration.readable }}</span>
         </div>
         <div flex="~ justify-between items-center" leading-17px>
           <span>预计恢复时间:</span>
           <span v-if="current === max">-</span>
-          <span v-else>{{ recoveryDesc }}</span>
+          <span v-else>{{ completeRecovery.date.readable }}</span>
         </div>
       </div>
     </div>

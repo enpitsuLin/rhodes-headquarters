@@ -28,26 +28,36 @@ const parsedRecruits = useRecruits(props.recruits)
       >
         <li
           v-for="(recruit, index) in parsedRecruits"
-          :key="+recruit.finishAt"
-          h-50px flex="~ gap-10px items-center"
-          bg="#2D2E30/30" px-8px
+          :key="index"
         >
-          <div size-24px bg-primary text-center leading-24px>
-            {{ index + 1 }}
-          </div>
+          <div
+            h-50px flex="~ gap-10px items-center"
+            bg="#2D2E30/30" px-8px
+          >
+            <div size-24px bg-primary text-center leading-24px>
+              {{ index + 1 }}
+            </div>
+            <template v-if="recruit.status === 'completed'">
+              <div text-base>
+                已成功招募到候选人
+              </div>
+            </template>
 
-          <div v-if="recruit.isFinished" text-base>
-            已成功招募到候选人
+            <template v-else-if="recruit.status === 'recruiting'">
+              <div animate-pulse flex-1>
+                招募中...
+              </div>
+              <div flex="~ col" text-10px>
+                <div>剩余时间: {{ recruit.readableDuration }}</div>
+                <div>预计完成时间: {{ recruit.readableCompletedAt }}</div>
+              </div>
+            </template>
+            <template v-else>
+              <div text-base>
+                没有进行中的招募
+              </div>
+            </template>
           </div>
-          <template v-else>
-            <div animate-pulse flex-1>
-              招募中...
-            </div>
-            <div flex="~ col" text-10px>
-              <div>剩余时间: 7 小时 42 分钟</div>
-              <div>预计完成时间: 明日 07时 22 分</div>
-            </div>
-          </template>
         </li>
       </ul>
     </div>

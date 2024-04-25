@@ -39,7 +39,7 @@ function onOptionClick() {
     </template>
     <template v-else-if="currentAccount">
       <SectionCharacter :status="characterInfo?.status ?? currentAccount.gameStatus" />
-      <SectionSanity :status="characterInfo?.status ?? currentAccount.gameStatus" />
+      <SectionSanity v-if="characterInfo" :status="characterInfo?.status " />
       <SectionRecruit
         v-if="characterInfo"
         :recruits="characterInfo.recruit"
