@@ -67,7 +67,7 @@ function parseRecruit(recruit: Recruit, now: Date): RecruitState {
       end: fromUnixTime(toValue(recruit).finishTs),
     })
 
-  const readableDuration = remainDuration ? humanReadableDuration(remainDuration) : null
+  const readableDuration = remainDuration ? humanReadableDuration(remainDuration, { format: ['hours', 'minutes'] }) : null
 
   return {
     status,

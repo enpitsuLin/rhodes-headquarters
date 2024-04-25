@@ -8,7 +8,7 @@ export function parseDuration(start: Date, end: Date, options?: Parameters<typeo
 }
 
 export function humanReadableDate(date: Date) {
-  return format(date, `${isToday(date) ? '\'今天\'' : '\'明天\''} HH 时 mm 分`)
+  return format(date, `${isToday(date) ? '\'今日\'' : '\'明日\''} HH 时 mm 分`)
 }
 
 export function humanReadableDuration(duration: Duration, options?: Parameters<typeof formatDuration>[1]) {

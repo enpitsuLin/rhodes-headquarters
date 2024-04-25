@@ -49,7 +49,7 @@ const parsedRecruits = useRecruits(props.recruits)
               </div>
               <div flex="~ col" text-10px>
                 <div>剩余时间: {{ recruit.readableDuration }}</div>
-                <div>预计完成时间: {{ recruit.readableCompletedAt }}</div>
+                <div>预计完成于 {{ recruit.readableCompletedAt }}</div>
               </div>
             </template>
             <template v-else>
