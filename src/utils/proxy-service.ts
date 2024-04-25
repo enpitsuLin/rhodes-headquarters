@@ -70,19 +70,23 @@ class NotificationService {
     }
   }
 
-  async createPeriod(
+  async createAlarmNotification(
     name: typeof NotificationService.recruitsAlaramNames[number] | typeof NotificationService.sanityAlaramName,
     date: Date,
   ) {
-    Logger.log(`Created period notification for ${name} when`, format(date, 'MM/dd HH:mm:ss'))
-    await browser.alarms.clear(name)
-    browser.alarms.create(name, {
-      when: +date,
-    })
+    if (await browser.alarms.get(name))
+      await browser.alarms.clear(name)
+
+    if (+date > Date.now()) {
+      Logger.log(`Created alarm notification for ${name} when`, format(date, 'MM/dd HH:mm:ss'))
+      browser.alarms.create(name, {
+        when: +date,
+      })
+    }
   }
 
-  async clearPeriod() {
-    Logger.log(`Clear all period notification`)
+  async clearAlarmNotification() {
+    Logger.log(`Clear all alarm notification`)
 
     await Promise.all(
       [

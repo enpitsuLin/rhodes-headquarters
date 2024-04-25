@@ -21,19 +21,19 @@ export default defineBackground({
     chararcterStorage.watch((value) => {
       if (value) {
         value.recruit.forEach((recruit, index) => {
-          notificationServie.createPeriod(
+          notificationServie.createAlarmNotification(
           `RECRUITS_${index as 1 | 2 | 3 | 4}_ALARMS_NAME`,
           fromUnixTime(recruit.finishTs),
           )
         })
 
-        notificationServie.createPeriod(
+        notificationServie.createAlarmNotification(
           'SANITY_ALARM_NAME',
           fromUnixTime(value.status.ap.completeRecoveryTime),
         )
       }
       else {
-        notificationServie.clearPeriod()
+        notificationServie.clearAlarmNotification()
       }
     })
   },
