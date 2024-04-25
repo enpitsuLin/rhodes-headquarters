@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import SectionTitle from '~/components/home/SectionTitle.vue'
-import { useApInfo, useSanityInfo } from '@/composables/status/ap'
+import { useSanityInfo } from '@/composables/status/ap'
 import type { Status } from '@/types'
+import SectionTitle from '~/components/home/SectionTitle.vue'
 
 const props = defineProps<{ status: Status }>()
 
