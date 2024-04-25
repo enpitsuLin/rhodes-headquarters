@@ -3,6 +3,8 @@ import type { Options } from '@zag-js/toast'
 import { normalizeProps, useMachine } from '@zag-js/vue'
 import type { InjectionKey } from 'vue'
 import { inject } from 'vue'
+import type { Alarms } from 'wxt/browser'
+import { getNotificationService } from '@/utils/proxy-service'
 
 const ToastInjectKey = Symbol('ToastContext') as InjectionKey<ComputedRef<toast.GroupApi>>
 
@@ -14,6 +16,7 @@ interface Toast {
      * @default true
      */
     notification?: boolean
+    alarmOptions?: Alarms.CreateAlarmInfoType
   }) => Promise<string | undefined>
 }
 
@@ -32,15 +35,14 @@ export function useToast() {
   const api = inject(ToastInjectKey)!
 
   const toast: Toast = {
-    async create({ notification = true, ...options }) {
+    async create({ notification = true, alarmOptions, ...options }) {
       if (notification) {
         if (await isPopUp()) {
-          return await browser.notifications.create({
-            type: 'basic',
-            title: options.title ?? '',
-            message: options.description ?? '',
-            iconUrl: browser.runtime.getURL('/icon.svg'),
-          })
+          return getNotificationService().create(
+            options.title ?? '',
+            options.description ?? '',
+            alarmOptions,
+          )
         }
       }
 

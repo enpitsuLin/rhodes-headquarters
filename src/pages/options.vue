@@ -1,15 +1,21 @@
 <script setup lang="ts">
 import AccountItem from '@/components/account/AccountItem.vue'
 import AddAccountFab from '@/components/account/AddAccountFab.vue'
+import { chararcterStorage } from '@/store/info'
 import OptionLayout from '~/components/layouts/options.vue'
 
 const accounts = useAccounts()
 const authorizeMapping = useAuthorizeMapping()
 const currentAccount = useCurrentAccount()
+const characterInfo = useWxtStorage(chararcterStorage)
+
 function onDelete(id: string) {
   accounts.value = accounts.value.filter(a => a.id !== id)
   if (authorizeMapping.value[id])
     delete authorizeMapping.value[id]
+
+  if (characterInfo.value)
+    characterInfo.value = null
 }
 </script>
 
