@@ -30,8 +30,6 @@ export default defineConfig({
       define: {
         __DEV__: env.mode === 'serve',
         __NAME__: JSON.stringify(pkg.name),
-        // eslint-disable-next-line node/prefer-global/process
-        __ENABLE_DEVTOOL__: process.env.ENABLE_DEVTOOL,
       },
       build: {
         sourcemap: env.mode === 'serve',
@@ -42,15 +40,6 @@ export default defineConfig({
         }),
         Vue(),
         UnoCSS(),
-        {
-          name: 'dev-tool-prod-prune',
-          apply: 'build',
-          transform(code, id) {
-            if (id.includes('utils/dev-tools'))
-              return { code: '', id }
-            return { code, id }
-          },
-        },
       ],
     }
   },
