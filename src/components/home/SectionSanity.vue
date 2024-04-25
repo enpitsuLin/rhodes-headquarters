@@ -26,7 +26,7 @@ const {
       </div>
       <div h-85px flex="~ col gap-4px" p="x-4px y-8px" relative>
         <div flex="~ justify-between items-center">
-          <span leading-27px font-bold text-24px>135/135</span>
+          <span leading-27px font-bold text-24px>{{ current }}/{{ max }}</span>
           <span v-if="current === max">理智已完全恢复!</span>
           <span v-else>下次恢复: {{ nextApAddTime }}</span>
         </div>
