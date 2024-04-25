@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import PreferenceItem from '@/components/preferences/PreferenceItem.vue'
 import Switch from '@/components/ui/Switch.vue'
+import { preferenceStorage } from '@/store/preference'
 import OptionLayout from '~/components/layouts/options.vue'
 
-const check = ref(false)
+const preferences = useWxtStorage(preferenceStorage)
 </script>
 
 <template>
@@ -16,14 +17,16 @@ const check = ref(false)
       <li>
         <PreferenceItem title="刷新时间" description="定时刷新游戏角色最新数据的时间，单位分钟，默认 10 分钟。">
           <input
-            type="text" size-24px
-            bg="transparent" border="~ border focus:primary" px-1 outline-none
+            v-model="preferences.periodInMinutes"
+            type="text"
+            bg="transparent" w-36px h-30px
+            border="~ border focus:primary rounded-sm" px-2 py-2 outline-none
           >
         </PreferenceItem>
       </li>
       <li>
         <PreferenceItem title="多账户提醒" description="对非当前账户的其余账户信息提供可用提醒，如理智即将恢复，公招即将结束等。">
-          <Switch v-model="check" />
+          <Switch v-model="preferences.charactersAlarmsEnable" />
         </PreferenceItem>
       </li>
     </ul>
