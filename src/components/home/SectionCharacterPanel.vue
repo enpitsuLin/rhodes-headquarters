@@ -122,7 +122,7 @@ function toOptions() {
         </header>
         <main flex="~ col">
           <div
-            p-8px h-512px of-y-scroll
+            p-8px h-492px of-y-scroll
           >
             <ul flex="~ col gap-4px">
               <li v-for="character in characters" :key="character.uid">
