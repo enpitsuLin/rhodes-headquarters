@@ -2,6 +2,7 @@ import Vue from '@vitejs/plugin-vue'
 import UnoCSS from 'unocss/vite'
 import VueRouter from 'unplugin-vue-router/vite'
 import { defineConfig } from 'wxt'
+import VueDevTools from 'vite-plugin-vue-devtools'
 import pkg from './package.json'
 
 export default defineConfig({
@@ -40,6 +41,7 @@ export default defineConfig({
         }),
         Vue(),
         UnoCSS(),
+        VueDevTools({ appendTo: /main\.ts/ }),
       ],
     }
   },
