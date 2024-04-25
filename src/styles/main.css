@@ -43,6 +43,19 @@ body {
 	}
 }
 
+@keyframes loading {
+  from {
+      width: 38px;
+      height: 38px;
+      opacity: 1
+  }
+  to {
+      width: 90px;
+      height: 90px;
+      opacity: 0
+  }
+}
+
 :root {
 	--cursor: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAGBAMAAAAS4vJ7AAAAElBMVEX///////////////////////+65XQCAAAABXRSTlPUzXppDN7WmLAAAAAZSURBVAjXY3ASVGEwDQ1mYA0NAGEQGyQGAC9SA/00lbgwAAAAAElFTkSuQmCC");
 	--foreground: 0 0% 100%;

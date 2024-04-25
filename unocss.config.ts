@@ -73,6 +73,16 @@ export default defineConfig<Theme>({
         '--un-to-translate-x': 'initial',
       },
     ],
+    [
+      'animate-loading',
+      {
+        'animation-name': 'loading',
+        'animation-duration': 'var(--un-animate-duration)',
+        'animation-iteration-count': 'infinite',
+        'animation-timing-function': 'cubic-bezier(0, 0, 0.2, 1)',
+        '--un-animate-duration': '700ms',
+      },
+    ],
     [/^fade-in-?(.+)?$/, ([, d]) => ({ '--un-enter-opacity': `${Number(handleMatchNumber(d) || 0) / 100}` })],
     [/^fade-out-?(.+)?$/, ([, d]) => ({ '--un-exit-opacity': `${Number(handleMatchNumber(d) || 0) / 100}` })],
     [/^zoom-in-?(.+)?$/, ([, d]) => ({ '--un-enter-scale': `${Number(handleMatchNumber(d) || 0) / 100}` })],
