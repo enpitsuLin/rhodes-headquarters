@@ -78,11 +78,11 @@ const { isLoading, execute } = useAsyncState(
       <div v-bind="api.positionerProps" fixed inset-0 z-200 flex="~ items-center justify-center">
         <div
           ref="nodeRef"
-          v-bind="api.contentProps" shadow="lg" w-320px relative
-          flex="~ col" bg-background
-          class="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-300 data-[state=open]:fade-in-90 data-[state=open]:slide-in-from-bottom-10 data-[state=closed]:fade-out"
+          v-bind="api.contentProps" shadow="lg"
+          flex="~ col" relative w-320px bg-background
+          class="data-[state=closed]:duration-300 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-90 data-[state=closed]:fade-out data-[state=open]:slide-in-from-bottom-10"
         >
-          <header v-bind="api.titleProps" h-50px relative flex="~ items-end" border="l-5px primary" select-none>
+          <header v-bind="api.titleProps" flex="~ items-end" border="l-5px primary" relative h-50px select-none>
             <div flex="~ items-baseline" pb-1 pl-4>
               <div flex="~ items-center">
                 <svg c-border width="6" height="18" viewBox="0 0 6 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -107,7 +107,7 @@ const { isLoading, execute } = useAsyncState(
                   </defs>
                 </svg>
               </div>
-              <span c-border text-base font-bold>
+              <span text-base c-border font-bold>
                 ACCOUNT
               </span>
             </div>
@@ -116,7 +116,7 @@ const { isLoading, execute } = useAsyncState(
             </div>
           </header>
           <main>
-            <div space-y-2 p-4>
+            <div p-4 space-y-2>
               <p>1. 打开森空岛网页版并登录</p>
               <p>
                 2. 登录森空岛网页版后，打开 <a
@@ -129,8 +129,8 @@ const { isLoading, execute } = useAsyncState(
                 <input
                   v-model="token"
                   type="text"
-                  bg-background border="~ border [&.warning]:red focus:primary"
-                  flex-1 p="x-3 y2" outline-none
+                  border="~ border [&.warning]:red focus:primary"
+                  p="x-3 y2" flex-1 bg-background outline-none
                   :class="!!errorMessage && 'warning animate-shake'"
                   @focus="errorMessage = ''"
                 >
@@ -143,8 +143,8 @@ const { isLoading, execute } = useAsyncState(
           <footer p="t-5px b-13px" flex="~ justify-center">
             <button
               :disabled="isLoading"
-              w-250px h-32px p-10px
-              bg="[url(./btn-bg.svg)]"
+              h-32px w-250px p-10px
+              bg="[url(~/assets/btn-bg.svg)]"
               flex="inline justify-center items-center"
               @click="execute()"
             >

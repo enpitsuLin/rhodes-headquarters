@@ -73,16 +73,16 @@ function toOptions() {
     />
     <div
       v-bind="api.positionerProps"
-      absolute top-0 bottom-0 right-0 z-200 flex="~ items-center justify-center"
+      absolute bottom-0 right-0 top-0 z-200 flex="~ items-center justify-center"
     >
       <div
         ref="nodeRef"
         v-bind="api.contentProps"
-        shadow="lg" w-270px relative h-full
-        flex="~ col" bg-background
-        class="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-300 data-[state=open]:slide-in-from-right-full data-[state=closed]:slide-out-to-right-full"
+        shadow="lg"
+        flex="~ col" relative h-full w-270px bg-background
+        class="data-[state=closed]:duration-300 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:slide-in-from-right-full data-[state=closed]:slide-out-to-right-full"
       >
-        <header v-bind="api.titleProps" h-50px relative flex="~ items-end" border="l-5px primary" select-none>
+        <header v-bind="api.titleProps" flex="~ items-end" border="l-5px primary" relative h-50px select-none>
           <div flex="~ items-center justify-between" flex-1 px-10px>
             <div flex="~ items-baseline" pb-1 pl-2>
               <div flex="~ items-center">
@@ -108,7 +108,7 @@ function toOptions() {
                   </defs>
                 </svg>
               </div>
-              <span c-border text-base font-bold>
+              <span text-base c-border font-bold>
                 CHARACTERS
               </span>
             </div>
@@ -122,7 +122,7 @@ function toOptions() {
         </header>
         <main flex="~ col">
           <div
-            p-8px h-492px of-y-scroll
+            h-492px of-y-scroll p-8px
           >
             <ul flex="~ col gap-4px">
               <li v-for="character in characters" :key="character.uid">
@@ -136,7 +136,7 @@ function toOptions() {
                       Dr. {{ character.nickName }}
                     </div>
 
-                    <div text-10px font-bold space-x-1 op-60>
+                    <div text-10px font-bold op-60 space-x-1>
                       <span>角色区服: {{ character.channelName }}</span>
                       <span>UID: {{ character.uid }}</span>
                     </div>
@@ -148,18 +148,18 @@ function toOptions() {
               </li>
             </ul>
           </div>
-          <div p-8px flex="~ gap-10px" w-full>
+          <div flex="~ gap-10px" w-full p-8px>
             <button
-              flex-1 h-32px p-10px
-              bg="[url(./btn-bg.svg)]"
+              h-32px flex-1 p-10px
+              bg="[url(~/assets/btn-bg.svg)]"
               flex="inline justify-center items-center"
               @click="toOptions"
             >
               添加新账户
             </button>
             <button
-              w-40px h-32px
-              bg="[url(./btn-bg.svg)] center"
+              h-32px w-40px
+              bg="[url(~/assets/btn-bg.svg)] center"
               flex="inline justify-center items-center"
               @click="toPreferences"
             >

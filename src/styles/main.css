@@ -14,7 +14,7 @@ body {
 
 @font-face {
 	font-family: 'Bender';
-  src: url('/fonts/Bender.woff');
+  src: url('~/assets/fonts/Bender.woff');
   font-weight: normal;
   font-style: normal;
 }
