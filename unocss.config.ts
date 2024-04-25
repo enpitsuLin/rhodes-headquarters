@@ -24,10 +24,12 @@ export default defineConfig<Theme>({
   },
   theme: {
     colors: {
-      primary: 'hsl(211 57% 58)',
-      foreground: 'hsl(var(--foreground))',
-      background: 'hsl(var(--background))',
-      border: 'hsl(var(--border))',
+      'primary': 'hsl(211 57% 58)',
+      'foreground': 'hsl(var(--foreground))',
+      'background': 'hsl(var(--background))',
+      'secondary-background': 'hsl(var(--secondary-background))',
+      'border': 'hsl(var(--border))',
+      'list-item': 'hsl(var(--list-item))',
     },
     fontFamily: {
       bender: 'Bender, sans-serif',
