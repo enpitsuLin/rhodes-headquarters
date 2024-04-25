@@ -11,7 +11,7 @@ const setCurrentAccountId = useSetCurrentAccount()
 </script>
 
 <template>
-  <section bg="#2d2e30" h-70px relative p-10px>
+  <section bg="list-item" h-70px relative p-10px>
     <div absolute right-0 top-0 z-0>
       <svg width="125" height="70" viewBox="0 0 125 70" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g clip-path="url(#clip0_59_256)">

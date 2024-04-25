@@ -29,6 +29,7 @@
     "@zag-js/hover-card": "^0.48.0",
     "@zag-js/menu": "^0.48.0",
     "@zag-js/presence": "^0.48.0",
+    "@zag-js/switch": "^0.48.0",
     "@zag-js/tabs": "^0.48.0",
     "@zag-js/toast": "^0.48.0",
     "@zag-js/vue": "^0.48.0",

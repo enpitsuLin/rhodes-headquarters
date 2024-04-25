@@ -29,6 +29,9 @@ importers:
       '@zag-js/presence':
         specifier: ^0.48.0
         version: 0.48.0
+      '@zag-js/switch':
+        specifier: ^0.48.0
+        version: 0.48.0
       '@zag-js/tabs':
         specifier: ^0.48.0
         version: 0.48.0
@@ -1366,6 +1369,9 @@ packages:
   '@zag-js/element-rect@0.48.0':
     resolution: {integrity: sha512-voz6vxDvZz6Jlr9YnwbKWhO3MvLUhBoij7NH/gjXcyy7x3gZ9kFrDxvAulysagN0K08woSZb9ddwGNksaL8GDQ==}
 
+  '@zag-js/form-utils@0.48.0':
+    resolution: {integrity: sha512-4LTjzarMvePgOKyFm3tBdUtBQnE7p2kYfJfuIvYj141mwP0OlKHbgINfIjI65uZd13hCmOUSy41doM7Gpv7SUQ==, tarball: https://registry.npmmirror.com/@zag-js/form-utils/-/form-utils-0.48.0.tgz}
+
   '@zag-js/hover-card@0.48.0':
     resolution: {integrity: sha512-d3HyC8HqIdANFhYO9juqNOKaHeIa/1Tz16wEqAutCnti/q+GeAHRvB4BEhr3TeJ1OYFEMToa2eNhiA8YM0ZQVw==}
 
@@ -1389,6 +1395,9 @@ packages:
 
   '@zag-js/store@0.48.0':
     resolution: {integrity: sha512-YrkdLXxRijzSQJeWYtysSsH7Ybte05LF2wxi1W7sysWBT3ERBAyO3WUokELDYV5NK8Em996KdWuGeDQkOceusg==, tarball: https://registry.npmmirror.com/@zag-js/store/-/store-0.48.0.tgz}
+
+  '@zag-js/switch@0.48.0':
+    resolution: {integrity: sha512-xSPBZ3Yw/yBkAajk95ciijY0iyqPqXf8FbIvXjJ7dgl1gEncaNBg9W6lZi5FCO2iUMkepkmghLWa/EOzGCHBHA==, tarball: https://registry.npmmirror.com/@zag-js/switch/-/switch-0.48.0.tgz}
 
   '@zag-js/tabbable@0.48.0':
     resolution: {integrity: sha512-3Dqx/ZT3psDsJd5g5RFfp1DNjsAdTsbW2C2JsTIQrc4/VzRf6YwwWVaeEIbUaHd849JtCykAwePg/gYgif7Hzg==, tarball: https://registry.npmmirror.com/@zag-js/tabbable/-/tabbable-0.48.0.tgz}
@@ -5906,6 +5915,8 @@ snapshots:
 
   '@zag-js/element-rect@0.48.0': {}
 
+  '@zag-js/form-utils@0.48.0': {}
+
   '@zag-js/hover-card@0.48.0':
     dependencies:
       '@zag-js/anatomy': 0.48.0
@@ -5956,6 +5967,16 @@ snapshots:
   '@zag-js/store@0.48.0':
     dependencies:
       proxy-compare: 2.6.0
+
+  '@zag-js/switch@0.48.0':
+    dependencies:
+      '@zag-js/anatomy': 0.48.0
+      '@zag-js/core': 0.48.0
+      '@zag-js/dom-event': 0.48.0
+      '@zag-js/dom-query': 0.48.0
+      '@zag-js/form-utils': 0.48.0
+      '@zag-js/types': 0.48.0
+      '@zag-js/utils': 0.48.0
 
   '@zag-js/tabbable@0.48.0':
     dependencies:
