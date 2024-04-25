@@ -5,7 +5,10 @@ export const Logger = {
   log(...args: any[]) {
     if (import.meta.env.DEV) {
       console.log(
-    `[罗德岛远程指挥部] ${format(Date.now(), 'HH:mm:ss')}`,
+    `%c罗德岛远程指挥部%c${format(Date.now(), 'HH:mm:ss')}%c`,
+    'background:#6591cc; padding: 4px; border-radius: 3px 0 0 3px;  color: #fff',
+    'background:#222325; padding: 4px; border-radius: 0 3px 3px 0;  color: #fff',
+    'background:transparent',
     ...args,
       )
     }
