@@ -49,6 +49,15 @@ class NotificationService {
   ] as const
 
   static sanityAlaramName = 'SANITY_ALARM_NAME' as const
+
+  alarmsNotification = new Map<string, { title: string, message: string }>([
+    ['RECRUITS_1_ALARMS_NAME', { title: '公招结束', message: '公招栏位1已成功招募到候选人' }],
+    ['RECRUITS_2_ALARMS_NAME', { title: '公招结束', message: '公招栏位2已成功招募到候选人' }],
+    ['RECRUITS_3_ALARMS_NAME', { title: '公招结束', message: '公招栏位3已成功招募到候选人' }],
+    ['RECRUITS_4_ALARMS_NAME', { title: '公招结束', message: '公招栏位4已成功招募到候选人' }],
+    ['SANITY_ALARM_NAME', { title: '理智恢复', message: '理智已完全恢复' }],
+  ])
+
   constructor() {
     browser.alarms.onAlarm.addListener((alarm) => {
       if (this.isPeriodNames(alarm.name)) {
@@ -62,10 +71,12 @@ class NotificationService {
   }
 
   private getPeriodTitleAndMessage(name: string): Notifications.CreateNotificationOptions {
+    const params = this.alarmsNotification.get(name)
+    if (!params)
+      throw new Error('通知参数不存在')
     return {
+      ...params,
       type: 'basic',
-      title: name,
-      message: name,
       iconUrl: browser.runtime.getURL('/icon-512.png'),
     }
   }
