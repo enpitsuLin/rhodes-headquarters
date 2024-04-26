@@ -46,6 +46,12 @@ pnpm dev
 
 运行项目会自动打开 chrome 浏览器并添加扩展至扩展列表。
 
+## 端到端测试
+
+**TBD**
+
+> 集成了 playwright 但是有一定限制，无法覆盖所有情况
+
 ## 特别鸣谢
 
 - [wxt](https://github.com/wxt-dev/wxt) 基于 vite 的浏览器扩展框架
