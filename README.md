@@ -8,9 +8,9 @@
 
 > P.R.R.H —— Primitive Rhodes Island Remote Headquarter
 
-> 通过浏览器扩展帮助博士网上冲浪时实时监控罗德岛运行状态
-
 ## 介绍
+
+> 通过浏览器扩展帮助博士网上冲浪时实时监控罗德岛运行状态
 
 由工程部提供的诸多功能：
 
