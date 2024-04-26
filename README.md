@@ -1,6 +1,12 @@
+<p align='center'>
+<img width="96px" src="./public/icon-512.png" alt="Logo">
+</p>
+
 # 罗德岛远程指挥部
 
 <img align="right" src="https://github.com/enpitsuLin/rhodes-headquarters/assets/29378026/3f719746-b38d-4b77-9850-1c9dbf00ecae" width="320px" height="auto" alt="screenshot_popup" >
+
+> P.R.R.H —— Primitive Rhodes Island Remote Headquarter
 
 > 通过浏览器扩展帮助博士网上冲浪时实时监控罗德岛运行状态
 
