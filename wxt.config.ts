@@ -1,3 +1,4 @@
+import { resolve } from 'node:path'
 import Vue from '@vitejs/plugin-vue'
 import UnoCSS from 'unocss/vite'
 import VueRouter from 'unplugin-vue-router/vite'
@@ -7,7 +8,8 @@ import pkg from './package.json'
 
 export default defineConfig({
   manifestVersion: 3,
-  srcDir: 'src',
+  srcDir: resolve('src'),
+  publicDir: resolve('public'),
   manifest: {
     name: pkg.displayName || pkg.name,
     version: pkg.publishVersion,
