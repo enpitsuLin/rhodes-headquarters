@@ -1,4 +1,4 @@
-import { ACCOUNTS_KEY, CHARARCTER_UID, CURRENT_ACCOUNT_KEY } from './key-definitions'
+import { ACCOUNTS_KEY, CHARARCTER_UID_KEY, CURRENT_ACCOUNT_KEY } from './key-definitions'
 import type { Binding, Status, User } from '@/types'
 
 export interface Account {
@@ -13,7 +13,7 @@ export interface Account {
 }
 
 export const currentChararcterUidStorage = storage.defineItem<string>(
-  CHARARCTER_UID,
+  CHARARCTER_UID_KEY,
   {
     defaultValue: '',
     version: 1,

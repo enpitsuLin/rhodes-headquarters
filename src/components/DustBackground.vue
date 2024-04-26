@@ -1,15 +1,11 @@
 <script setup lang="ts">
-import { CanvasDust } from '@/composables/animations/animate-background'
+import { useCanvasDust } from '@/composables/animations/animate-background'
 
-const canvasRef = ref<HTMLCanvasElement >()
+const canvasRef = ref<HTMLCanvasElement | null>(null)
 
-watchPostEffect(() => {
-  if (!canvasRef.value)
-    return
-  const _ = new CanvasDust(canvasRef.value)
-})
+useCanvasDust(canvasRef)
 </script>
 
 <template>
-  <canvas ref="canvasRef" fixed z-0 top-0 left-0 pointer-events-none />
+  <canvas ref="canvasRef" pointer-events-none fixed left-0 top-0 z-0 />
 </template>

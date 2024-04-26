@@ -1,28 +1,24 @@
-import type {
-  RouteRecordRaw,
-} from 'vue-router/auto'
 import {
+  createMemoryHistory,
   createRouter,
-  createWebHashHistory,
 } from 'vue-router/auto'
 import '~/styles'
 import App from './App.vue'
 
 const router = createRouter({
-  history: createWebHashHistory(),
-  extendRoutes(routers) {
-    const res = routers.map((route) => {
-      if (route.path === '/' && location.pathname === '/options.html') {
-        return {
-          ...route,
-          redirect: '/options',
-        } as RouteRecordRaw
-      }
+  history: createMemoryHistory(),
+})
 
-      return route
-    })
-    return res
-  },
+router.beforeEach((to, from, next) => {
+  if (
+    from.path === '/'
+    && to.path === '/'
+    && location.pathname === '/options.html'
+  ) {
+    next('/options')
+    return
+  }
+  next()
 })
 
 const app = createApp(App)

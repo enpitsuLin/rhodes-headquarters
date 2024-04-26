@@ -93,8 +93,8 @@ export function useAnimateCursor() {
   function relax() {
     if (!outer.value)
       return
-    outer.value.style.height = '24px'
-    outer.value.style.width = '24px'
+    outer.value.style.height = '28px'
+    outer.value.style.width = '28px'
     outer.value.style.background = 'unset'
   }
 

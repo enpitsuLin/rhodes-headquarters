@@ -1,16 +1,23 @@
+<p align='center'>
+<img width="96px" src="./public/icon-512.png" alt="Logo">
+</p>
+
 # 罗德岛远程指挥部
 
-<img align="right" src="https://github.com/enpitsuLin/rhodes-headquarters/assets/29378026/c77e4dac-5cc2-406d-a54c-c8571acbcdf7" width="320px" height="auto" alt="screenshot_popup" >
+<img align="right" src="https://github.com/enpitsuLin/rhodes-headquarters/assets/29378026/3f719746-b38d-4b77-9850-1c9dbf00ecae" width="320px" height="auto" alt="screenshot_popup" >
 
-**通过浏览器扩展帮助博士实时监控罗德岛运行状态**
+> P.R.R.H —— Primitive Rhodes Island Remote Headquarter
 
 ## 介绍
+
+> 通过浏览器扩展帮助博士网上冲浪时实时监控罗德岛运行状态
 
 由工程部提供的诸多功能：
 
 - 🧠 显示博士的剩余理智及恢复情况
 - 👋 罗德岛内公开招募进行情况
 - 💰 与外部单位合作业务如保全派驻、剿灭作战工作进展
+- 📚 支持多账号/多名博士的岛上实时信息
 - 👨‍🔧 更多功能由工程部正在紧锣密鼓的开发中...
 
 ## 下载
