@@ -20,6 +20,14 @@
 - 📚 支持多账号/多名博士的岛上实时信息
 - 👨‍🔧 更多功能由工程部正在紧锣密鼓的开发中...
 
+## 项目状态
+
+[![wakatime](https://wakatime.com/badge/user/a826b75e-c927-45c8-9342-26f296c2189f/project/018ee515-32dd-4135-82a1-d5736a2f365d.svg)](https://wakatime.com/badge/user/a826b75e-c927-45c8-9342-26f296c2189f/project/018ee515-32dd-4135-82a1-d5736a2f365d)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/y/enpitsuLin/rhodes-headquarters?label=commits)
+
+![GitHub package.json version](https://img.shields.io/github/package-json/v/enpitsuLin/rhodes-headquarters)
+[![Chrome Web Store](https://img.shields.io/chrome-web-store/users/cbnldploflpmmkmcbhipaoojkdmillkm?label=chrome&color=green)](https://chrome.google.com/webstore/detail/%E7%BD%97%E5%BE%B7%E5%B2%9B%E8%BF%9C%E7%A8%8B%E6%8C%87%E6%8C%A5%E9%83%A8/cbnldploflpmmkmcbhipaoojkdmillkm)
+
 ## 下载
 
 [Chrome Webstore](https://chrome.google.com/webstore/detail/%E7%BD%97%E5%BE%B7%E5%B2%9B%E8%BF%9C%E7%A8%8B%E6%8C%87%E6%8C%A5%E9%83%A8/cbnldploflpmmkmcbhipaoojkdmillkm)
