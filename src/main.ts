@@ -1,6 +1,3 @@
-import type {
-  RouteRecordRaw,
-} from 'vue-router/auto'
 import {
   createMemoryHistory,
   createRouter,

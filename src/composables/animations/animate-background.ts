@@ -1,3 +1,6 @@
+import type { MaybeComputedElementRef, MaybeRef } from '@vueuse/core'
+import { useEventListener, useRafFn } from '@vueuse/core'
+
 class Dust {
   public x: number
   public y: number
@@ -15,103 +18,83 @@ class Dust {
   }
 }
 
-export class CanvasDust {
-  private readonly canvas: HTMLCanvasElement
-  private readonly ctx: CanvasRenderingContext2D
-  public color: string = '#fff'
-  public width: number = 300
-  public height: number = 300
-  private dustQuantity: number = 25
-  public dustArr: Dust[] = []
-  private inStop: boolean = false
+interface UseCanvasDustOptions {
+  color: MaybeRef<string>
+  dustQuantity: MaybeRef<number>
+}
 
-  constructor(canvas: HTMLCanvasElement) {
-    this.canvas = canvas
-    this.ctx = this.canvas.getContext('2d') as CanvasRenderingContext2D
-    this.build()
-    window.addEventListener('resize', this.resize)
-  }
+export function useCanvasDust(
+  el: MaybeComputedElementRef<HTMLCanvasElement | null>,
+  options: UseCanvasDustOptions = {
+    color: '#fff',
+    dustQuantity: 25,
+  },
+) {
+  const dustQuantity = ref(options.dustQuantity)
+  const color = toValue(options.color)
+  const canvasEl = computed(() => toValue(el))
+  const ctx = computed(() => canvasEl.value?.getContext('2d'))
 
-  private build = () => {
-    this.resize()
-    if (this.ctx) {
-      const point = CanvasDust.getPoint(this.dustQuantity)
-      for (const i of point) {
-        const dustObj = new Dust(i[0], i[1])
-        this.buildDust(dustObj)
-        this.dustArr.push(dustObj)
-      }
-      requestAnimationFrame(this.paint)
-    }
-  }
+  const dustArr = computed(() => {
+    const points = calcPoint(dustQuantity.value)
+    return points.map(point => new Dust(point.x, point.y))
+  })
 
-  private paint = () => {
-    if (this.inStop)
+  useEventListener(window, 'resize', resize)
+
+  function drawDust(dust: Dust) {
+    if (!ctx.value)
       return
+    ctx.value.beginPath()
+    ctx.value.shadowBlur = dust.shadowBlur
+    ctx.value.shadowOffsetX = dust.shadowX
+    ctx.value.shadowOffsetY = dust.shadowY
+    ctx.value.ellipse(dust.x, dust.y, dust.radiusX, dust.radiusY, dust.rotation, 0, Math.PI * 2)
+    ctx.value.closePath()
+    ctx.value.fill()
+  }
 
-    const dustArr = this.dustArr
-    for (const i of dustArr) {
-      this.ctx.clearRect(i.x - 6, i.y - 6, 12, 12)
-      if (i.x < -5 || i.y < -5) {
-        const x: number = this.width
-        const y: number = Math.floor(Math.random() * window.innerHeight)
-        i.x = x
-        i.y = y
+  function resize() {
+    if (!canvasEl.value || !ctx.value)
+      return
+    const {
+      innerWidth: width,
+      innerHeight: height,
+    } = window
+    dustQuantity.value = Math.floor((width + height) / 38)
+    canvasEl.value.width = width
+    canvasEl.value.height = height
+
+    ctx.value.shadowColor = ctx.value.fillStyle = color
+  }
+
+  watchPostEffect(() => {
+    if (canvasEl.value)
+      resize()
+  })
+
+  return useRafFn(() => {
+    dustArr.value.forEach((dust) => {
+      ctx.value?.clearRect(dust.x - 6, dust.y - 6, 12, 12)
+      if (dust.x < -5 || dust.y < -5) {
+        const x = window.innerWidth
+        const y = Math.floor(Math.random() * window.innerHeight)
+        dust.x = x
+        dust.y = y
       }
       else {
-        i.x -= i.vx
-        i.y -= i.vy
+        dust.x -= dust.vx
+        dust.y -= dust.vy
       }
-    }
-    for (const i of dustArr)
-      this.buildDust(i)
+      drawDust(dust)
+    })
+  })
+}
 
-    requestAnimationFrame(this.paint)
-  }
-
-  private buildDust = (dust: Dust) => {
-    const ctx = this.ctx
-    ctx.beginPath()
-    ctx.shadowBlur = dust.shadowBlur
-    ctx.shadowOffsetX = dust.shadowX
-    ctx.shadowOffsetY = dust.shadowY
-    ctx.ellipse(dust.x, dust.y, dust.radiusX, dust.radiusY, dust.rotation, 0, Math.PI * 2)
-    ctx.closePath()
-    ctx.fill()
-  }
-
-  private resize = () => {
-    const canvas = this.canvas
-
-    const width = window.innerWidth
-    const height = window.innerHeight
-    this.width = width
-    this.height = height
-    this.dustQuantity = Math.floor((width + height) / 38)
-    canvas.width = width
-    canvas.height = height
-    this.ctx.shadowColor
-      = this.ctx.fillStyle = this.color
-  }
-
-  private static getPoint = (number: number = 1): Array<[number, number]> => {
-    const point: Array<[number, number]> = []
-    for (let i: number = 0; i < number; ++i) {
-      const x: number = Math.floor(Math.random() * window.innerWidth)
-      const y: number = Math.floor(Math.random() * window.innerHeight)
-      point.push([x, y])
-    }
-    return point
-  }
-
-  public stop = () => {
-    this.inStop = true
-  }
-
-  public play = () => {
-    if (this.inStop === true) {
-      this.inStop = false
-      requestAnimationFrame(this.paint)
-    }
-  }
+function calcPoint(quantity: number) {
+  return Array.from({ length: quantity }, () => {
+    const x = Math.floor(Math.random() * window.innerWidth)
+    const y = Math.floor(Math.random() * window.innerHeight)
+    return { x, y }
+  })
 }
