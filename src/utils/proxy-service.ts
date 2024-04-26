@@ -60,7 +60,7 @@ class NotificationService {
 
   constructor() {
     browser.alarms.onAlarm.addListener((alarm) => {
-      if (this.isPeriodNames(alarm.name)) {
+      if (this.isNotificationAlarmName(alarm.name)) {
         const id = ++this.id
         browser.notifications.create(
           `Notification_${id}`,
@@ -107,7 +107,7 @@ class NotificationService {
     )
   }
 
-  private isPeriodNames(name: string) {
+  private isNotificationAlarmName(name: string) {
     // @ts-expect-error ignore constant equal check
     return NotificationService.recruitsAlaramNames.includes(name)
       || NotificationService.sanityAlaramName === name

@@ -22,7 +22,7 @@ export default defineBackground({
       if (value) {
         value.recruit.forEach((recruit, index) => {
           notificationServie.createAlarmNotification(
-          `RECRUITS_${index as 1 | 2 | 3 | 4}_ALARMS_NAME`,
+          `RECRUITS_${(index + 1) as 1 | 2 | 3 | 4}_ALARMS_NAME`,
           fromUnixTime(recruit.finishTs),
           )
         })
