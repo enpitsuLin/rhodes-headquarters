@@ -72,17 +72,17 @@ const { isLoading, execute } = useAsyncState(
   <Teleport to="body">
     <div v-if="presenceApi.present" fixed inset-0>
       <div
-        v-bind="api.backdropProps" fixed inset-0 z-100 bg-border:10 backdrop-blur-3
+        v-bind="api.getBackdropProps()" fixed inset-0 z-100 bg-border:10 backdrop-blur-3
         class="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in data-[state=closed]:fade-out"
       />
-      <div v-bind="api.positionerProps" fixed inset-0 z-200 flex="~ items-center justify-center">
+      <div v-bind="api.getPositionerProps()" fixed inset-0 z-200 flex="~ items-center justify-center">
         <div
           ref="nodeRef"
-          v-bind="api.contentProps" shadow="lg"
+          v-bind="api.getContentProps()" shadow="lg"
           flex="~ col" relative w-320px bg-background
           class="data-[state=closed]:duration-300 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-90 data-[state=closed]:fade-out data-[state=open]:slide-in-from-bottom-10"
         >
-          <header v-bind="api.titleProps" flex="~ items-end" border="l-5px primary" relative h-50px select-none>
+          <header v-bind="api.getTitleProps()" flex="~ items-end" border="l-5px primary" relative h-50px select-none>
             <div flex="~ items-baseline" pb-1 pl-4>
               <div flex="~ items-center">
                 <svg c-border width="6" height="18" viewBox="0 0 6 18" fill="none" xmlns="http://www.w3.org/2000/svg">

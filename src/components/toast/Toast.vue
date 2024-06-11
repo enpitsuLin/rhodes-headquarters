@@ -11,21 +11,21 @@ const api = computed(() => toast.connect(state.value, send, normalizeProps))
 
 <template>
   <div
-    v-bind="api.rootProps"
-    p="x-4 y-2" bg="secondary-background" rounded-sm shadow-lg min-w-250px
+    v-bind="api.getRootProps()"
+    p="x-4 y-2" bg="secondary-background" min-w-250px rounded-sm shadow-lg
     transition="all duration-400 ease-[cubic-bezier(0.21,1.02,0.73,1)] data-[state=closed]:ease-[cubic-bezier(0.06,0.71,0.55,1)]"
-    class="will-change-transform [translate:var(--x)_var(--y)] scale-$scale z-$z-index h-$height opacity-$opacity"
+    class="[translate:var(--x)_var(--y)] z-$z-index h-$height scale-$scale opacity-$opacity will-change-transform"
   >
-    <span v-bind="api.ghostBeforeProps" />
-    <h3 v-bind="api.titleProps">
+    <span v-bind="api.getGhostBeforeProps()" />
+    <h3 v-bind="api.getTitleProps()">
       [{{ api.type }}]{{ api.title }}
     </h3>
-    <p v-bind="api.descriptionProps">
+    <p v-bind="api.getDescriptionProps()">
       {{ api.description }}
     </p>
     <button @click="api.dismiss()">
       Close
     </button>
-    <span v-bind="api.ghostAfterProps" />
+    <span v-bind="api.getGhostAfterProps()" />
   </div>
 </template>

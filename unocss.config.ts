@@ -4,11 +4,11 @@ import { presetAttributify, presetIcons, presetUno, transformerDirectives } from
 import type { Theme } from 'unocss/preset-mini'
 
 function handleMatchNumber(v: string, defaultVal = '0') {
-  return h.bracket.cssvar.global.auto.fraction.number(v || defaultVal)?.replace('%', '')
+  return h.number(v || defaultVal)
 }
 
 function handleMatchRem(v: string, defaultVal = 'full') {
-  return h.bracket.cssvar.global.auto.fraction.rem(v || defaultVal)
+  return h.rem(v || defaultVal)
 }
 
 export default defineConfig<Theme>({

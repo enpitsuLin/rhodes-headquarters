@@ -25,11 +25,11 @@ const api = computed(() =>
 
 <template>
   <label
-    v-bind="api.rootProps"
+    v-bind="api.getRootProps()"
   >
-    <input v-bind="api.hiddenInputProps">
-    <span v-bind="api.controlProps">
-      <span v-bind="api.thumbProps" />
+    <input v-bind="api.getHiddenInputProps()">
+    <span v-bind="api.getControlProps()">
+      <span v-bind="api.getThumbProps()" />
     </span>
   </label>
 </template>
