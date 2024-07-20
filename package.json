@@ -21,6 +21,7 @@
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {
+    "@ark-ui/vue": "^3.6.0",
     "@webext-core/proxy-service": "^1.2.0",
     "@zag-js/avatar": "^0.55.0",
     "@zag-js/dialog": "^0.55.0",
