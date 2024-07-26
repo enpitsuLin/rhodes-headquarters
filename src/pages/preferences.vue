@@ -27,8 +27,8 @@ function onChange(e: Event) {
           <input
             :placeholder="preferences.periodInMinutes.toString()"
             type="input" inputmode="numeric"
-            bg="transparent" w-36px h-30px
-            border="~ border focus:primary rounded-sm" px-2 py-2 outline-none
+            bg="transparent"
+            border="~ border focus:primary rounded-sm" h-30px w-36px px-2 py-2 outline-none
             @change="onChange"
           >
         </PreferenceItem>

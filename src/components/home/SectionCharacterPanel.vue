@@ -80,7 +80,7 @@ function toOptions() {
         v-bind="api.contentProps"
         shadow="lg"
         flex="~ col" relative h-full w-270px bg-background
-        class="data-[state=closed]:duration-300 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:slide-in-from-right-full data-[state=closed]:slide-out-to-right-full"
+        class="data-[state=open]:slide-in-from-right-full data-[state=closed]:slide-out-to-right-full data-[state=closed]:duration-300 data-[state=open]:animate-in data-[state=closed]:animate-out"
       >
         <header v-bind="api.titleProps" flex="~ items-end" border="l-5px primary" relative h-50px select-none>
           <div flex="~ items-center justify-between" flex-1 px-10px>

@@ -27,7 +27,6 @@ export interface Status {
 
 /** 头像设置 */
 export interface Avatar {
-  // eslint-disable-next-line ts/ban-types
   type: 'ICON' | (string & {})
   id: string
 }

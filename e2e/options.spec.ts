@@ -1,4 +1,3 @@
-import type { Worker } from '@playwright/test'
 import { expect, test } from './fixtures'
 import grant from './mocks/grant.json' assert {type:'json'}
 import generate_cred_by_code from './mocks/generate_cred_by_code.json' assert {type:'json'}

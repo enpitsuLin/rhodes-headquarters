@@ -14,7 +14,7 @@ const parsedRecruits = useRecruits(props.recruits)
     <div h-30px border="b-1 border" flex="~ items-center">
       联络次数 {{ hire.refreshCount }}/3
     </div>
-    <div w-320px h-240px relative border="b-1 border">
+    <div relative h-240px w-320px border="b-1 border">
       <div absolute bottom-0 left-0 c-border>
         <svg width="274" height="184" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M43.282 33.788c.515 1.482 1.601 4.728 1.77 6.368.114 1.108-.567 2.061-.952 2.79-.321.605-.228 1.145-.35 1.484L60.464 57.49l4.986-6.381-22.168-17.32ZM43.238 44.994c-.716.554-1.974 1.254-3.31 2.4-3.006 2.572-15.036 15.72-18.06 19.465L41.29 82.032l18.708-23.945-16.759-13.093ZM18.91 65.933c-.314-.246-.796.025-1.082.39-.618.791.66 3.017-1.064 5.224-2.088 2.673-5.42 4.991-11.145 7.664C.644 81.534-4.9 82.126-6.256 83.864c-1.2 1.535-.142 3.4-.142 3.4l27.072 21.152 19.942-25.525L18.91 65.933ZM-11.088 84.99c-1.47-1.148-6.228.712-6.996 1.694-.468.599-.675 1.026-.768 1.269l34.473 26.933 4.38-5.606-31.089-24.29Z" fill="currentColor" />
@@ -24,7 +24,7 @@ const parsedRecruits = useRecruits(props.recruits)
       </div>
       <ul
         flex="~ col justify-between"
-        relative py-10px h-full
+        relative h-full py-10px
       >
         <li
           v-for="(recruit, index) in parsedRecruits"
@@ -44,7 +44,7 @@ const parsedRecruits = useRecruits(props.recruits)
             </template>
 
             <template v-else-if="recruit.status === 'recruiting'">
-              <div animate-pulse flex-1>
+              <div flex-1 animate-pulse>
                 招募中...
               </div>
               <div flex="~ col" text-10px>

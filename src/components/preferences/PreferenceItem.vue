@@ -7,7 +7,7 @@ defineProps<{ title: string, description: string }>()
     flex="~ items-center gap-4px" h-60px
     bg-list-item p="x-8px y-4px"
   >
-    <div flex="~ col" flex-1 h-full>
+    <div flex="~ col" h-full flex-1>
       <h3 font-bold>
         {{ title }}
       </h3>
