@@ -1,5 +1,4 @@
 import { createToaster } from '@ark-ui/vue'
-import type { Options } from '@zag-js/toast'
 import type { InjectionKey } from 'vue'
 import { inject } from 'vue'
 import type { Alarms } from 'wxt/browser'
@@ -7,16 +6,21 @@ import { getNotificationService } from '@/utils/proxy-service'
 
 const ToastInjectKey = Symbol('ToastContext') as InjectionKey<ReturnType<typeof createToaster>>
 
+interface Options extends Omit<Parameters<ReturnType<typeof createToaster>['create']>[0], 'title' | 'description'> {
+  title: string
+  description?: string
+  /**
+   * enable notification
+   * @default true
+   */
+  notification?: boolean
+  alarmOptions?: Alarms.CreateAlarmInfoType
+}
+
 interface Toast {
   toaster: ReturnType<typeof createToaster>
-  create: (options: Options<string> & {
-    /**
-     * enable notification
-     * @default true
-     */
-    notification?: boolean
-    alarmOptions?: Alarms.CreateAlarmInfoType
-  }) => Promise<string | undefined>
+  create: (options: Options) => Promise<string | undefined>
+
 }
 
 async function isPopUp() {
