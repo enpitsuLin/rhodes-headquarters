@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "@ark-ui/vue": "^3.7.0",
+    "@unocss/preset-mini": "^0.61.5",
     "@webext-core/proxy-service": "^1.2.0",
     "@wxt-dev/module-vue": "^1.0.0",
     "@zag-js/avatar": "^0.62.1",

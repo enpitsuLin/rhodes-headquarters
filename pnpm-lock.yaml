@@ -11,6 +11,9 @@ importers:
       '@ark-ui/vue':
         specifier: ^3.7.0
         version: 3.7.0(vue@3.4.34(typescript@5.5.4))
+      '@unocss/preset-mini':
+        specifier: ^0.61.5
+        version: 0.61.5
       '@webext-core/proxy-service':
         specifier: ^1.2.0
         version: 1.2.0(@webext-core/messaging@1.4.0)(webextension-polyfill@0.12.0)
