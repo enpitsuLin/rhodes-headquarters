@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { DialogBackdrop, DialogContent, DialogPositioner, DialogRoot, DialogTitle, Presence } from '@ark-ui/vue'
+import { DialogBackdrop, DialogContent, DialogPositioner, DialogRoot, DialogTitle } from '@ark-ui/vue'
 import { useAsyncState } from '@vueuse/core'
 
 const open = defineModel<boolean>('open', { required: true })

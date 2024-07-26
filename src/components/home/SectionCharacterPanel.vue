@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { DialogBackdrop, DialogContent, DialogPositioner, DialogRoot, DialogTitle } from '@ark-ui/vue'
 import { useMagicKeys } from '@vueuse/core'
 import { useRouter } from 'vue-router/auto'
 import { useDialog } from '@/composables/use-dialog'
@@ -65,24 +66,20 @@ function toOptions() {
 </script>
 
 <template>
-  <div v-if="presenceApi.present" absolute inset-0>
-    <div
-      v-bind="api.backdropProps"
+  <DialogRoot v-model:open="open" absolute inset-0>
+    <DialogBackdrop
       absolute inset-0 z-100 bg-border:10 backdrop-blur-3
       class="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in data-[state=closed]:fade-out"
     />
-    <div
-      v-bind="api.positionerProps"
+    <DialogPositioner
       absolute bottom-0 right-0 top-0 z-200 flex="~ items-center justify-center"
     >
-      <div
-        ref="nodeRef"
-        v-bind="api.contentProps"
+      <DialogContent
         shadow="lg"
-        flex="~ col" relative h-full w-270px bg-background
-        class="data-[state=open]:slide-in-from-right-full data-[state=closed]:slide-out-to-right-full data-[state=closed]:duration-300 data-[state=open]:animate-in data-[state=closed]:animate-out"
+        relative h-full w-270px bg-background
+        class="data-[state=closed]:duration-300 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:slide-in-from-right-full data-[state=closed]:slide-out-to-right-full"
       >
-        <header v-bind="api.titleProps" flex="~ items-end" border="l-5px primary" relative h-50px select-none>
+        <DialogTitle flex="~ items-end" border="l-5px primary" relative h-50px select-none>
           <div flex="~ items-center justify-between" flex-1 px-10px>
             <div flex="~ items-baseline" pb-1 pl-2>
               <div flex="~ items-center">
@@ -119,7 +116,7 @@ function toOptions() {
           <div absolute bottom-1px left-16px h-1px w-249px bg-border>
             <div absolute size-3px left="-1px" bottom="-1px" bg-border />
           </div>
-        </header>
+        </DialogTitle>
         <main flex="~ col">
           <div
             h-492px of-y-scroll p-8px
@@ -169,7 +166,7 @@ function toOptions() {
             </button>
           </div>
         </main>
-      </div>
-    </div>
-  </div>
+      </DialogContent>
+    </DialogPositioner>
+  </DialogRoot>
 </template>

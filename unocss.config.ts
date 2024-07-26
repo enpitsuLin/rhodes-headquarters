@@ -4,12 +4,9 @@ import { presetAttributify, presetIcons, presetUno, transformerDirectives } from
 import type { Theme } from 'unocss/preset-mini'
 
 function handleMatchNumber(v: string, defaultVal = '0') {
-  return h.number(v || defaultVal)
+  return h.bracket.cssvar.global.auto.fraction.number(v || defaultVal)?.toString().replace('%', '')
 }
-
-function handleMatchRem(v: string, defaultVal = 'full') {
-  return h.rem(v || defaultVal)
-}
+const handleMatchRem = (v: string, defaultVal = 'full') => h.bracket.cssvar.global.auto.fraction.rem(v || defaultVal)
 
 export default defineConfig<Theme>({
   content: {
