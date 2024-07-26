@@ -1,37 +1,20 @@
 <script setup lang="ts">
-import * as zagSwitch from '@zag-js/switch'
-import { normalizeProps, useMachine } from '@zag-js/vue'
-import { computed } from 'vue'
-
-const modelValue = defineModel<boolean>()
-
-const [state, send] = useMachine(
-  zagSwitch.machine({
-    id: '1',
-    checked: modelValue.value,
-    onCheckedChange(details) {
-      modelValue.value = details.checked
-    },
-  }),
-  {
-    context: computed(() => ({ checked: modelValue.value })),
-  },
-)
-
-const api = computed(() =>
-  zagSwitch.connect(state.value, send, normalizeProps),
-)
+import { SwitchContext, SwitchControl, SwitchHiddenInput, SwitchLabel, SwitchRoot, SwitchThumb } from '@ark-ui/vue'
 </script>
 
 <template>
-  <label
-    v-bind="api.getRootProps()"
-  >
-    <input v-bind="api.getHiddenInputProps()">
-    <span v-bind="api.getControlProps()">
-      <span v-bind="api.getThumbProps()" />
-    </span>
-  </label>
+  <SwitchRoot>
+    <SwitchControl>
+      <SwitchThumb />
+    </SwitchControl>
+    <SwitchContext v-slot="api">
+      <SwitchLabel sr-only>
+        {{ api.checked ? '启用' : "禁用" }}
+      </SwitchLabel>
+    </SwitchContext>
+
+    <SwitchHiddenInput />
+  </SwitchRoot>
 </template>
 
 <style>
@@ -45,8 +28,7 @@ const api = computed(() =>
 }
 
 [data-scope='switch'][data-part='control'] {
-  --switch-bg: #cbd5e0;
-  --at-apply: inline-flex flex-shrink-0 [-webkit-box-pack:start] justify-start box-content rounded-full p-0.5 w-$switch-track-width h-$switch-track-height bg-$switch-bg;
+  --at-apply: inline-flex flex-shrink-0 [-webkit-box-pack:start] justify-start box-content rounded-full p-0.5 w-$switch-track-width h-$switch-track-height bg-#cbd5e0;
 
   transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow,
     transform;
@@ -54,7 +36,7 @@ const api = computed(() =>
 }
 
 [data-scope='switch'][data-part='control'][data-state='checked'] {
-  --switch-bg: theme(colors.primary);
+  --at-apply: bg-primary;
 }
 
 [data-scope='switch'][data-part='control'][data-focus] {
