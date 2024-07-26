@@ -23,6 +23,7 @@
   "dependencies": {
     "@ark-ui/vue": "^3.7.0",
     "@webext-core/proxy-service": "^1.2.0",
+    "@wxt-dev/module-vue": "^1.0.0",
     "@zag-js/avatar": "^0.62.1",
     "@zag-js/dialog": "^0.62.1",
     "@zag-js/hover-card": "^0.62.1",
@@ -46,7 +47,6 @@
     "@typescript-eslint/eslint-plugin": "^7.17.0",
     "@unocss/eslint-plugin": "^0.61.5",
     "@unocss/reset": "^0.61.5",
-    "@vitejs/plugin-vue": "^5.1.0",
     "@vue/compiler-sfc": "^3.4.34",
     "@vue/test-utils": "^2.4.6",
     "@vueuse/core": "^10.11.0",
@@ -58,7 +58,6 @@
     "simple-git-hooks": "^2.11.1",
     "typescript": "^5.5.4",
     "unocss": "^0.61.5",
-    "unplugin-auto-import": "^0.18.2",
     "unplugin-vue-router": "^0.10.1",
     "vite-plugin-vue-devtools": "^7.3.7",
     "vitest": "^2.0.4",
@@ -71,9 +70,6 @@
       "allowAny": [
         "eslint"
       ]
-    },
-    "overrides": {
-      "jiti": "1.21.0"
     }
   },
   "simple-git-hooks": {

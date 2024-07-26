@@ -4,9 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-overrides:
-  jiti: 1.21.0
-
 importers:
 
   .:
@@ -17,6 +14,9 @@ importers:
       '@webext-core/proxy-service':
         specifier: ^1.2.0
         version: 1.2.0(@webext-core/messaging@1.4.0)(webextension-polyfill@0.12.0)
+      '@wxt-dev/module-vue':
+        specifier: ^1.0.0
+        version: 1.0.0(vite@5.3.5(@types/node@20.14.12))(vue@3.4.34(typescript@5.5.4))(wxt@0.19.0(@types/node@20.14.12)(rollup@4.14.3))
       '@zag-js/avatar':
         specifier: ^0.62.1
         version: 0.62.1
@@ -81,9 +81,6 @@ importers:
       '@unocss/reset':
         specifier: ^0.61.5
         version: 0.61.5
-      '@vitejs/plugin-vue':
-        specifier: ^5.1.0
-        version: 5.1.0(vite@5.3.5(@types/node@20.14.12))(vue@3.4.34(typescript@5.5.4))
       '@vue/compiler-sfc':
         specifier: ^3.4.34
         version: 3.4.34
@@ -117,9 +114,6 @@ importers:
       unocss:
         specifier: ^0.61.5
         version: 0.61.5(postcss@8.4.40)(rollup@4.14.3)(vite@5.3.5(@types/node@20.14.12))
-      unplugin-auto-import:
-        specifier: ^0.18.2
-        version: 0.18.2(@vueuse/core@10.11.0(vue@3.4.34(typescript@5.5.4)))(rollup@4.14.3)
       unplugin-vue-router:
         specifier: ^0.10.1
         version: 0.10.1(rollup@4.14.3)(vue-router@4.4.0(vue@3.4.34(typescript@5.5.4)))(vue@3.4.34(typescript@5.5.4))
@@ -1590,6 +1584,11 @@ packages:
     peerDependencies:
       '@webext-core/messaging': '>=1.3.1'
       webextension-polyfill: ^0.10.0
+
+  '@wxt-dev/module-vue@1.0.0':
+    resolution: {integrity: sha512-pWV07XObv7O8yjV/lTAFt3xQ7Reaadl1Fegviscg+jYpcyzF791ErmO1gOAYNLtZEwGbncSE+DyWbIfH/yMF2w==}
+    peerDependencies:
+      wxt: '>=0.18.5'
 
   '@zag-js/accordion@0.62.1':
     resolution: {integrity: sha512-1lMKuD1GbiMuemOHOu+24BSAAG8iTD6l/4zYrQRBCTsxXzHhWqTtLF7okGgmSAs8iyNfOuWefCfaJJ3BJNSh5A==}
@@ -3162,6 +3161,10 @@ packages:
     resolution: {integrity: sha512-gFqAIbuKyyso/3G2qhiO2OM6shY6EPP/R0+mkDbyspxKazh8BXDC5FiFsUjlczgdNz/vfra0da2y+aHrusLG/Q==}
     hasBin: true
 
+  jiti@1.21.6:
+    resolution: {integrity: sha512-2yTgeWTWzMWkHu6Jp9NKgePDaYHbntiwvYuuJLbbN9vl7DC9DvXKOB2BC3ZZ92D3cvV/aflH0osDfwpHepQ53w==}
+    hasBin: true
+
   js-beautify@1.14.9:
     resolution: {integrity: sha512-coM7xq1syLcMyuVGyToxcj2AlzhkDjmfklL8r0JgJ7A76wyGMpJ1oA35mr4APdYNO/o/4YY8H54NQIJzhMbhBg==}
     engines: {node: '>=12'}
@@ -4390,18 +4393,6 @@ packages:
       '@unocss/webpack':
         optional: true
       vite:
-        optional: true
-
-  unplugin-auto-import@0.18.2:
-    resolution: {integrity: sha512-Dwb3rAic75harVBrVjwiq6H24PT+nBq2dpxV5BH8NNI6sDFaTytvP+iyo4xy7prQbR3r5K6nMs4f5Wp9PE4g8A==}
-    engines: {node: '>=14'}
-    peerDependencies:
-      '@nuxt/kit': ^3.2.2
-      '@vueuse/core': '*'
-    peerDependenciesMeta:
-      '@nuxt/kit':
-        optional: true
-      '@vueuse/core':
         optional: true
 
   unplugin-vue-router@0.10.1:
@@ -6463,6 +6454,14 @@ snapshots:
       get-value: 3.0.1
       webextension-polyfill: 0.12.0
 
+  '@wxt-dev/module-vue@1.0.0(vite@5.3.5(@types/node@20.14.12))(vue@3.4.34(typescript@5.5.4))(wxt@0.19.0(@types/node@20.14.12)(rollup@4.14.3))':
+    dependencies:
+      '@vitejs/plugin-vue': 5.1.0(vite@5.3.5(@types/node@20.14.12))(vue@3.4.34(typescript@5.5.4))
+      wxt: 0.19.0(@types/node@20.14.12)(rollup@4.14.3)
+    transitivePeerDependencies:
+      - vite
+      - vue
+
   '@zag-js/accordion@0.62.1':
     dependencies:
       '@zag-js/anatomy': 0.62.1
@@ -7110,7 +7109,7 @@ snapshots:
       defu: 6.1.4
       dotenv: 16.4.5
       giget: 1.2.3
-      jiti: 1.21.0
+      jiti: 1.21.6
       mlly: 1.7.1
       ohash: 1.1.3
       pathe: 1.1.2
@@ -8398,6 +8397,8 @@ snapshots:
 
   jiti@1.21.0: {}
 
+  jiti@1.21.6: {}
+
   js-beautify@1.14.9:
     dependencies:
       config-chain: 1.1.13
@@ -9668,21 +9669,6 @@ snapshots:
       - rollup
       - supports-color
 
-  unplugin-auto-import@0.18.2(@vueuse/core@10.11.0(vue@3.4.34(typescript@5.5.4)))(rollup@4.14.3):
-    dependencies:
-      '@antfu/utils': 0.7.10
-      '@rollup/pluginutils': 5.1.0(rollup@4.14.3)
-      fast-glob: 3.3.2
-      local-pkg: 0.5.0
-      magic-string: 0.30.10
-      minimatch: 9.0.5
-      unimport: 3.9.0(rollup@4.14.3)
-      unplugin: 1.12.0
-    optionalDependencies:
-      '@vueuse/core': 10.11.0(vue@3.4.34(typescript@5.5.4))
-    transitivePeerDependencies:
-      - rollup
-
   unplugin-vue-router@0.10.1(rollup@4.14.3)(vue-router@4.4.0(vue@3.4.34(typescript@5.5.4)))(vue@3.4.34(typescript@5.5.4)):
     dependencies:
       '@babel/types': 7.24.9
@@ -10053,7 +10039,7 @@ snapshots:
       giget: 1.2.3
       hookable: 5.5.3
       is-wsl: 3.1.0
-      jiti: 1.21.0
+      jiti: 1.21.6
       json5: 2.2.3
       jszip: 3.10.1
       linkedom: 0.18.4
