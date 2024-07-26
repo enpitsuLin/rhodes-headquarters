@@ -2,10 +2,10 @@ import type { WxtStorageItem } from 'wxt/storage'
 
 export function useWxtStorage<
   Value extends (string | number | boolean | object | null),
-  // eslint-disable-next-line ts/ban-types
+  // eslint-disable-next-line ts/no-empty-object-type
   MetaData extends Record<string, unknown> = {},
 >(item: WxtStorageItem<Value, MetaData>, shallow?: boolean) {
-  const rawInit: Value = item.defaultValue
+  const rawInit: Value = item.fallback
 
   const data = (shallow ? shallowRef : ref)(item.defaultValue) as Ref<Value>
 
@@ -17,6 +17,7 @@ export function useWxtStorage<
       else
         data.value = newValue
     }
+    // eslint-disable-next-line unused-imports/no-unused-vars
     catch (error) {
       // TODO: onError options
     }
@@ -39,6 +40,7 @@ export function useWxtStorage<
         else
           await item.setValue(toRaw(data.value))
       }
+      // eslint-disable-next-line unused-imports/no-unused-vars
       catch (e) {
         // TODO: onError options
       }

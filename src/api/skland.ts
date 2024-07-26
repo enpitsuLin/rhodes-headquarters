@@ -49,6 +49,7 @@ export async function checkAccessToken({ token, cred }: { token: string, cred: s
     )
     return true
   }
+  // eslint-disable-next-line unused-imports/no-unused-vars
   catch (error) {
     return false
   }

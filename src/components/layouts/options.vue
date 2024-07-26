@@ -28,11 +28,10 @@ const showBack = location.pathname !== '/options.html'
 </script>
 
 <template>
-  <div bg="background" h-full w-full relative>
+  <div bg="background" relative h-full w-full>
     <header
-      h-160px w-full
-      relative of-hidden
-      select-none
+
+      relative h-160px w-full select-none of-hidden
       class="from-#0C4D78:0 to-#0C4D78:80 bg-gradient-linear"
     >
       <div v-if="showBack" pt-3>
@@ -44,7 +43,7 @@ const showBack = location.pathname !== '/options.html'
       </div>
       <div absolute left="-20px" bottom="-20px">
         <span
-          text-nowrap font-bold text-65px
+          text-nowrap text-65px font-bold
           tracking="-11%" c="background"
         >
           {{ backgroundTitle }}
@@ -67,7 +66,7 @@ const showBack = location.pathname !== '/options.html'
         </div>
       </div>
 
-      <div absolute left-15px bottom-18px text-primary>
+      <div absolute bottom-18px left-15px text-primary>
         <svg width="319" height="5" viewBox="0 0 319 5" fill="none" xmlns="http://www.w3.org/2000/svg">
           <g opacity="0.6">
             <rect width="5" height="5" fill="currentColor" />
@@ -93,8 +92,8 @@ const showBack = location.pathname !== '/options.html'
   >
     <RouterLink
       to="/options" role="button"
-      w="1/2" bg-background:60 py-3
-      block text-center font-bold
+      w="1/2"
+      block bg-background:60 py-3 text-center font-bold
       border="b-3 transparent [&.active]:primary"
       active-class="active"
     >
@@ -102,8 +101,8 @@ const showBack = location.pathname !== '/options.html'
     </RouterLink>
     <RouterLink
       to="/preferences" role="button"
-      w="1/2" bg-background:60 py-3
-      block text-center font-bold
+      w="1/2"
+      block bg-background:60 py-3 text-center font-bold
       border="b-3 transparent [&.active]:primary"
       active-class="active"
     >

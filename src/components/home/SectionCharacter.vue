@@ -19,31 +19,31 @@ const open = ref(false)
     <div flex-1>
       <div flex="~ items-end">
         <div grid="~ rows-1 cols-7">
-          <div text-20px col-span-3>
+          <div col-span-3 text-20px>
             {{ status.level }}
           </div>
-          <div col-span-4 justify-self-start self-center flex="~ col">
-            <div text-12px leading-12px transform-origin-l scale-70>
+          <div col-span-4 self-center justify-self-start flex="~ col">
+            <div transform-origin-l scale-70 text-12px leading-12px>
               Lv.
             </div>
-            <div text-12px leading-12px transform-origin-l scale-70>
+            <div transform-origin-l scale-70 text-12px leading-12px>
               博士等级
             </div>
           </div>
         </div>
         <div>UID: {{ status.uid }}</div>
       </div>
-      <div font-bold text-base>
+      <div text-base font-bold>
         Dr. {{ status.name }}
       </div>
     </div>
     <div>
-      <button bg-white c-black rounded-full p-1 @click="open = true">
+      <button rounded-full bg-white p-1 c-black @click="open = true">
         <svg xmlns="http://www.w3.org/2000/svg" size="16px" width="32" height="32" viewBox="0 0 48 48"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M42 19H6M30 7l12 12M6.799 29h36m-36 0l12 12" /></svg>
       </button>
     </div>
     <svg
-      absolute right-0 bottom-1
+      absolute bottom-1 right-0
       width="320" height="8" viewBox="0 0 320 8" fill="none" xmlns="http://www.w3.org/2000/svg"
     >
       <g clip-path="url(#clip0_4_11)">

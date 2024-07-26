@@ -12,20 +12,19 @@ withDefaults(
 <template>
   <component
     :is="as"
-    size-38px relative
+    relative size-38px
     flex="inline items-center justify-center"
     v-bind="$attrs"
   >
     <div
-      absolute
-      inline-block size-38px bg-transparent m-10px rotate-45
-      c-primary
+
+      absolute m-10px inline-block size-38px rotate-45 bg-transparent c-primary
       border="5 primary"
     >
       <div
-        inline-block bg-transparent
-        absolute left="1/2" top="1/2" size-38px
-        border="5 primary" animate-loading
+
+        left="1/2" top="1/2"
+        border="5 primary" absolute inline-block size-38px bg-transparent animate-loading
         class="-translate-1/2"
       />
     </div>

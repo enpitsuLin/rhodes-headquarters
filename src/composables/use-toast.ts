@@ -1,23 +1,26 @@
-import * as toast from '@zag-js/toast'
-import type { Options } from '@zag-js/toast'
-import { normalizeProps, useMachine } from '@zag-js/vue'
+import { createToaster } from '@ark-ui/vue'
 import type { InjectionKey } from 'vue'
 import { inject } from 'vue'
 import type { Alarms } from 'wxt/browser'
 import { getNotificationService } from '@/utils/proxy-service'
 
-const ToastInjectKey = Symbol('ToastContext') as InjectionKey<ComputedRef<toast.GroupApi>>
+const ToastInjectKey = Symbol('ToastContext') as InjectionKey<ReturnType<typeof createToaster>>
+
+interface Options extends Omit<Parameters<ReturnType<typeof createToaster>['create']>[0], 'title' | 'description'> {
+  title: string
+  description?: string
+  /**
+   * enable notification
+   * @default true
+   */
+  notification?: boolean
+  alarmOptions?: Alarms.CreateAlarmInfoType
+}
 
 interface Toast {
-  api: ComputedRef<toast.GroupApi>
-  create: (options: Options<string> & {
-    /**
-     * enable notification
-     * @default true
-     */
-    notification?: boolean
-    alarmOptions?: Alarms.CreateAlarmInfoType
-  }) => Promise<string | undefined>
+  toaster: ReturnType<typeof createToaster>
+  create: (options: Options) => Promise<string | undefined>
+
 }
 
 async function isPopUp() {
@@ -46,9 +49,9 @@ export function useToast() {
         }
       }
 
-      return api.value.create(options)
+      return api.create(options)
     },
-    api,
+    toaster: api,
   }
 
   return toast
@@ -57,15 +60,14 @@ export function useToast() {
 let _id = 0
 
 export function provideToastContext() {
-  const [state, send] = useMachine(toast.group.machine({
+  const toaster = createToaster({
     id: (++_id).toString(),
     overlap: true,
     offsets: '24px',
     placement: 'bottom-end',
     removeDelay: 200,
     max: 5,
-  }))
-  const toastApi = computed(() => toast.group.connect(state.value, send, normalizeProps))
+  })
 
-  provide(ToastInjectKey, toastApi)
+  provide(ToastInjectKey, toaster)
 }

@@ -1,12 +1,9 @@
 <script setup lang="ts">
+import { DialogBackdrop, DialogCloseTrigger, DialogContent, DialogPositioner, DialogRoot, DialogTitle } from '@ark-ui/vue'
 import { useMagicKeys } from '@vueuse/core'
 import { useRouter } from 'vue-router/auto'
-import { useDialog } from '@/composables/use-dialog'
-import { usePresence } from '@/composables/use-presence'
 
 const open = defineModel<boolean>('open', { required: true })
-
-const nodeRef = ref<HTMLDivElement | null>(null)
 
 const router = useRouter()
 const { meta, control } = useMagicKeys()
@@ -17,28 +14,6 @@ const characters = computed(() => {
   return accounts.value.map((account) => {
     return account.binding.map(b => b.bindingList).flat()
   }).flat()
-})
-
-const api = useDialog({
-  open,
-  onOpenChange(to) {
-    open.value = to
-  },
-})
-
-const presenceApi = usePresence({
-  present: computed(() => api.value.open),
-  onExitComplete: () => {
-    open.value = false
-  },
-})
-
-watch(nodeRef, () => {
-  if (nodeRef.value) {
-    const node = nodeRef.value
-    if (node)
-      presenceApi.value.setNode(node)
-  }
 })
 
 function toPreferences() {
@@ -65,24 +40,20 @@ function toOptions() {
 </script>
 
 <template>
-  <div v-if="presenceApi.present" absolute inset-0>
-    <div
-      v-bind="api.backdropProps"
+  <DialogRoot v-model:open="open" absolute inset-0>
+    <DialogBackdrop
       absolute inset-0 z-100 bg-border:10 backdrop-blur-3
       class="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in data-[state=closed]:fade-out"
     />
-    <div
-      v-bind="api.positionerProps"
+    <DialogPositioner
       absolute bottom-0 right-0 top-0 z-200 flex="~ items-center justify-center"
     >
-      <div
-        ref="nodeRef"
-        v-bind="api.contentProps"
+      <DialogContent
         shadow="lg"
-        flex="~ col" relative h-full w-270px bg-background
+        relative h-full w-270px bg-background
         class="data-[state=closed]:duration-300 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:slide-in-from-right-full data-[state=closed]:slide-out-to-right-full"
       >
-        <header v-bind="api.titleProps" flex="~ items-end" border="l-5px primary" relative h-50px select-none>
+        <DialogTitle flex="~ items-end" border="l-5px primary" relative h-50px select-none>
           <div flex="~ items-center justify-between" flex-1 px-10px>
             <div flex="~ items-baseline" pb-1 pl-2>
               <div flex="~ items-center">
@@ -112,14 +83,14 @@ function toOptions() {
                 CHARACTERS
               </span>
             </div>
-            <button type="button" c="white hover:primary" @click="api.setOpen(false)">
+            <DialogCloseTrigger c="white hover:primary">
               <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="m8.382 17.025l-1.407-1.4L10.593 12L6.975 8.4L8.382 7L12 10.615L15.593 7L17 8.4L13.382 12L17 15.625l-1.407 1.4L12 13.41z" /></svg>
-            </button>
+            </DialogCloseTrigger>
           </div>
           <div absolute bottom-1px left-16px h-1px w-249px bg-border>
             <div absolute size-3px left="-1px" bottom="-1px" bg-border />
           </div>
-        </header>
+        </DialogTitle>
         <main flex="~ col">
           <div
             h-492px of-y-scroll p-8px
@@ -169,7 +140,7 @@ function toOptions() {
             </button>
           </div>
         </main>
-      </div>
-    </div>
-  </div>
+      </DialogContent>
+    </DialogPositioner>
+  </DialogRoot>
 </template>

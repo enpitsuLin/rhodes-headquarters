@@ -1,11 +1,8 @@
 <script setup lang="ts">
+import { DialogBackdrop, DialogContent, DialogPositioner, DialogRoot, DialogTitle } from '@ark-ui/vue'
 import { useAsyncState } from '@vueuse/core'
-import { useDialog } from '@/composables/use-dialog'
-import { usePresence } from '@/composables/use-presence'
 
 const open = defineModel<boolean>('open', { required: true })
-
-const nodeRef = ref<HTMLDivElement | null>(null)
 
 const accountService = getAccountService()
 
@@ -13,30 +10,6 @@ const toast = useToast()
 
 const token = ref('')
 const errorMessage = ref('')
-
-const api = useDialog({
-  open,
-  onOpenChange(to) {
-    open.value = to
-  },
-})
-
-const presenceApi = usePresence({
-  present: computed(() => api.value.open),
-  onExitComplete: () => {
-    open.value = false
-    errorMessage.value = ''
-    token.value = ''
-  },
-})
-
-watch(nodeRef, () => {
-  if (nodeRef.value) {
-    const node = nodeRef.value
-    if (node)
-      presenceApi.value.setNode(node)
-  }
-})
 
 const { isLoading, execute } = useAsyncState(
   async () => {
@@ -68,21 +41,18 @@ const { isLoading, execute } = useAsyncState(
 </script>
 
 <template>
-  <slot />
-  <Teleport to="body">
-    <div v-if="presenceApi.present" fixed inset-0>
-      <div
-        v-bind="api.getBackdropProps()" fixed inset-0 z-100 bg-border:10 backdrop-blur-3
+  <DialogRoot v-model:open="open">
+    <Teleport to="body">
+      <DialogBackdrop
+        fixed inset-0 z-100 bg-border:10 backdrop-blur-3
         class="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in data-[state=closed]:fade-out"
       />
-      <div v-bind="api.getPositionerProps()" fixed inset-0 z-200 flex="~ items-center justify-center">
-        <div
-          ref="nodeRef"
-          v-bind="api.getContentProps()" shadow="lg"
-          flex="~ col" relative w-320px bg-background
-          class="data-[state=closed]:duration-300 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-90 data-[state=closed]:fade-out data-[state=open]:slide-in-from-bottom-10"
+      <DialogPositioner fixed inset-0 z-200 flex="~ items-center justify-center">
+        <DialogContent
+          shadow="lg" relative w-320px bg-background
+          class="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-90 data-[state=closed]:fade-out data-[state=open]:slide-in-from-bottom-10"
         >
-          <header v-bind="api.getTitleProps()" flex="~ items-end" border="l-5px primary" relative h-50px select-none>
+          <DialogTitle flex="~ items-end" border="l-5px primary" relative h-50px select-none>
             <div flex="~ items-baseline" pb-1 pl-4>
               <div flex="~ items-center">
                 <svg c-border width="6" height="18" viewBox="0 0 6 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -114,7 +84,7 @@ const { isLoading, execute } = useAsyncState(
             <div absolute bottom-1px left-16px h-1px w-300px bg-border>
               <div absolute size-3px left="-1px" bottom="-1px" bg-border />
             </div>
-          </header>
+          </DialogTitle>
           <main>
             <div p-4 space-y-2>
               <p>1. 打开森空岛网页版并登录</p>
@@ -127,11 +97,8 @@ const { isLoading, execute } = useAsyncState(
               <p>3. 在下面输入获取到的值</p>
               <div flex="~" relative>
                 <input
-                  v-model="token"
-                  type="text"
-                  border="~ border [&.warning]:red focus:primary"
-                  p="x-3 y2" flex-1 bg-background outline-none
-                  :class="!!errorMessage && 'warning animate-shake'"
+                  v-model="token" type="text" border="~ border [&.warning]:red focus:primary" p="x-3 y2" flex-1
+                  bg-background outline-none :class="!!errorMessage && 'warning animate-shake'"
                   @focus="errorMessage = ''"
                 >
                 <p absolute text-xs c-red bottom="-4.5">
@@ -142,17 +109,14 @@ const { isLoading, execute } = useAsyncState(
           </main>
           <footer p="t-5px b-13px" flex="~ justify-center">
             <button
-              :disabled="isLoading"
-              h-32px w-250px p-10px
-              bg="[url(~/assets/btn-bg.svg)]"
-              flex="inline justify-center items-center"
-              @click="execute()"
+              :disabled="isLoading" h-32px w-250px p-10px bg="[url(~/assets/btn-bg.svg)]"
+              flex="inline justify-center items-center" @click="execute()"
             >
               {{ isLoading ? 'Loading...' : '新增账户' }}
             </button>
           </footer>
-        </div>
-      </div>
-    </div>
-  </Teleport>
+        </DialogContent>
+      </DialogPositioner>
+    </Teleport>
+  </DialogRoot>
 </template>

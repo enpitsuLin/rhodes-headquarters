@@ -1,5 +1,4 @@
 import { resolve } from 'node:path'
-import Vue from '@vitejs/plugin-vue'
 import UnoCSS from 'unocss/vite'
 import VueRouter from 'unplugin-vue-router/vite'
 import { defineConfig } from 'wxt'
@@ -7,6 +6,7 @@ import VueDevTools from 'vite-plugin-vue-devtools'
 import pkg from './package.json'
 
 export default defineConfig({
+  modules: ['@wxt-dev/module-vue'],
   manifestVersion: 3,
   srcDir: resolve('src'),
   publicDir: resolve('public'),
@@ -30,6 +30,9 @@ export default defineConfig({
   },
   vite(env) {
     return {
+      ssr: {
+        noExternal: ['@webext-core/messaging', '@webext-core/proxy-service'],
+      },
       define: {
         __DEV__: env.mode === 'serve',
         __NAME__: JSON.stringify(pkg.name),
@@ -41,7 +44,6 @@ export default defineConfig({
         VueRouter({
           dts: './src/typed-router.d.ts',
         }),
-        Vue(),
         UnoCSS(),
         VueDevTools({ appendTo: /main\.ts/ }),
       ],
