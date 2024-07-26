@@ -1,13 +1,9 @@
 <script setup lang="ts">
-import { DialogBackdrop, DialogContent, DialogPositioner, DialogRoot, DialogTitle } from '@ark-ui/vue'
+import { DialogBackdrop, DialogCloseTrigger, DialogContent, DialogPositioner, DialogRoot, DialogTitle } from '@ark-ui/vue'
 import { useMagicKeys } from '@vueuse/core'
 import { useRouter } from 'vue-router/auto'
-import { useDialog } from '@/composables/use-dialog'
-import { usePresence } from '@/composables/use-presence'
 
 const open = defineModel<boolean>('open', { required: true })
-
-const nodeRef = ref<HTMLDivElement | null>(null)
 
 const router = useRouter()
 const { meta, control } = useMagicKeys()
@@ -18,28 +14,6 @@ const characters = computed(() => {
   return accounts.value.map((account) => {
     return account.binding.map(b => b.bindingList).flat()
   }).flat()
-})
-
-const api = useDialog({
-  open,
-  onOpenChange(to) {
-    open.value = to
-  },
-})
-
-const presenceApi = usePresence({
-  present: computed(() => api.value.open),
-  onExitComplete: () => {
-    open.value = false
-  },
-})
-
-watch(nodeRef, () => {
-  if (nodeRef.value) {
-    const node = nodeRef.value
-    if (node)
-      presenceApi.value.setNode(node)
-  }
 })
 
 function toPreferences() {
@@ -109,9 +83,9 @@ function toOptions() {
                 CHARACTERS
               </span>
             </div>
-            <button type="button" c="white hover:primary" @click="api.setOpen(false)">
+            <DialogCloseTrigger c="white hover:primary">
               <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="m8.382 17.025l-1.407-1.4L10.593 12L6.975 8.4L8.382 7L12 10.615L15.593 7L17 8.4L13.382 12L17 15.625l-1.407 1.4L12 13.41z" /></svg>
-            </button>
+            </DialogCloseTrigger>
           </div>
           <div absolute bottom-1px left-16px h-1px w-249px bg-border>
             <div absolute size-3px left="-1px" bottom="-1px" bg-border />
