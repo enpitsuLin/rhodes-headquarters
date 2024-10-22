@@ -17,10 +17,8 @@ interface SklandResponse<T> {
  * @param code 鹰角 OAuth 授权码
  */
 export async function generateCredByCode(code: string) {
-  const {
-    data: { cred, token, userId },
-  } = await $fetch<SklandResponse<{ cred: string, userId: string, token: string }>>(
-    '/api/v1/user/auth/generate_cred_by_code',
+  const res = await $fetch<SklandResponse<{ cred: string, userId: string, token: string }>>(
+    '/web/v1/user/auth/generate_cred_by_code',
     {
       method: 'POST',
       body: {
@@ -29,6 +27,12 @@ export async function generateCredByCode(code: string) {
       },
     },
   )
+  if (res.code !== 0)
+    throw new Error(res.message)
+
+  const {
+    data: { cred, token, userId },
+  } = res
   return { cred, token, userId }
 }
 
