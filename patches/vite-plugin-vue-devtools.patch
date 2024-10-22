@@ -1,0 +1,13 @@
+diff --git a/dist/vite.cjs b/dist/vite.cjs
+index 6ba8d519eaf083af8c50e540cd1bbd0b18e00803..cc20578ba63dd93f18a4473eb308a3fcaed6df9b 100644
+--- a/dist/vite.cjs
++++ b/dist/vite.cjs
+@@ -8000,7 +8000,7 @@ function removeUrlQuery(url) {
+ }
+ 
+ function getVueDevtoolsPath() {
+-  const pluginPath = vite.normalizePath(path__default.dirname(node_url.fileURLToPath((typeof document === 'undefined' ? require('u' + 'rl').pathToFileURL(__filename).href : (document.currentScript && document.currentScript.src || new URL('vite.cjs', document.baseURI).href)))));
++  const pluginPath = vite.normalizePath(path__default.dirname(node_url.fileURLToPath(require('u' + 'rl').pathToFileURL(__filename).href)));
+   return pluginPath.replace(/\/dist$/, "//src");
+ }
+ const toggleComboKeysMap = {
