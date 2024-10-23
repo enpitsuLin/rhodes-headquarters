@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { DialogBackdrop, DialogContent, DialogPositioner, DialogRoot, DialogTitle } from '@ark-ui/vue'
 import { useAsyncState } from '@vueuse/core'
+import { getAccountService } from '@/service'
 
 const open = defineModel<boolean>('open', { required: true })
 
