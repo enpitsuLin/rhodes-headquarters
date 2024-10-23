@@ -4,7 +4,7 @@ import type { Binding, Status, User } from '@/types'
 export interface Account {
   /** @unique */
   id: string
-  /** @unique */
+  /** @unique 鹰角网络账号 access token */
   token: string
   binding: Binding[]
   user: User

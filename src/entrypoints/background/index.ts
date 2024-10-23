@@ -2,7 +2,7 @@
 import { fromUnixTime } from 'date-fns'
 import { chararcterStorage } from '@/store/info'
 import { preferenceStorage } from '@/store/preference'
-import { registerAccountService } from '@/utils/proxy-service'
+import { registerAccountService, registerNotificationService } from '@/service'
 
 export default defineBackground({
   type: 'module',
