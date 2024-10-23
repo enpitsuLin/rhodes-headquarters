@@ -1,5 +1,3 @@
-import { PREFERENCE_KEY } from './key-definitions'
-
 export interface Preference {
   /** 定时器时间 */
   periodInMinutes: number
@@ -8,7 +6,7 @@ export interface Preference {
 }
 
 export const preferenceStorage = storage.defineItem<Preference>(
-  PREFERENCE_KEY,
+  'local:preference',
   {
     defaultValue: {
       periodInMinutes: 10,

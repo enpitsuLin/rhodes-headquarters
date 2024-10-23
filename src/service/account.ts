@@ -1,5 +1,5 @@
 import { defineProxyService } from '@webext-core/proxy-service'
-import { accountsStorage, currentAccountStorage } from '@/store/account'
+import * as API from '~/api'
 
 class AccountService {
   static readonly refreshInfoAlarmName = 'refresh-info'
@@ -11,16 +11,23 @@ class AccountService {
   }
 
   async logInOrRefreshAccount(token: string) {
-    await logInOrRefreshAccount(token)
-    await this.refreshCharacterInfo()
+    const code = await API.hypergrayph.grantAuthorizeCode(token)
+    const res = await API.skland.generateCredByCode(code)
+    const binding = await API.skland.getPlayerBinding(res.cred)
+
+    return Promise.all(binding.map(async (b) => {
+      const info = await API.skland.getBindingInfo(res.cred, b.uid)
+
+      return {
+        ...b,
+        info,
+        accountId: res.userId,
+      }
+    }))
   }
 
   async refreshCharacterInfo() {
-    const accounts = await accountsStorage.getValue()
-    const currentAccountId = await currentAccountStorage.getValue()
-    const account = accounts.find(account => account.id === currentAccountId)
-    if (account)
-      await refreshCharacterInfo()
+
   }
 
   async createRefreshInfoAlarm() {

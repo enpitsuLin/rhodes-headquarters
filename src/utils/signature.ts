@@ -1,14 +1,13 @@
 import { getUnixTime } from 'date-fns'
 import { md5 } from 'js-md5'
+import type { FetchContext } from 'ofetch'
+import { stringifyQuery } from 'ufo'
+import { deviceIdStorage, tokenStorage } from '@/store/schema'
+import { refresh } from '@/api'
+
+const WHITELIST = ['/web/v1/user/auth/generate_cred_by_code', '/api/v1/auth/refresh']
 
 const MILLISECOND_PER_SECOND = 1000
-
-const signatureRequiredHeaders = {
-  platform: '1',
-  timestamp: '',
-  dId: '',
-  vName: '1.5.1',
-}
 
 async function generateHMACSHA256(secret: string, body: string) {
   const enc = new TextEncoder()
@@ -45,19 +44,48 @@ function generateMD5Hash(str: string) {
   return md5(utf8HmacSha256ed)
 }
 
-export async function generateSignatureHeader({ token, cred, params, pathname }: {
-  token: string
-  cred: string
-  pathname: string
-  params?: string
-}) {
+export function getRequestURL(request: RequestInfo, baseURL?: string) {
+  const url = typeof request === 'string' ? request : request.url
+  if (URL.canParse(url))
+    return new URL(url)
+  return new URL(url, baseURL)
+}
+
+export async function onSignatureRequest(ctx: FetchContext) {
+  const { pathname } = getRequestURL(ctx.request, ctx.options.baseURL)
+  if (WHITELIST.includes(pathname))
+    return
+
+  const headers = new Headers(ctx.options.headers)
+  let token = headers.get('token') ?? await tokenStorage.getValue()
+  if (!token) {
+    token = await refresh()
+    await tokenStorage.setValue(token)
+  }
+
+  const query = ctx.options.query ? stringifyQuery(ctx.options.query) : ''
   const timestamp = getUnixTime(Date.now() - 5 * MILLISECOND_PER_SECOND).toString()
+  const did = await deviceIdStorage.getValue()
 
-  const headers = { ...signatureRequiredHeaders, timestamp }
+  const signatureHeaders = {
+    platform: '1',
+    timestamp,
+    dId: '',
+    vName: '1.21.0',
+  }
 
-  const body = `${pathname}${params ?? ''}${timestamp}${JSON.stringify(headers)}`
+  if (did)
+    signatureHeaders.dId = did
 
-  const sign = generateMD5Hash(await generateHMACSHA256(token, body))
+  const str = `${pathname}${query}${ctx.options.body ? JSON.stringify(ctx.options.body) : ''}${timestamp}${JSON.stringify(signatureHeaders)}`
+  const hmacSha256ed = await generateHMACSHA256(token, str)
+  const sign = generateMD5Hash(hmacSha256ed)
 
-  return new Headers({ ...headers, sign, cred })
+  Object.entries(signatureHeaders).forEach(([key, value]) => {
+    headers.append(key, value)
+  })
+  headers.append('sign', sign)
+  headers.delete('token')
+
+  ctx.options.headers = headers
 }

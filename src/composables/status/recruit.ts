@@ -2,7 +2,7 @@ import type { MaybeRefOrGetter } from '@vueuse/core'
 import { useNow } from '@vueuse/core'
 import type { Duration } from 'date-fns'
 import { fromUnixTime, getUnixTime, intervalToDuration } from 'date-fns'
-import { humanReadableDate, humanReadableDuration } from '@/utils/time'
+import { readableDate, readableDuration } from '@/utils/time'
 import type { Recruit } from '~/types'
 
 interface CompletedRecruit {
@@ -57,7 +57,7 @@ function parseRecruit(recruit: Recruit, now: Date): RecruitState {
     : fromUnixTime(toValue(recruit).finishTs)
 
   const readableCompletedAt = completedAt
-    ? humanReadableDate(completedAt)
+    ? readableDate(completedAt)
     : null
 
   const remainDuration = status === 'standby'
@@ -67,14 +67,14 @@ function parseRecruit(recruit: Recruit, now: Date): RecruitState {
       end: fromUnixTime(toValue(recruit).finishTs),
     })
 
-  const readableDuration = remainDuration ? humanReadableDuration(remainDuration, { format: ['hours', 'minutes'] }) : null
+  const duration = remainDuration ? readableDuration(remainDuration, { format: ['hours', 'minutes'] }) : null
 
   return {
     status,
     completedAt,
     readableCompletedAt,
     remainDuration,
-    readableDuration,
+    readableDuration: duration,
   } as RecruitState
 }
 

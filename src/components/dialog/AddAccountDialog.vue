@@ -2,10 +2,12 @@
 import { DialogBackdrop, DialogContent, DialogPositioner, DialogRoot, DialogTitle } from '@ark-ui/vue'
 import { useAsyncState } from '@vueuse/core'
 import { getAccountService } from '@/service'
+import { useArknightRole } from '@/store/account'
 
 const open = defineModel<boolean>('open', { required: true })
 
 const accountService = getAccountService()
+const arknightRole = useArknightRole()
 
 const toast = useToast()
 
@@ -15,7 +17,15 @@ const errorMessage = ref('')
 const { isLoading, execute } = useAsyncState(
   async () => {
     if (token.value) {
-      await accountService.logInOrRefreshAccount(token.value)
+      const binding = await accountService.logInOrRefreshAccount(token.value)
+      binding.forEach(({ info: _info, ...b }) => {
+        arknightRole.addRole(b)
+        arknightRole.setInfoMapping(b.uid, _info)
+      })
+
+      if (arknightRole.roles.length === 1)
+        arknightRole.setCurrentUid(arknightRole.roles[0].uid)
+
       return true
     }
     throw new Error('凭证为空')

@@ -4,5 +4,9 @@
   },
   "files.associations": {
     "*.css": "postcss"
-  }
+  },
+  "cSpell.words": [
+    "Hypergrayph",
+    "Skland"
+  ]
 }

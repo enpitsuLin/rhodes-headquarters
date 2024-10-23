@@ -1,55 +1,43 @@
-import type { WxtStorageItem } from 'wxt/storage'
+import { useAsyncState } from '@vueuse/core'
+import type { Unwatch, WxtStorageItem } from 'wxt/storage'
 
 export function useWxtStorage<
-  Value extends (string | number | boolean | object | null),
-  // eslint-disable-next-line ts/no-empty-object-type
-  MetaData extends Record<string, unknown> = {},
->(item: WxtStorageItem<Value, MetaData>, shallow?: boolean) {
-  const rawInit: Value = item.fallback
-
-  const data = (shallow ? shallowRef : ref)(item.defaultValue) as Ref<Value>
-
-  async function read(newValue?: Value) {
-    try {
-      newValue = newValue ?? await item.getValue()
-      if (!newValue)
-        data.value = rawInit
-      else
-        data.value = newValue
-    }
-    // eslint-disable-next-line unused-imports/no-unused-vars
-    catch (error) {
-      // TODO: onError options
-    }
-  }
-
-  read()
-
-  item.watch((newValue, oldValue) => {
-    if (newValue === oldValue)
-      return
-    read(newValue)
-  })
-
-  watch(
-    data,
-    async () => {
-      try {
-        if (data.value == null)
-          await item.removeValue()
-        else
-          await item.setValue(toRaw(data.value))
-      }
-      // eslint-disable-next-line unused-imports/no-unused-vars
-      catch (e) {
-        // TODO: onError options
-      }
-    },
+  Value,
+  MetaData extends Record<string, unknown>,
+  Shallow extends boolean = false,
+>(
+  item: WxtStorageItem<Value, MetaData>,
+  shallow?: Shallow,
+) {
+  const { state } = useAsyncState<Value, [], Shallow>(
+    item.getValue(),
+    item.fallback,
     {
-      deep: true,
-      flush: 'pre',
+      immediate: true,
+      shallow,
     },
   )
 
-  return data
+  // Listen for changes
+  let unwatch: Unwatch | undefined
+  onMounted(() => {
+    unwatch = item.watch(async (newValue) => {
+      state.value = newValue ?? item.fallback
+    })
+  })
+  onUnmounted(() => {
+    unwatch?.()
+  })
+
+  return computed({
+    get() {
+      return state.value as Value
+    },
+    set(newValue) {
+      if (newValue === null)
+        item.removeValue()
+      else item.setValue(newValue)
+      state.value = newValue ?? item.fallback
+    },
+  })
 }

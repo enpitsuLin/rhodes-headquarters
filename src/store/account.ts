@@ -1,37 +1,37 @@
-import { ACCOUNTS_KEY, CHARARCTER_UID_KEY, CURRENT_ACCOUNT_KEY } from './key-definitions'
-import type { Binding, Status, User } from '@/types'
+import { acceptHMRUpdate, defineStore } from 'pinia'
+import type { ArknightRole } from './schema'
+import { arknightRolesStorage, currentUidStorage, infoStorage } from './schema'
+import type { BindingInfo } from '@/types'
 
-export interface Account {
-  /** @unique */
-  id: string
-  /** @unique 鹰角网络账号 access token */
-  token: string
-  binding: Binding[]
-  user: User
-  /** 默认方舟角色的状态 */
-  gameStatus: Status
+export const useArknightRole = defineStore('arknight-role', {
+  state() {
+    const roles = useWxtStorage(arknightRolesStorage)
+    const currentUid = useWxtStorage(currentUidStorage)
+    const infoMapping = useWxtStorage(infoStorage)
+
+    return {
+      roles,
+      currentUid,
+      infoMapping,
+    }
+  },
+  getters: {
+    currentRole: state => state.roles.find(role => role.uid === state.currentUid),
+    info: state => state.currentUid ? state.infoMapping[state.currentUid] : null,
+  },
+  actions: {
+    addRole(role: ArknightRole) {
+      this.roles.push(role)
+    },
+    setInfoMapping(uid: ArknightRole['uid'], info: BindingInfo) {
+      this.infoMapping[uid] = info
+    },
+    setCurrentUid(uid: ArknightRole['uid']) {
+      this.currentUid = uid
+    },
+  },
+})
+
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useArknightRole, import.meta.hot))
 }
-
-export const currentChararcterUidStorage = storage.defineItem<string>(
-  CHARARCTER_UID_KEY,
-  {
-    defaultValue: '',
-    version: 1,
-  },
-)
-
-export const currentAccountStorage = storage.defineItem<Account['id']>(
-  CURRENT_ACCOUNT_KEY,
-  {
-    defaultValue: '',
-    version: 1,
-  },
-)
-
-export const accountsStorage = storage.defineItem<Account[]>(
-  ACCOUNTS_KEY,
-  {
-    defaultValue: [],
-    version: 1,
-  },
-)

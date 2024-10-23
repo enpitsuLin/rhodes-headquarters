@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import { chararcterStorage } from '@/store/info'
+import type { BindingInfo } from '@/types'
 
-const characterInfo = useWxtStorage(chararcterStorage)
+defineProps<{
+  info: BindingInfo
+}>()
 </script>
 
 <template>
@@ -14,9 +16,9 @@ const characterInfo = useWxtStorage(chararcterStorage)
         </div>
         <div text-xs>
           <span c-red>
-            {{ characterInfo?.campaign.reward.current }}
+            {{ info?.campaign.reward.current }}
           </span>/<span>
-            {{ characterInfo?.campaign.reward.total }}
+            {{ info?.campaign.reward.total }}
           </span>
         </div>
       </div>
@@ -28,16 +30,16 @@ const characterInfo = useWxtStorage(chararcterStorage)
         <div flex="inline gap-2" text-xs>
           <div>
             <span c-purple>
-              {{ characterInfo?.tower.reward.higherItem.current }}
+              {{ info?.tower.reward.higherItem.current }}
             </span>/<span>
-              {{ characterInfo?.tower.reward.higherItem.total }}
+              {{ info?.tower.reward.higherItem.total }}
             </span>
           </div>
           <div>
             <span c-yellow>
-              {{ characterInfo?.tower.reward.lowerItem.current }}
+              {{ info?.tower.reward.lowerItem.current }}
             </span>/<span>
-              {{ characterInfo?.tower.reward.lowerItem.total }}
+              {{ info?.tower.reward.lowerItem.total }}
             </span>
           </div>
         </div>
@@ -51,16 +53,16 @@ const characterInfo = useWxtStorage(chararcterStorage)
         <div flex="inline gap-2" text-xs>
           <div>
             <span c-primary>
-              {{ characterInfo?.routine.daily.current }}
+              {{ info?.routine.daily.current }}
             </span>/<span>
-              {{ characterInfo?.routine.daily.total }}
+              {{ info?.routine.daily.total }}
             </span>
           </div>
           <div>
             <span c-primary>
-              {{ characterInfo?.routine.weekly.current }}
+              {{ info?.routine.weekly.current }}
             </span>/<span>
-              {{ characterInfo?.routine.weekly.total }}
+              {{ info?.routine.weekly.total }}
             </span>
           </div>
         </div>

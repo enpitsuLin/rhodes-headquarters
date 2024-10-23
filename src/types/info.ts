@@ -29,6 +29,7 @@ export interface Status {
 export interface Avatar {
   type: 'ICON' | (string & {})
   id: string
+  url: string
 }
 
 /** 理智 */

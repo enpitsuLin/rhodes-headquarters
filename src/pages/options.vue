@@ -1,22 +1,11 @@
 <script setup lang="ts">
+import { storeToRefs } from 'pinia'
 import AccountItem from '@/components/account/AccountItem.vue'
 import AddAccountFab from '@/components/account/AddAccountFab.vue'
-import { chararcterStorage } from '@/store/info'
+import { useArknightRole } from '@/store/account'
 import OptionLayout from '~/components/layouts/options.vue'
 
-const accounts = useAccounts()
-const authorizeMapping = useAuthorizeMapping()
-const currentAccount = useCurrentAccount()
-const characterInfo = useWxtStorage(chararcterStorage)
-
-function onDelete(id: string) {
-  accounts.value = accounts.value.filter(a => a.id !== id)
-  if (authorizeMapping.value[id])
-    delete authorizeMapping.value[id]
-
-  if (characterInfo.value)
-    characterInfo.value = null
-}
+const { currentUid, roles } = storeToRefs(useArknightRole())
 </script>
 
 <template>
@@ -25,14 +14,15 @@ function onDelete(id: string) {
     background-title="Account Manage"
   >
     <ul flex="~ col gap-2">
-      <li v-for="account in accounts" :key="account.id">
+      <li v-for="account in roles" :key="account.uid">
         <AccountItem
           :account="account"
-          :current="account.id === currentAccount?.id"
-          @delete="onDelete"
+          :current="account.uid === currentUid"
+          @delete="() => {}"
         />
       </li>
     </ul>
+
     <template #fab>
       <AddAccountFab />
     </template>

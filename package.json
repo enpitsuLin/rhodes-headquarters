@@ -27,6 +27,8 @@
     "date-fns": "^4.1.0",
     "js-md5": "^0.8.3",
     "ofetch": "^1.4.1",
+    "pinia": "^2.2.4",
+    "ufo": "^1.5.4",
     "vue-router": "^4.4.5"
   },
   "devDependencies": {
