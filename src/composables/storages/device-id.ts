@@ -51,15 +51,16 @@ function createDeviceIdInIframe(): Promise<string> {
   })
 }
 
-export function useDeviceId() {
-  const deviceId = useWxtStorageAsync<string>('PRRH:DEVICE_ID', '')
+export const DEVICE_ID_KEY = 'local:PRRH:DEVICE_ID'
 
+export function useDeviceId() {
   return useAsyncState(
     async () => {
-      if (deviceId.value)
-        return deviceId.value
+      const deviceId = await storage.getItem<string>(DEVICE_ID_KEY)
+      if (deviceId)
+        return deviceId
 
-      return deviceId.value = await createDeviceIdInIframe()
+      return await createDeviceIdInIframe()
     },
     '',
   )
