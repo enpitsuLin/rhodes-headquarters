@@ -53,7 +53,7 @@ class NotificationService {
       await browser.alarms.clear(name)
 
     if (+date > Date.now()) {
-      Logger.log(`Created alarm notification for ${name} when`, format(date, 'MM/dd HH:mm:ss'))
+      Logger.log(`为「${this.alarmsNotification.get(name)?.title}」创建定时器, 通知时间: ${format(date, 'MM/dd HH:mm:ss')}`)
       browser.alarms.create(name, {
         when: +date,
       })
@@ -61,7 +61,7 @@ class NotificationService {
   }
 
   async clearAlarmNotification() {
-    Logger.log(`Clear all alarm notification`)
+    Logger.log(`清除所有通知定时器`)
 
     await Promise.all(
       [

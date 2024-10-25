@@ -1,41 +1,54 @@
 /// <reference lib="webworker"/>
+import { debouncedWatch } from '@vueuse/core'
 import { fromUnixTime } from 'date-fns'
-import { chararcterStorage } from '@/store/info'
-import { preferenceStorage } from '@/store/preference'
-import { registerAccountService, registerNotificationService } from '@/service'
+import { usePreference } from '~/composables/storages'
+import { registerBackgroundService, registerNotificationService } from '~/service'
 
 export default defineBackground({
   type: 'module',
   main: () => {
-    const accountService = registerAccountService()
+    const backgroundService = registerBackgroundService()
+    const notificationService = registerNotificationService()
 
-    const notificationServie = registerNotificationService()
+    const preference = usePreference()
 
-    accountService.createRefreshInfoAlarm()
+    debouncedWatch(
+      backgroundService.currentArknightCharacterInfo,
+      (newInfo, oldInfo) => {
+        if (!newInfo)
+          return
+        if (oldInfo?.currentTs === newInfo.currentTs)
+          return
 
-    preferenceStorage.watch((value, oldValue) => {
-      if (oldValue.periodInMinutes !== value.periodInMinutes)
-        accountService.createRefreshInfoAlarm()
-    })
-
-    chararcterStorage.watch((value) => {
-      if (value) {
-        value.recruit.forEach((recruit, index) => {
-          notificationServie.createAlarmNotification(
-          `RECRUITS_${(index + 1) as 1 | 2 | 3 | 4}_ALARMS_NAME`,
-          fromUnixTime(recruit.finishTs),
+        newInfo.recruit.forEach((recruit, index) => {
+          notificationService.createAlarmNotification(
+            `RECRUITS_${(index + 1) as 1 | 2 | 3 | 4}_ALARMS_NAME`,
+            fromUnixTime(recruit.finishTs),
           )
         })
 
-        notificationServie.createAlarmNotification(
+        notificationService.createAlarmNotification(
           'SANITY_ALARM_NAME',
-          fromUnixTime(value.status.ap.completeRecoveryTime),
+          fromUnixTime(newInfo.status.ap.completeRecoveryTime),
         )
-      }
-      else {
-        notificationServie.clearAlarmNotification()
-      }
-    })
+      },
+      {
+        immediate: true,
+        debounce: 800,
+      },
+    )
+
+    watch(
+      preference,
+      (newPref, oldPref) => {
+        if (newPref?.periodInMinutes !== oldPref?.periodInMinutes)
+          backgroundService.createRefreshAlarm(newPref?.periodInMinutes)
+      },
+      {
+        immediate: true,
+        deep: true,
+      },
+    )
   },
 })
 

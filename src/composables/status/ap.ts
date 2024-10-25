@@ -2,7 +2,7 @@ import { useNow } from '@vueuse/core'
 import type { Duration } from 'date-fns'
 import { add, differenceInMinutes, fromUnixTime, intervalToDuration } from 'date-fns'
 import type { ActionPoint } from '~/types'
-import { humanReadableDate, humanReadableDuration } from '~/utils/time'
+import { readableDate, readableDuration } from '~/utils/time'
 
 const MINUTES_PRE_AP = 6
 
@@ -46,11 +46,11 @@ export function useSanityInfo(sanity: ActionPoint): UseSanityInfoReturn {
     return {
       date: {
         value: completeRecoveryDate,
-        readable: humanReadableDate(completeRecoveryDate),
+        readable: readableDate(completeRecoveryDate),
       },
       duration: {
         value: completeRecoveryDuration,
-        readable: humanReadableDuration(completeRecoveryDuration, { format: ['hours', 'minutes'] }),
+        readable: readableDuration(completeRecoveryDuration, { format: ['hours', 'minutes'] }),
       },
     }
   })
@@ -66,11 +66,11 @@ export function useSanityInfo(sanity: ActionPoint): UseSanityInfoReturn {
     return {
       date: {
         value: nextAddDate,
-        readable: humanReadableDate(nextAddDate),
+        readable: readableDate(nextAddDate),
       },
       duration: {
         value: nextAddDuration,
-        readable: humanReadableDuration(nextAddDuration, { format: ['minutes', 'seconds'], zero: true }),
+        readable: readableDuration(nextAddDuration, { format: ['minutes', 'seconds'], zero: true }),
       },
     }
   })

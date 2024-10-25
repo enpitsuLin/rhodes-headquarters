@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import SectionTitle from './SectionTitle.vue'
-import { useRecruits } from '@/composables/status/recruit'
+import { useRecruits } from '~/composables/status/recruit'
 import type { BuildingHire, Recruit } from '~/types'
 
 const props = defineProps<{ recruits: Recruit[], hire: BuildingHire }>()

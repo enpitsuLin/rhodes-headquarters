@@ -1,37 +1,54 @@
-import { ACCOUNTS_KEY, CHARARCTER_UID_KEY, CURRENT_ACCOUNT_KEY } from './key-definitions'
-import type { Binding, Status, User } from '@/types'
+import { acceptHMRUpdate, defineStore } from 'pinia'
+import type { BindingInfo } from '~/types'
+import type { ArknightRole, SklandAccount } from '~/composables/storages'
+import {
+  useArknightAccountsInfo,
+  useArknightCharacters,
+  useCurrentArknightCharacter,
+  useSklandAccounts,
+} from '~/composables/storages'
 
-export interface Account {
-  /** @unique */
-  id: string
-  /** @unique 鹰角网络账号 access token */
-  token: string
-  binding: Binding[]
-  user: User
-  /** 默认方舟角色的状态 */
-  gameStatus: Status
+export const useAccountsStore = defineStore('PRRH:arknight-role', {
+  state() {
+    const accounts = useSklandAccounts()
+    const characters = useArknightCharacters()
+    const currentUid = useCurrentArknightCharacter()
+    const infoMapping = useArknightAccountsInfo()
+
+    return {
+      accounts,
+      characters,
+      currentUid,
+      infoMapping,
+    }
+  },
+  getters: {
+    currentRole: state => state.characters.find(role => role.uid === state.currentUid),
+    info: state => state.currentUid ? state.infoMapping[state.currentUid] : null,
+  },
+  actions: {
+    addAccount(account: SklandAccount) {
+      this.accounts.push(account)
+    },
+    addRole(role: ArknightRole) {
+      this.characters.push(role)
+    },
+    removeRole(uid: ArknightRole['uid']) {
+      if (this.currentUid === uid)
+        this.currentUid = null
+
+      this.characters = this.characters.filter(role => role.uid !== uid)
+      delete this.infoMapping[uid]
+    },
+    setInfoMapping(uid: ArknightRole['uid'], info: BindingInfo) {
+      this.infoMapping[uid] = info
+    },
+    setCurrentUid(uid: ArknightRole['uid']) {
+      this.currentUid = uid
+    },
+  },
+})
+
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useAccountsStore, import.meta.hot))
 }
-
-export const currentChararcterUidStorage = storage.defineItem<string>(
-  CHARARCTER_UID_KEY,
-  {
-    defaultValue: '',
-    version: 1,
-  },
-)
-
-export const currentAccountStorage = storage.defineItem<Account['id']>(
-  CURRENT_ACCOUNT_KEY,
-  {
-    defaultValue: '',
-    version: 1,
-  },
-)
-
-export const accountsStorage = storage.defineItem<Account[]>(
-  ACCOUNTS_KEY,
-  {
-    defaultValue: [],
-    version: 1,
-  },
-)

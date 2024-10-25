@@ -2,19 +2,13 @@
 import { DialogBackdrop, DialogCloseTrigger, DialogContent, DialogPositioner, DialogRoot, DialogTitle } from '@ark-ui/vue'
 import { useMagicKeys } from '@vueuse/core'
 import { useRouter } from 'vue-router/auto'
+import { useAccountsStore } from '~/store/account'
 
 const open = defineModel<boolean>('open', { required: true })
-
 const router = useRouter()
 const { meta, control } = useMagicKeys()
 
-const accounts = useAccounts()
-
-const characters = computed(() => {
-  return accounts.value.map((account) => {
-    return account.binding.map(b => b.bindingList).flat()
-  }).flat()
-})
+const accountsStore = useAccountsStore()
 
 function toPreferences() {
   if (meta.value || control.value) {
@@ -40,7 +34,7 @@ function toOptions() {
 </script>
 
 <template>
-  <DialogRoot v-model:open="open" absolute inset-0>
+  <DialogRoot v-model:open="open">
     <DialogBackdrop
       absolute inset-0 z-100 bg-border:10 backdrop-blur-3
       class="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in data-[state=closed]:fade-out"
@@ -96,7 +90,7 @@ function toOptions() {
             h-492px of-y-scroll p-8px
           >
             <ul flex="~ col gap-4px">
-              <li v-for="character in characters" :key="character.uid">
+              <li v-for="character in accountsStore.characters" :key="character.uid">
                 <button
                   flex="inline gap-4px items-center justify-between" p="x-10px"
                   h-70px w-full bg="list-item"
