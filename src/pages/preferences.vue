@@ -2,7 +2,15 @@
 import PreferenceItem from '~/components/preferences/PreferenceItem.vue'
 import Switch from '~/components/ui/Switch.vue'
 import { usePreference } from '~/composables/storages'
-import OptionLayout from '~/components/layouts/options.vue'
+
+definePage({
+  meta: {
+    layout: 'options',
+    title: '系统设置',
+    backgroundTitle: 'Preferences',
+    contentClass: 'bg-secondary-background',
+  },
+})
 
 const preferences = usePreference()
 
@@ -17,28 +25,22 @@ function onChange(e: Event) {
 </script>
 
 <template>
-  <OptionLayout
-    title="系统设置"
-    background-title="Preferences"
-    content-class="bg-secondary-background"
-  >
-    <ul flex="~ col gap-10px" p-10px>
-      <li>
-        <PreferenceItem title="刷新时间" description="定时刷新游戏角色最新数据的时间，单位分钟，默认 10 分钟。">
-          <input
-            :placeholder="preferences.periodInMinutes.toString()"
-            type="input" inputmode="numeric"
-            bg="transparent"
-            border="~ border focus:primary rounded-sm" h-30px w-36px px-2 py-2 outline-none
-            @change="onChange"
-          >
-        </PreferenceItem>
-      </li>
-      <li>
-        <PreferenceItem title="多账户提醒(WIP)" description="对非当前账户的其余账户信息提供可用提醒，如理智即将恢复，公招即将结束等。">
-          <Switch v-model="preferences.charactersAlarmsEnable" />
-        </PreferenceItem>
-      </li>
-    </ul>
-  </OptionLayout>
+  <ul flex="~ col gap-10px" p-10px>
+    <li>
+      <PreferenceItem title="刷新时间" description="定时刷新游戏角色最新数据的时间，单位分钟，默认 10 分钟。">
+        <input
+          :placeholder="preferences.periodInMinutes.toString()"
+          type="input" inputmode="numeric"
+          bg="transparent"
+          border="~ border focus:primary rounded-sm" h-30px w-36px px-2 py-2 outline-none
+          @change="onChange"
+        >
+      </PreferenceItem>
+    </li>
+    <li>
+      <PreferenceItem title="多账户提醒(WIP)" description="对非当前账户的其余账户信息提供可用提醒，如理智即将恢复，公招即将结束等。">
+        <Switch v-model="preferences.charactersAlarmsEnable" />
+      </PreferenceItem>
+    </li>
+  </ul>
 </template>

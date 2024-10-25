@@ -1,18 +1,14 @@
 <script setup lang="ts">
 import { useUrlSearchParams } from '@vueuse/core'
-import { useRouter } from 'vue-router/auto'
-
-interface Props {
-  title: string
-  backgroundTitle: string
-  contentClass?: string
-}
-
-defineProps<Props>()
+import { useRoute, useRouter } from 'vue-router/auto'
 
 const query = useUrlSearchParams<{ to?: string }>()
 
 const router = useRouter()
+
+const route = useRoute()
+
+const { title, backgroundTitle, contentClass } = route.meta
 
 if (query.to === 'preferences') {
   router
@@ -30,7 +26,6 @@ const showBack = location.pathname !== '/options.html'
 <template>
   <div bg="background" relative h-full w-full>
     <header
-
       relative h-160px w-full select-none of-hidden
       class="from-#0C4D78:0 to-#0C4D78:80 bg-gradient-linear"
     >
@@ -80,9 +75,9 @@ const showBack = location.pathname !== '/options.html'
       left-15px right-15px top-145px
       :class="contentClass"
     >
-      <slot />
+      <RouterView />
     </main>
-    <slot name="fab" />
+    <RouterView name="fab" />
   </div>
 
   <nav

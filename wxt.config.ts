@@ -2,6 +2,7 @@ import { resolve } from 'node:path'
 import UnoCSS from 'unocss/vite'
 import VueRouter from 'unplugin-vue-router/vite'
 import { defineConfig } from 'wxt'
+import Layouts from 'vite-plugin-vue-layouts'
 import VueDevTools from 'vite-plugin-vue-devtools'
 import pkg from './package.json'
 
@@ -44,7 +45,10 @@ export default defineConfig({
         VueRouter({
           dts: './src/typed-router.d.ts',
         }),
+        Layouts(),
+
         UnoCSS(),
+
         VueDevTools({ appendTo: /main\.ts/ }),
       ],
     }
