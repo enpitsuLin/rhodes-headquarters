@@ -2,7 +2,7 @@ import { getUnixTime } from 'date-fns'
 import { md5 } from 'js-md5'
 import type { FetchContext } from 'ofetch'
 import { stringifyQuery } from 'ufo'
-import { DEVICE_ID_KEY } from '@/composables/storages'
+import { DEVICE_ID_KEY } from '~/composables/storages'
 import { refresh } from '~/api'
 
 const WHITELIST = ['/web/v1/user/auth/generate_cred_by_code', '/api/v1/auth/refresh']
