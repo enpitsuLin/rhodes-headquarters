@@ -9,7 +9,7 @@ import SectionMission from '~/components/home/SectionMission.vue'
 import SectionTip from '~/components/home/SectionTip.vue'
 import SectionCharacter from '~/components/home/SectionCharacter.vue'
 import Loading from '~/components/Loading.vue'
-import { useArknightRole } from '~/store/account'
+import { useAccountsStore } from '~/store/account'
 
 const router = useRouter()
 
@@ -17,9 +17,9 @@ const { load, unload } = useStyleTag(`html,body{height:unset}#app {height:250px 
 
 const { meta, control } = useMagicKeys()
 
-const { roles, info } = storeToRefs(useArknightRole())
+const { characters, info } = storeToRefs(useAccountsStore())
 
-watch(roles, ({ length }) => {
+watch(characters, ({ length }) => {
   if (length === 0)
     load()
 
@@ -40,7 +40,7 @@ function onOptionClick() {
 
 <template>
   <LayoutDefault>
-    <template v-if="roles.length === 0">
+    <template v-if="characters.length === 0">
       <div py-4>
         <h2 text-xl>
           暂无账号

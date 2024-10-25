@@ -2,28 +2,28 @@ import { acceptHMRUpdate, defineStore } from 'pinia'
 import type { BindingInfo } from '~/types'
 import type { ArknightRole, SklandAccount } from '~/composables/storages'
 import {
-  useArknightAccounts,
   useArknightAccountsInfo,
-  useCurrentArknightAccount,
+  useArknightCharacters,
+  useCurrentArknightCharacter,
   useSklandAccounts,
 } from '~/composables/storages'
 
-export const useArknightRole = defineStore('PRRH:arknight-role', {
+export const useAccountsStore = defineStore('PRRH:arknight-role', {
   state() {
     const accounts = useSklandAccounts()
-    const roles = useArknightAccounts()
-    const currentUid = useCurrentArknightAccount()
+    const characters = useArknightCharacters()
+    const currentUid = useCurrentArknightCharacter()
     const infoMapping = useArknightAccountsInfo()
 
     return {
       accounts,
-      roles,
+      characters,
       currentUid,
       infoMapping,
     }
   },
   getters: {
-    currentRole: state => state.roles.find(role => role.uid === state.currentUid),
+    currentRole: state => state.characters.find(role => role.uid === state.currentUid),
     info: state => state.currentUid ? state.infoMapping[state.currentUid] : null,
   },
   actions: {
@@ -31,13 +31,13 @@ export const useArknightRole = defineStore('PRRH:arknight-role', {
       this.accounts.push(account)
     },
     addRole(role: ArknightRole) {
-      this.roles.push(role)
+      this.characters.push(role)
     },
     removeRole(uid: ArknightRole['uid']) {
       if (this.currentUid === uid)
         this.currentUid = null
 
-      this.roles = this.roles.filter(role => role.uid !== uid)
+      this.characters = this.characters.filter(role => role.uid !== uid)
       delete this.infoMapping[uid]
     },
     setInfoMapping(uid: ArknightRole['uid'], info: BindingInfo) {
@@ -50,5 +50,5 @@ export const useArknightRole = defineStore('PRRH:arknight-role', {
 })
 
 if (import.meta.hot) {
-  import.meta.hot.accept(acceptHMRUpdate(useArknightRole, import.meta.hot))
+  import.meta.hot.accept(acceptHMRUpdate(useAccountsStore, import.meta.hot))
 }

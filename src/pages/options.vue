@@ -2,10 +2,10 @@
 import { storeToRefs } from 'pinia'
 import AccountItem from '~/components/account/AccountItem.vue'
 import AddAccountFab from '~/components/account/AddAccountFab.vue'
-import { useArknightRole } from '~/store/account'
+import { useAccountsStore } from '~/store/account'
 import OptionLayout from '~/components/layouts/options.vue'
 
-const { roles } = storeToRefs(useArknightRole())
+const { characters } = storeToRefs(useAccountsStore())
 </script>
 
 <template>
@@ -14,9 +14,9 @@ const { roles } = storeToRefs(useArknightRole())
     background-title="Account Manage"
   >
     <ul flex="~ col gap-2">
-      <li v-for="account in roles" :key="account.uid">
+      <li v-for="character in characters" :key="character.uid">
         <AccountItem
-          :account="account"
+          :account="character"
         />
       </li>
     </ul>

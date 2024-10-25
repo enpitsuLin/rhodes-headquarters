@@ -14,11 +14,11 @@ export function useSklandAccounts() {
   return useWxtStorageAsync<SklandAccount[]>('PRRH:SKLAND_ACCOUNTS', [])
 }
 
-export function useArknightAccounts() {
-  return useWxtStorageAsync<ArknightRole[]>('PRRH:ARKNIGHT_ACCOUNTS', [])
+export function useArknightCharacters() {
+  return useWxtStorageAsync<ArknightRole[]>('PRRH:ARKNIGHT_CHARACTERS', [])
 }
 
 /** 当前明日方舟账号 uid  */
-export function useCurrentArknightAccount() {
-  return useWxtStorageAsync<string | null>('PRRH:ARKNIGHT_ACCOUNT_CURRENT', null)
+export function useCurrentArknightCharacter() {
+  return useWxtStorageAsync<string | null>('PRRH:ARKNIGHT_CHARACTER_CURRENT', '')
 }

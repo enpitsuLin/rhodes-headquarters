@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { DialogBackdrop, DialogContent, DialogPositioner, DialogRoot, DialogTitle } from '@ark-ui/vue'
 import { useAsyncState } from '@vueuse/core'
-import { getAccountService } from '~/service'
-import { useArknightRole } from '~/store/account'
+import { getBackgroundService } from '~/service'
+import { useAccountsStore } from '~/store/account'
 import { useDeviceId } from '~/composables/storages'
 
 const open = defineModel<boolean>('open', { required: true })
 
-const accountService = getAccountService()
-const arknightRole = useArknightRole()
+const accountService = getBackgroundService()
+const accountsStore = useAccountsStore()
 
 const toast = useToast()
 
@@ -20,15 +20,15 @@ const { state: deviceId, isLoading: isLoadingDeviceId } = useDeviceId()
 const { isLoading, execute } = useAsyncState(
   async () => {
     if (token.value) {
-      const binding = await accountService.logInOrRefreshAccount(token.value, deviceId.value)
+      const binding = await accountService.signIn(token.value, deviceId.value)
       binding.forEach(({ info, role, account }) => {
-        arknightRole.addAccount(account)
-        arknightRole.addRole(role)
-        arknightRole.setInfoMapping(role.uid, info)
+        accountsStore.addAccount(account)
+        accountsStore.addRole(role)
+        accountsStore.setInfoMapping(role.uid, info)
       })
 
-      if (arknightRole.roles.length === 1)
-        arknightRole.setCurrentUid(arknightRole.roles[0].uid)
+      if (accountsStore.characters.length === 1)
+        accountsStore.setCurrentUid(accountsStore.characters[0].uid)
 
       return true
     }

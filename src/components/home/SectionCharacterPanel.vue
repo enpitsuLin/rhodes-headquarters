@@ -2,13 +2,13 @@
 import { DialogBackdrop, DialogCloseTrigger, DialogContent, DialogPositioner, DialogRoot, DialogTitle } from '@ark-ui/vue'
 import { useMagicKeys } from '@vueuse/core'
 import { useRouter } from 'vue-router/auto'
-import { useArknightRole } from '~/store/account'
+import { useAccountsStore } from '~/store/account'
 
 const open = defineModel<boolean>('open', { required: true })
 const router = useRouter()
 const { meta, control } = useMagicKeys()
 
-const arknightRole = useArknightRole()
+const accountsStore = useAccountsStore()
 
 function toPreferences() {
   if (meta.value || control.value) {
@@ -90,7 +90,7 @@ function toOptions() {
             h-492px of-y-scroll p-8px
           >
             <ul flex="~ col gap-4px">
-              <li v-for="character in arknightRole.roles" :key="character.uid">
+              <li v-for="character in accountsStore.characters" :key="character.uid">
                 <button
                   flex="inline gap-4px items-center justify-between" p="x-10px"
                   h-70px w-full bg="list-item"

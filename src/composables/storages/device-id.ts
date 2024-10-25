@@ -60,7 +60,9 @@ export function useDeviceId() {
       if (deviceId)
         return deviceId
 
-      return await createDeviceIdInIframe()
+      const dId = await createDeviceIdInIframe()
+      await storage.setItem(DEVICE_ID_KEY, dId)
+      return dId
     },
     '',
   )
