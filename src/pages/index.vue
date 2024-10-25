@@ -13,19 +13,9 @@ import { useAccountsStore } from '~/store/account'
 
 const router = useRouter()
 
-const { load, unload } = useStyleTag(`html,body{height:unset}#app {height:250px !important}`, { immediate: false })
-
 const { meta, control } = useMagicKeys()
 
 const { characters, info } = storeToRefs(useAccountsStore())
-
-watch(characters, ({ length }) => {
-  if (length === 0)
-    load()
-
-  else
-    unload()
-}, { immediate: true })
 
 function onOptionClick() {
   // TODO 确定一下 PC 上 control 键，可以判断环境再判断键位
