@@ -3,7 +3,7 @@ import SectionTitle from './SectionTitle.vue'
 import { useRecruits } from '~/composables/status/recruit'
 import type { BuildingHire, Recruit } from '~/types'
 
-const props = defineProps<{ recruits: Recruit[], hire: BuildingHire }>()
+const props = defineProps<{ recruits: Recruit[], hire?: BuildingHire }>()
 
 const parsedRecruits = useRecruits(props.recruits)
 </script>
@@ -12,7 +12,12 @@ const parsedRecruits = useRecruits(props.recruits)
   <section flex="~ col">
     <SectionTitle title="罗德岛" sub="Rhodes Island" />
     <div h-30px border="b-1 border" flex="~ items-center">
-      联络次数 {{ hire.refreshCount }}/3
+      <template v-if="hire">
+        联络次数 {{ hire?.refreshCount }}/3
+      </template>
+      <template v-else>
+        公招功能可能尚未解锁
+      </template>
     </div>
     <div relative h-240px w-320px border="b-1 border">
       <div absolute bottom-0 left-0 c-border>
@@ -52,6 +57,11 @@ const parsedRecruits = useRecruits(props.recruits)
                 <div>预计完成于 {{ recruit.readableCompletedAt }}</div>
               </div>
             </template>
+            <template v-else-if="recruit.status === 'locked'">
+              <div text-base>
+                尚未解锁公招位
+              </div>
+            </template>
             <template v-else>
               <div text-base>
                 没有进行中的招募
@@ -59,6 +69,22 @@ const parsedRecruits = useRecruits(props.recruits)
             </template>
           </div>
         </li>
+        <!-- 船新创的号 森空岛api暂无数据的情况 -->
+        <template v-if="parsedRecruits.length < 4">
+          <li v-for="i in 4 - parsedRecruits.length" :key="i">
+            <div
+              h-50px flex="~ gap-10px items-center"
+              bg="#2D2E30/30" px-8px
+            >
+              <div size-24px bg-primary text-center leading-24px>
+                {{ i + parsedRecruits.length }}
+              </div>
+              <div text-base>
+                尚未解锁公招位
+              </div>
+            </div>
+          </li>
+        </template>
       </ul>
     </div>
   </section>

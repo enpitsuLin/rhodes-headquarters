@@ -3,9 +3,13 @@ import { useAccountsStore } from '~/store/account'
 import Avatar from '~/components/Avatar.vue'
 import type { ArknightRole } from '~/composables/storages'
 
-defineProps<{ account: ArknightRole }>()
+const { account } = defineProps<{ account: ArknightRole }>()
 
 const accountStore = useAccountsStore()
+
+const status = computed(() => {
+  return accountStore.infoMapping?.[account.uid]?.status
+})
 </script>
 
 <template>
@@ -32,7 +36,7 @@ const accountStore = useAccountsStore()
       </svg>
     </div>
     <div relative flex="~ gap-1 items-center">
-      <Avatar v-if="accountStore.info?.status.avatar" :avatar="accountStore.info?.status.avatar" />
+      <Avatar v-if="status?.avatar" :avatar="status?.avatar" />
       <div flex="~ col 1">
         <div text-base font-bold>
           {{ account.nickName }}

@@ -15,9 +15,7 @@ const { characters } = storeToRefs(useAccountsStore())
   >
     <ul flex="~ col gap-2">
       <li v-for="character in characters" :key="character.uid">
-        <AccountItem
-          :account="character"
-        />
+        <AccountItem :account="character" />
       </li>
     </ul>
 

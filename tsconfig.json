@@ -4,6 +4,7 @@
     "paths": {
       "~/*": ["./src/*"]
     },
-    "types": ["unplugin-vue-router/client"]
+    "types": ["unplugin-vue-router/client"],
+    "strictNullChecks": true
   }
 }

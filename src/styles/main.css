@@ -70,3 +70,8 @@ body {
 a,input,button,textarea,[data-cursor-interacting] {
 	cursor: var(--cursor) 3 3, pointer !important;
 }
+
+::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+}

@@ -29,7 +29,11 @@ interface RecruitingRecruit {
   readableDuration: string
 }
 
-type RecruitState = CompletedRecruit | StandbyRecruit | RecruitingRecruit
+interface LockedRecruit {
+  status: 'locked'
+}
+
+type RecruitState = CompletedRecruit | StandbyRecruit | RecruitingRecruit | LockedRecruit
 
 function recruitStatus(recruit: Recruit, timestamp: number): RecruitState['status'] {
   if (recruit.state === 1) {
@@ -42,6 +46,9 @@ function recruitStatus(recruit: Recruit, timestamp: number): RecruitState['statu
   }
   else if (recruit.state === 3) {
     return 'completed'
+  }
+  else if (recruit.state === 0) {
+    return 'locked'
   }
 
   throw new Error('Unexpected state')
