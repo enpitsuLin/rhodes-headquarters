@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useCanvasDust } from '@/composables/animations/animate-background'
+import { useCanvasDust } from '~/composables/animations/animate-background'
 
 const canvasRef = ref<HTMLCanvasElement | null>(null)
 

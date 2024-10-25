@@ -2,7 +2,7 @@ import { createToaster } from '@ark-ui/vue'
 import type { InjectionKey } from 'vue'
 import { inject } from 'vue'
 import type { Alarms } from 'wxt/browser'
-import { getNotificationService } from '@/service'
+import { getNotificationService } from '~/service'
 
 const ToastInjectKey = Symbol('ToastContext') as InjectionKey<ReturnType<typeof createToaster>>
 

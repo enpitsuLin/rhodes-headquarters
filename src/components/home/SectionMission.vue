@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { BindingInfo } from '@/types'
+import type { BindingInfo } from '~/types'
 
 defineProps<{
   info: BindingInfo

@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { DialogBackdrop, DialogContent, DialogPositioner, DialogRoot, DialogTitle } from '@ark-ui/vue'
 import { useAsyncState } from '@vueuse/core'
-import { getAccountService } from '@/service'
-import { useArknightRole } from '@/store/account'
+import { getAccountService } from '~/service'
+import { useArknightRole } from '~/store/account'
+import { useDeviceId } from '~/composables/storages'
 
 const open = defineModel<boolean>('open', { required: true })
 
@@ -14,13 +15,16 @@ const toast = useToast()
 const token = ref('')
 const errorMessage = ref('')
 
+const { state: deviceId, isLoading: isLoadingDeviceId } = useDeviceId()
+
 const { isLoading, execute } = useAsyncState(
   async () => {
     if (token.value) {
-      const binding = await accountService.logInOrRefreshAccount(token.value)
-      binding.forEach(({ info: _info, ...b }) => {
-        arknightRole.addRole(b)
-        arknightRole.setInfoMapping(b.uid, _info)
+      const binding = await accountService.logInOrRefreshAccount(token.value, deviceId.value)
+      binding.forEach(({ info, role, account }) => {
+        arknightRole.addAccount(account)
+        arknightRole.addRole(role)
+        arknightRole.setInfoMapping(role.uid, info)
       })
 
       if (arknightRole.roles.length === 1)
@@ -120,10 +124,16 @@ const { isLoading, execute } = useAsyncState(
           </main>
           <footer p="t-5px b-13px" flex="~ justify-center">
             <button
-              :disabled="isLoading" h-32px w-250px p-10px bg="[url(~/assets/btn-bg.svg)]"
-              flex="inline justify-center items-center" @click="execute()"
+              v-if="isLoadingDeviceId" h-32px w-250px p-10px bg="[url(~/assets/btn-bg.svg)]"
+              flex="inline justify-center items-center"
             >
-              {{ isLoading ? 'Loading...' : '新增账户' }}
+              初始化中
+            </button>
+            <button
+              v-else :disabled="isLoading || isLoadingDeviceId" h-32px w-250px p-10px
+              bg="[url(~/assets/btn-bg.svg)]" flex="inline justify-center items-center" @click="execute()"
+            >
+              {{ isLoading || isLoadingDeviceId ? 'Loading...' : '新增账户' }}
             </button>
           </footer>
         </DialogContent>

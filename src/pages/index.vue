@@ -5,11 +5,11 @@ import { storeToRefs } from 'pinia'
 import LayoutDefault from '~/components/layouts/default.vue'
 import SectionSanity from '~/components/home/SectionSanity.vue'
 import SectionRecruit from '~/components/home/SectionRecruit.vue'
-import SectionMission from '@/components/home/SectionMission.vue'
-import SectionTip from '@/components/home/SectionTip.vue'
-import SectionCharacter from '@/components/home/SectionCharacter.vue'
-import Loading from '@/components/Loading.vue'
-import { useArknightRole } from '@/store/account'
+import SectionMission from '~/components/home/SectionMission.vue'
+import SectionTip from '~/components/home/SectionTip.vue'
+import SectionCharacter from '~/components/home/SectionCharacter.vue'
+import Loading from '~/components/Loading.vue'
+import { useArknightRole } from '~/store/account'
 
 const router = useRouter()
 

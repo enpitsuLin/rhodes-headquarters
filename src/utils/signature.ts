@@ -2,8 +2,7 @@ import { getUnixTime } from 'date-fns'
 import { md5 } from 'js-md5'
 import type { FetchContext } from 'ofetch'
 import { stringifyQuery } from 'ufo'
-import { deviceIdStorage, tokenStorage } from '@/store/schema'
-import { refresh } from '@/api'
+import { refresh } from '~/api'
 
 const WHITELIST = ['/web/v1/user/auth/generate_cred_by_code', '/api/v1/auth/refresh']
 
@@ -57,15 +56,15 @@ export async function onSignatureRequest(ctx: FetchContext) {
     return
 
   const headers = new Headers(ctx.options.headers)
-  let token = headers.get('token') ?? await tokenStorage.getValue()
+  let token = headers.get('token') ?? await storage.getItem<string>('local:PRRH:token')
   if (!token) {
     token = await refresh()
-    await tokenStorage.setValue(token)
+    await storage.setItem('local:PRRH:token', token)
   }
 
   const query = ctx.options.query ? stringifyQuery(ctx.options.query) : ''
   const timestamp = getUnixTime(Date.now() - 5 * MILLISECOND_PER_SECOND).toString()
-  const did = await deviceIdStorage.getValue()
+  const did = await storage.getItem<string>('local:PRRH:device-id')
 
   const signatureHeaders = {
     platform: '1',

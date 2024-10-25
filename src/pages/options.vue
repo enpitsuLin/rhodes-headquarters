@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
-import AccountItem from '@/components/account/AccountItem.vue'
-import AddAccountFab from '@/components/account/AddAccountFab.vue'
-import { useArknightRole } from '@/store/account'
+import AccountItem from '~/components/account/AccountItem.vue'
+import AddAccountFab from '~/components/account/AddAccountFab.vue'
+import { useArknightRole } from '~/store/account'
 import OptionLayout from '~/components/layouts/options.vue'
 
-const { currentUid, roles } = storeToRefs(useArknightRole())
+const { roles } = storeToRefs(useArknightRole())
 </script>
 
 <template>
@@ -17,8 +17,6 @@ const { currentUid, roles } = storeToRefs(useArknightRole())
       <li v-for="account in roles" :key="account.uid">
         <AccountItem
           :account="account"
-          :current="account.uid === currentUid"
-          @delete="() => {}"
         />
       </li>
     </ul>

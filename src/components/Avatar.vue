@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Avatar } from '@/types'
+import type { Avatar } from '~/types'
 
 defineProps<{ avatar: Avatar }>()
 </script>

@@ -1,7 +1,6 @@
 import { ofetch } from 'ofetch'
-import { onSignatureRequest } from '@/utils'
-import type { Binding, BindingInfo, Status, User } from '@/types'
-import { deviceIdStorage } from '@/store/schema'
+import { onSignatureRequest } from '~/utils'
+import type { Binding, BindingInfo, Status, User } from '~/types'
 
 const $fetch = ofetch.create({
   baseURL: 'https://zonai.skland.com/',
@@ -18,8 +17,7 @@ interface SklandResponse<T> {
  * 获取用户访问令牌
  * @param code 鹰角 OAuth 授权码
  */
-export async function generateCredByCode(code: string) {
-  const deviceId = await deviceIdStorage.getValue()
+export async function generateCredByCode(code: string, deviceId: string) {
   if (!deviceId)
     throw new Error('deviceId 不存在')
 

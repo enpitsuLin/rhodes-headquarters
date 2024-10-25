@@ -1,17 +1,18 @@
 <script setup lang="ts">
-import PreferenceItem from '@/components/preferences/PreferenceItem.vue'
-import Switch from '@/components/ui/Switch.vue'
-import { preferenceStorage } from '@/store/preference'
+import PreferenceItem from '~/components/preferences/PreferenceItem.vue'
+import Switch from '~/components/ui/Switch.vue'
+import { usePreference } from '~/composables/storages'
 import OptionLayout from '~/components/layouts/options.vue'
 
-const preferences = useWxtStorage(preferenceStorage)
+const preferences = usePreference()
 
 function onChange(e: Event) {
   const periodInMinutes = Number((e.target as HTMLInputElement).value)
 
-  preferences.value.periodInMinutes = periodInMinutes === 0
-    ? preferenceStorage.defaultValue.periodInMinutes
-    : periodInMinutes
+  if (periodInMinutes !== 0)
+    preferences.value.periodInMinutes = periodInMinutes
+  else
+    preferences.value.periodInMinutes = 10
 }
 </script>
 

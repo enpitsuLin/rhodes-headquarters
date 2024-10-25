@@ -2,7 +2,7 @@ import type { MaybeRefOrGetter } from '@vueuse/core'
 import { useNow } from '@vueuse/core'
 import type { Duration } from 'date-fns'
 import { fromUnixTime, getUnixTime, intervalToDuration } from 'date-fns'
-import { readableDate, readableDuration } from '@/utils/time'
+import { readableDate, readableDuration } from '~/utils/time'
 import type { Recruit } from '~/types'
 
 interface CompletedRecruit {

@@ -1,4 +1,4 @@
-import { deviceIdStorage } from '@/store/schema'
+import { useAsyncState } from '@vueuse/core'
 
 const SKLAND_SM_CONFIG = {
   organization: 'UWXspnCCJN4sfYlNfqps',
@@ -52,9 +52,15 @@ function createDeviceIdInIframe(): Promise<string> {
 }
 
 export function useDeviceId() {
-  onMounted(async () => {
-    const deviceId = await deviceIdStorage.getValue()
-    if (!deviceId)
-      await deviceIdStorage.setValue(await createDeviceIdInIframe())
-  })
+  const deviceId = useWxtStorageAsync<string>('PRRH:DEVICE_ID', '')
+
+  return useAsyncState(
+    async () => {
+      if (deviceId.value)
+        return deviceId.value
+
+      return deviceId.value = await createDeviceIdInIframe()
+    },
+    '',
+  )
 }

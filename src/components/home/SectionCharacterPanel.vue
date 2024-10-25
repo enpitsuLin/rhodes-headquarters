@@ -2,10 +2,9 @@
 import { DialogBackdrop, DialogCloseTrigger, DialogContent, DialogPositioner, DialogRoot, DialogTitle } from '@ark-ui/vue'
 import { useMagicKeys } from '@vueuse/core'
 import { useRouter } from 'vue-router/auto'
-import { useArknightRole } from '@/store/account'
+import { useArknightRole } from '~/store/account'
 
 const open = defineModel<boolean>('open', { required: true })
-
 const router = useRouter()
 const { meta, control } = useMagicKeys()
 
@@ -35,7 +34,7 @@ function toOptions() {
 </script>
 
 <template>
-  <DialogRoot v-model:open="open" absolute inset-0>
+  <DialogRoot v-model:open="open">
     <DialogBackdrop
       absolute inset-0 z-100 bg-border:10 backdrop-blur-3
       class="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in data-[state=closed]:fade-out"

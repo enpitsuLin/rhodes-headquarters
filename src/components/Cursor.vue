@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useAnimateCursor } from '@/composables/animations/animate-cursor'
+import { useAnimateCursor } from '~/composables/animations/animate-cursor'
 
 const {
   container,

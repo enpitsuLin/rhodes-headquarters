@@ -1,6 +1,5 @@
 /// <reference lib="webworker"/>
-import { registerAccountService } from '@/service'
-import { preferenceStorage } from '@/store/preference'
+import { registerAccountService } from '~/service'
 
 export default defineBackground({
   type: 'module',
@@ -8,11 +7,6 @@ export default defineBackground({
     const accountService = registerAccountService()
 
     accountService.createRefreshInfoAlarm()
-
-    preferenceStorage.watch((value, oldValue) => {
-      if (oldValue.periodInMinutes !== value.periodInMinutes)
-        accountService.createRefreshInfoAlarm()
-    })
   },
 })
 

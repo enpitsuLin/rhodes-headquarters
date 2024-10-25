@@ -1,4 +1,6 @@
 import { defineProxyService } from '@webext-core/proxy-service'
+import type { ArknightRole, SklandAccount } from '~/composables/storages'
+
 import * as API from '~/api'
 
 class AccountService {
@@ -10,18 +12,26 @@ class AccountService {
     })
   }
 
-  async logInOrRefreshAccount(token: string) {
+  async logInOrRefreshAccount(token: string, deviceId: string) {
     const code = await API.hypergrayph.grantAuthorizeCode(token)
-    const res = await API.skland.generateCredByCode(code)
+    const res = await API.skland.generateCredByCode(code, deviceId)
     const binding = await API.skland.getPlayerBinding(res.cred)
+
+    const account: SklandAccount = {
+      id: res.userId,
+      cred: res.cred,
+    }
 
     return Promise.all(binding.map(async (b) => {
       const info = await API.skland.getBindingInfo(res.cred, b.uid)
-
-      return {
+      const role: ArknightRole = {
         ...b,
-        info,
         accountId: res.userId,
+      }
+      return {
+        role,
+        account,
+        info,
       }
     }))
   }

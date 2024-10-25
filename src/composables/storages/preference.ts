@@ -5,13 +5,12 @@ export interface Preference {
   charactersAlarmsEnable: boolean
 }
 
-export const preferenceStorage = storage.defineItem<Preference>(
-  'local:preference',
-  {
-    defaultValue: {
+export function usePreference() {
+  return useWxtStorageAsync<Preference>(
+    'PRRH:PREFERENCE',
+    {
       periodInMinutes: 10,
       charactersAlarmsEnable: false,
     },
-    version: 1,
-  },
-)
+  )
+}
