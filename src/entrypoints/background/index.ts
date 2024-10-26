@@ -15,6 +15,8 @@ export default defineBackground({
     debouncedWatch(
       backgroundService.currentArknightCharacterInfo,
       (newInfo, oldInfo) => {
+        notificationService.clearAlarmNotification()
+
         if (!newInfo)
           return
         if (oldInfo?.currentTs === newInfo.currentTs)
