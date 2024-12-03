@@ -6,6 +6,8 @@ import { refresh } from '~/api'
 
 const WHITELIST = ['/web/v1/user/auth/generate_cred_by_code', '/api/v1/auth/refresh']
 
+const MILLISECOND_PER_SECOND = 1000
+
 export function getRequestURL(request: RequestInfo, baseURL?: string) {
   const url = typeof request === 'string' ? request : request.url
   if (URL.canParse(url))
@@ -26,7 +28,7 @@ export async function onSignatureRequest(ctx: FetchContext) {
   }
 
   const query = ctx.options.query ? stringifyQuery(ctx.options.query) : ''
-  const timestamp = getUnixTime(Date.now()).toString()
+  const timestamp = getUnixTime(Date.now() - 5 * MILLISECOND_PER_SECOND).toString()
   const did = await storage.getItem<string>(DEVICE_ID_KEY)
 
   const signatureHeaders = {
