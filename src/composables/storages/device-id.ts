@@ -319,5 +319,10 @@ export function useDeviceId() {
       return dId
     },
     '',
+    {
+      onError(e) {
+        console.error(e)
+      },
+    },
   )
 }
