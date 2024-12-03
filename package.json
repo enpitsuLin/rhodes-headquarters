@@ -22,11 +22,12 @@
   },
   "dependencies": {
     "@ark-ui/vue": "^4.1.1",
+    "@originjs/crypto-js-wasm": "^1.1.1",
     "@unocss/preset-mini": "^0.63.6",
     "@webext-core/proxy-service": "^1.2.0",
     "date-fns": "^4.1.0",
-    "js-md5": "^0.8.3",
     "ofetch": "^1.4.1",
+    "pako": "^2.1.0",
     "pinia": "^2.2.4",
     "ufo": "^1.5.4",
     "vue-router": "^4.4.5"
@@ -37,6 +38,7 @@
     "@playwright/test": "^1.48.1",
     "@types/fs-extra": "^11.0.4",
     "@types/node": "^22.7.9",
+    "@types/pako": "^2.0.3",
     "@typescript-eslint/eslint-plugin": "^8.11.0",
     "@unocss/eslint-plugin": "^0.63.6",
     "@unocss/reset": "^0.63.6",
