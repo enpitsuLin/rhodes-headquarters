@@ -1,6 +1,6 @@
 import {
-  createMemoryHistory,
   createRouter,
+  createWebHashHistory,
 } from 'vue-router/auto'
 import { routes } from 'vue-router/auto-routes'
 import { setupLayouts } from 'virtual:generated-layouts'
@@ -9,7 +9,7 @@ import { createPinia } from 'pinia'
 import App from './App.vue'
 
 const router = createRouter({
-  history: createMemoryHistory(),
+  history: createWebHashHistory(),
   routes: setupLayouts(routes),
 })
 

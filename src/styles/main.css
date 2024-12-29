@@ -19,30 +19,6 @@ body {
   font-style: normal;
 }
 
-@keyframes animate-enter {
-	from {
-		opacity: var(--un-enter-opacity, 1);
-		transform: translate3d(var(--un-enter-translate-x, 0), var(--un-enter-translate-y, 0), 0) scale3d(var(--un-enter-scale, 1), var(--un-enter-scale, 1), var(--un-enter-scale, 1)) rotate(var(--un-enter-rotate, 0))
-	}
-}
-
-@keyframes animate-exit {
-	to {
-		opacity: var(--un-exit-opacity, 1);
-		transform: translate3d(var(--un-exit-translate-x, 0), var(--un-exit-translate-y, 0), 0) scale3d(var(--un-exit-scale, 1), var(--un-exit-scale, 1), var(--un-exit-scale, 1)) rotate(var(--un-exit-rotate, 0))
-	}
-
-}
-
-@keyframes animate-shaking {
-	from {
-		transform: translateX(var(--un-from-translate-x, -2px))
-	}
-	to {
-		transform: translateX(var(--un-to-translate-x, 2px))
-	}
-}
-
 @keyframes loading {
   from {
       width: 38px;

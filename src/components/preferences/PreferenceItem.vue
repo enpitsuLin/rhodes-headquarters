@@ -4,10 +4,10 @@ defineProps<{ title: string, description: string }>()
 
 <template>
   <div
-    flex="~ items-center gap-4px" h-60px
-    bg-list-item p="x-8px y-4px"
+    grid="~ cols-12 items-center gap-4px"
+    h-60px bg-list-item p="x-8px y-4px"
   >
-    <div flex="~ col" h-full flex-1>
+    <div flex="~ col" col-span-9 h-full flex-1>
       <h3 font-bold>
         {{ title }}
       </h3>
@@ -15,7 +15,7 @@ defineProps<{ title: string, description: string }>()
         {{ description }}
       </div>
     </div>
-    <div p-10px>
+    <div col-span-3 justify-self-center p-10px>
       <slot />
     </div>
   </div>
