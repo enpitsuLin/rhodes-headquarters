@@ -1,5 +1,5 @@
 import type { Awaitable, ConfigurableWindow, RemovableRef, StorageLikeAsync } from '@vueuse/core'
-import { defaultWindow, pausableWatch, tryOnMounted, useBroadcastChannel, useEventListener } from '@vueuse/core'
+import { pausableWatch, tryOnMounted, useBroadcastChannel, useEventListener } from '@vueuse/core'
 import type { StorageArea } from 'wxt/storage'
 
 export interface Serializer<T> {

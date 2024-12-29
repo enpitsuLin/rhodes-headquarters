@@ -15,6 +15,8 @@ export function getRequestURL(request: RequestInfo, baseURL?: string) {
   return new URL(url, baseURL)
 }
 
+const lastRefreshTime = useWxtStorageAsync<number>('PRRH:LAST_REFRESH_TIME', 0)
+
 export async function onSignatureRequest(ctx: FetchContext) {
   const { pathname } = getRequestURL(ctx.request, ctx.options.baseURL)
   if (WHITELIST.includes(pathname))
@@ -22,9 +24,10 @@ export async function onSignatureRequest(ctx: FetchContext) {
 
   const headers = new Headers(ctx.options.headers)
   let token = headers.get('token') ?? await storage.getItem<string>('local:PRRH:TOKEN')
-  if (!token) {
+  if (!token || Date.now() - lastRefreshTime.value > 20 * 60 * MILLISECOND_PER_SECOND) {
     token = await refresh()
     await storage.setItem('local:PRRH:TOKEN', token)
+    lastRefreshTime.value = Date.now()
   }
 
   const query = ctx.options.query ? stringifyQuery(ctx.options.query) : ''
