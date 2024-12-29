@@ -1,5 +1,4 @@
 import { useAsyncState } from '@vueuse/core'
-import pako from 'pako'
 import { format } from 'date-fns'
 import { encryptAES, encryptObjectByDESRules, md5 } from '~/utils/crypto'
 
@@ -174,17 +173,44 @@ export const BROWSER_ENV = {
 
 const stringify = (obj: any) => JSON.stringify(obj).replace(/":"/g, '": "').replace(/","/g, '", "')
 
-export function gzipObject(o: object) {
+export async function gzipObject(o: object) {
   const jsonStr = stringify(o)
   const encoded = new TextEncoder().encode(jsonStr)
-  const compressed = pako.gzip(encoded, {
-    level: 2,
-  })
 
-  // Python gzip OS FLG = Unknown
-  compressed.set([19], 9)
+  // 创建 CompressionStream
+  const cs = new CompressionStream('gzip')
+  const writer = cs.writable.getWriter()
+  const reader = cs.readable.getReader()
 
-  return btoa(String.fromCharCode(...compressed))
+  // 写入数据
+  writer.write(encoded)
+  writer.close()
+
+  // 读取压缩后的数据
+  const chunks: Uint8Array[] = []
+  async function processResult({ done, value }: ReadableStreamReadResult<Uint8Array>): Promise<string> {
+    if (done) {
+      // 合并所有数据块
+      const totalLength = chunks.reduce((acc, chunk) => acc + chunk.length, 0)
+      const combined = new Uint8Array(totalLength)
+      let offset = 0
+      for (const chunk of chunks) {
+        combined.set(chunk, offset)
+        offset += chunk.length
+      }
+
+      // Python gzip OS FLG = Unknown
+      combined.set([19], 9)
+
+      return Promise.resolve(btoa(String.fromCharCode(...combined)))
+    }
+
+    chunks.push(value)
+    const result = await reader.read()
+    return processResult(result)
+  }
+  const result = await reader.read()
+  return processResult(result)
 }
 
 export async function getSmId() {
@@ -273,7 +299,7 @@ export async function getDid() {
   const desResult = await encryptObjectByDESRules(desTarget, DES_RULE)
 
   // GZIP 压缩
-  const gzipResult = gzipObject(desResult)
+  const gzipResult = await gzipObject(desResult)
 
   // AES 加密
   const aesResult = await encryptAES(gzipResult, priId)

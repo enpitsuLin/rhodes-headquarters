@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { NumberInputValueChangeDetails } from '@ark-ui/vue/number-input'
 import { NumberInput } from '@ark-ui/vue/number-input'
+import { useDebounceFn } from '@vueuse/core'
 import PreferenceItem from '~/components/preferences/PreferenceItem.vue'
 import Switch from '~/components/ui/Switch.vue'
 import { usePreference } from '~/composables/storages'
@@ -16,14 +17,14 @@ definePage({
 
 const preferences = usePreference()
 
-function onChange(e: NumberInputValueChangeDetails) {
+const debounceOnChange = useDebounceFn((e: NumberInputValueChangeDetails) => {
   const periodInMinutes = Number(e.value)
 
   if (periodInMinutes !== 0)
     preferences.value.periodInMinutes = periodInMinutes
   else
     preferences.value.periodInMinutes = 10
-}
+}, 1000)
 </script>
 
 <template>
@@ -35,7 +36,7 @@ function onChange(e: NumberInputValueChangeDetails) {
           allow-mouse-wheel
           relative border="~ border focus-within:primary rounded-sm" pr-4
           class="group"
-          @value-change="onChange"
+          @value-change="debounceOnChange"
         >
           <NumberInput.Label sr-only>
             Label
