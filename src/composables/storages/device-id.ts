@@ -174,43 +174,20 @@ export const BROWSER_ENV = {
 const stringify = (obj: any) => JSON.stringify(obj).replace(/":"/g, '": "').replace(/","/g, '", "')
 
 export async function gzipObject(o: object) {
-  const jsonStr = stringify(o)
-  const encoded = new TextEncoder().encode(jsonStr)
+  // 将对象转换为字节数组
+  const encoded = new TextEncoder().encode(stringify(o))
 
-  // 创建 CompressionStream
-  const cs = new CompressionStream('gzip')
-  const writer = cs.writable.getWriter()
-  const reader = cs.readable.getReader()
+  // 使用 CompressionStream 进行 gzip 压缩
+  const compressed = await new Response(
+    new Blob([encoded]).stream().pipeThrough<Uint8Array>(new CompressionStream('gzip')),
+  ).arrayBuffer()
 
-  // 写入数据
-  writer.write(encoded)
-  writer.close()
+  // 转换为 Uint8Array 并设置 Python gzip OS FLG
+  const compressedArray = new Uint8Array(compressed)
+  compressedArray[9] = 19 // Python gzip OS FLG = Unknown
 
-  // 读取压缩后的数据
-  const chunks: Uint8Array[] = []
-  async function processResult({ done, value }: ReadableStreamReadResult<Uint8Array>): Promise<string> {
-    if (done) {
-      // 合并所有数据块
-      const totalLength = chunks.reduce((acc, chunk) => acc + chunk.length, 0)
-      const combined = new Uint8Array(totalLength)
-      let offset = 0
-      for (const chunk of chunks) {
-        combined.set(chunk, offset)
-        offset += chunk.length
-      }
-
-      // Python gzip OS FLG = Unknown
-      combined.set([19], 9)
-
-      return Promise.resolve(btoa(String.fromCharCode(...combined)))
-    }
-
-    chunks.push(value)
-    const result = await reader.read()
-    return processResult(result)
-  }
-  const result = await reader.read()
-  return processResult(result)
+  // 转换为 base64
+  return btoa(String.fromCharCode(...compressedArray))
 }
 
 export async function getSmId() {
