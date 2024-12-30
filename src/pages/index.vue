@@ -3,7 +3,7 @@ import { useRouter } from 'vue-router/auto'
 import { useMagicKeys } from '@vueuse/core'
 import { storeToRefs } from 'pinia'
 import SectionSanity from '~/components/home/SectionSanity.vue'
-import SectionRecruit from '~/components/home/SectionRecruit.vue'
+import SectionRhodesIsland from '~/components/home/SectionRhodesIsland.vue'
 import SectionMission from '~/components/home/SectionMission.vue'
 import SectionTip from '~/components/home/SectionTip.vue'
 import SectionCharacter from '~/components/home/SectionCharacter.vue'
@@ -51,10 +51,10 @@ function onOptionClick() {
     </div>
   </template>
   <template v-else-if="info">
-    <SectionCharacter :status="info.status" />
-    <SectionSanity :status="info.status" />
-    <SectionRecruit :recruits="info.recruit" :hire="info.building.hire" />
-    <SectionMission :info="info" />
+    <SectionCharacter />
+    <SectionSanity />
+    <SectionRhodesIsland />
+    <SectionMission />
     <SectionTip />
   </template>
 </template>

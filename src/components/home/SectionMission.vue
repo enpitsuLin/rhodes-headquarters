@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import type { BindingInfo } from '~/types'
+import { storeToRefs } from 'pinia'
+import { useAccountsStore } from '~/store/account'
 
-defineProps<{
-  info: BindingInfo
-}>()
+const { info } = storeToRefs(useAccountsStore())
 </script>
 
 <template>

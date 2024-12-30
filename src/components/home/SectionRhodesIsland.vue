@@ -1,11 +1,15 @@
 <script setup lang="ts">
+import { storeToRefs } from 'pinia'
 import SectionTitle from './SectionTitle.vue'
 import { useRecruits } from '~/composables/status/recruit'
+import { useAccountsStore } from '~/store/account'
 import type { BuildingHire, Recruit } from '~/types'
 
-const props = defineProps<{ recruits: Recruit[], hire?: BuildingHire }>()
+const { info } = storeToRefs(useAccountsStore())
 
-const parsedRecruits = useRecruits(props.recruits)
+const hire = computed(() => info.value!.building.hire)
+
+const parsedRecruits = useRecruits(info.value!.recruit)
 </script>
 
 <template>

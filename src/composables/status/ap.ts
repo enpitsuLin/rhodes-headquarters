@@ -24,8 +24,9 @@ interface UseSanityInfoReturn {
   nextAdd: ComputedRef<DateAndDurationInfo>
 }
 
-export function useSanityInfo(sanity: ActionPoint): UseSanityInfoReturn {
+export function useSanityInfo(ap: MaybeRefOrGetter<ActionPoint>): UseSanityInfoReturn {
   const now = useNow()
+  const sanity = toValue(ap)
 
   const max = computed(() => sanity.max)
   const lastAddDate = fromUnixTime(sanity.lastApAddTime)
