@@ -30,7 +30,7 @@ const parsedRecruits = useRecruits(info.value!.recruit)
         </Tabs.List>
       </SectionTitle>
       <div h-270px of-x-hidden of-y-auto>
-        <Tabs.Content value="公招">
+        <Tabs.Content value="公招" class="data-[selected]:(animate-in fade-in slide-in-left)">
           <div h-30px border="b-1 border" flex="~ items-center">
             <template v-if="hire">
               联络次数 {{ hire?.refreshCount }}/3
@@ -108,7 +108,7 @@ const parsedRecruits = useRecruits(info.value!.recruit)
             </ul>
           </div>
         </Tabs.Content>
-        <Tabs.Content h-270px value="基建">
+        <Tabs.Content value="基建" class="data-[selected]:(animate-in fade-in slide-in-right)">
           <div>基建 TODO</div>
         </Tabs.Content>
       </div>
