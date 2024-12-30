@@ -37,7 +37,7 @@ function toOptions() {
   <DialogRoot v-model:open="open">
     <DialogBackdrop
       absolute inset-0 z-100 bg-border:10 backdrop-blur-3
-      class="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in data-[state=closed]:fade-out"
+      class="data-[state=closed]:animate-out data-[state=open]:animate-in data-[state=open]:fade-in data-[state=closed]:fade-out"
     />
     <DialogPositioner
       absolute bottom-0 right-0 top-0 z-200 flex="~ items-center justify-center"
@@ -45,7 +45,7 @@ function toOptions() {
       <DialogContent
         shadow="lg"
         relative h-full w-270px bg-background
-        class="data-[state=closed]:duration-300 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:slide-in-from-right-full data-[state=closed]:slide-out-to-right-full"
+        class="data-[state=closed]:animate-out data-[state=open]:animate-in data-[state=closed]:duration-300 data-[state=open]:slide-in-from-right-full data-[state=closed]:slide-out-to-right-full"
       >
         <DialogTitle flex="~ items-end" border="l-5px primary" relative h-50px select-none>
           <div flex="~ items-center justify-between" flex-1 px-10px>

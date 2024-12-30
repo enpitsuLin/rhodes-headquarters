@@ -24,7 +24,7 @@ withDefaults(
       <div
 
         left="1/2" top="1/2"
-        border="5 primary" absolute inline-block size-38px bg-transparent animate-loading
+        border="5 primary" animate-loading absolute inline-block size-38px bg-transparent
         class="-translate-1/2"
       />
     </div>

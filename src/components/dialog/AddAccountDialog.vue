@@ -60,12 +60,12 @@ const { isLoading, execute } = useAsyncState(
     <Teleport to="body">
       <DialogBackdrop
         fixed inset-0 z-100 bg-border:10 backdrop-blur-3
-        class="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in data-[state=closed]:fade-out"
+        class="data-[state=closed]:animate-out data-[state=open]:animate-in data-[state=open]:fade-in data-[state=closed]:fade-out"
       />
       <DialogPositioner fixed inset-0 z-200 flex="~ items-center justify-center">
         <DialogContent
           shadow="lg" relative w-320px bg-background
-          class="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-90 data-[state=closed]:fade-out data-[state=open]:slide-in-from-bottom-10"
+          class="data-[state=closed]:animate-out data-[state=open]:animate-in data-[state=open]:fade-in-90 data-[state=closed]:fade-out data-[state=open]:slide-in-from-bottom-10"
         >
           <DialogTitle flex="~ items-end" border="l-5px primary" relative h-50px select-none>
             <div flex="~ items-baseline" pb-1 pl-4>
