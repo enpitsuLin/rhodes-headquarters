@@ -3,7 +3,7 @@ import type { Character } from './character'
 /**
  * 基建进驻干员
  */
-export interface ResidentCharacters {
+export interface ResidentCharacter {
   charId: Character['charId']
   /** 疲劳值 */
   ap: number
@@ -27,7 +27,7 @@ export interface BuildingRoom {
   /** 槽位状态 */
   slotState?: number
   /** 干员 */
-  chars: ResidentCharacters[]
+  chars: ResidentCharacter[]
   /** 等级 */
   level: number
 }
@@ -133,6 +133,7 @@ export interface BuildingTrading extends BuildingRoom {
     delivery: {
       id: number
       count: number
+      type: 'MATERIAL' | 'DIAMOND_SHD'
     }[]
     gain: {
       id: number
@@ -170,9 +171,9 @@ export interface BuildingTrading extends BuildingRoom {
  */
 export interface BuildingTraining extends Omit<BuildingRoom, 'chars'> {
   /** 训练干员 */
-  trainee: Omit<ResidentCharacters, 'index' | 'bubble' | 'workTime'> & { targetSkill: number } | null
+  trainee: Omit<ResidentCharacter, 'index' | 'bubble' | 'workTime'> & { targetSkill: number } | null
   /** 协助位干员 */
-  trainer: Omit<ResidentCharacters, 'index' | 'bubble' | 'workTime'> | null
+  trainer: Omit<ResidentCharacter, 'index' | 'bubble' | 'workTime'> | null
   remainPoint: number
   speed: number
   lastUpdateTime: number
@@ -206,5 +207,5 @@ export interface Building {
   /** 家具 */
   furniture: { total: number }
   /** 疲劳干员 */
-  tiredChars: ResidentCharacters[]
+  tiredChars: ResidentCharacter[]
 }

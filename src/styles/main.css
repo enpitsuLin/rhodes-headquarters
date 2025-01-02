@@ -37,7 +37,7 @@ body {
 	--foreground: 0 0% 100%;
 	--background: 220 4% 14%;
 	--secondary-background: 223 6% 22%;
-	--border: 0 0% 54%;
+	--border: 223 5% 28%;
 	--list-item: 220 3% 18%;
 	cursor: var(--cursor) 3 3, default;
 }
