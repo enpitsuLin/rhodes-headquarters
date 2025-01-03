@@ -1,13 +1,12 @@
 import { resolve } from 'node:path'
-import UnoCSS from 'unocss/vite'
 import VueRouter from 'unplugin-vue-router/vite'
-import { defineConfig } from 'wxt'
-import Layouts from 'vite-plugin-vue-layouts'
 import VueDevTools from 'vite-plugin-vue-devtools'
+import Layouts from 'vite-plugin-vue-layouts'
+import { defineConfig } from 'wxt'
 import pkg from './package.json'
 
 export default defineConfig({
-  modules: ['@wxt-dev/module-vue'],
+  modules: ['@wxt-dev/module-vue', '@wxt-dev/unocss'],
   manifestVersion: 3,
   srcDir: resolve('src'),
   publicDir: resolve('public'),
@@ -46,8 +45,6 @@ export default defineConfig({
           dts: './src/typed-router.d.ts',
         }),
         Layouts(),
-
-        UnoCSS(),
 
         VueDevTools({ appendTo: /main\.ts/ }),
       ],
