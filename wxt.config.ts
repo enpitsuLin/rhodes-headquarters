@@ -38,7 +38,7 @@ export default defineConfig({
         __NAME__: JSON.stringify(pkg.name),
       },
       build: {
-        sourcemap: true,
+        sourcemap: env.mode === 'serve',
       },
       plugins: [
         VueRouter({
