@@ -5,7 +5,7 @@ import { useScroll } from '@vueuse/core'
 import SectionTitle from './SectionTitle.vue'
 import { useRecruits } from '~/composables/status/recruit'
 import { useAccountsStore } from '~/store/account'
-import Manufacture from '~/components/building/Manufacture.vue'
+import BuildingList from '~/components/building/List.vue'
 
 const { info } = storeToRefs(useAccountsStore())
 
@@ -121,11 +121,7 @@ const { arrivedState } = useScroll(el)
           </div>
           <div ref="el" h-full of-scroll pb-4px>
             <div flex="~ col items-center gap-4px">
-              <Manufacture
-                v-for="i in info?.building.manufactures"
-                :key="i.slotId"
-                :data="i"
-              />
+              <BuildingList v-if="info" :info="info" />
             </div>
             <div v-show="!arrivedState.bottom" absolute inset-x-0 bottom-0 h-30px class="from-background to-transparent bg-gradient-to-t" />
           </div>

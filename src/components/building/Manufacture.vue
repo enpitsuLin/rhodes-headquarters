@@ -30,7 +30,7 @@ const formulaName = computed(() => {
 </script>
 
 <template>
-  <Base title="制造站" :level="3" color="#FFD800">
+  <Base title="制造站" :level="data.level" color="#FFD800">
     <template #icon>
       <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g clip-path="url(#clip0_502_882)">
@@ -52,7 +52,7 @@ const formulaName = computed(() => {
       </svg>
     </template>
     <template #info>
-      <div w-full flex="inline items-center justify-between">
+      <div w-full flex="~ items-center justify-between">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" clip-rule="evenodd" d="M9.42857 2.28571L3.42857 5.71429L3.42857 12.5714L9.42857 16L15.4286 12.5714V5.71429L9.42857 2.28571ZM9.42857 2.85714L4 6L9.31754 9.21143L9.42857 15.4286L14.8571 12.2857V6L9.42857 2.85714Z" fill="#FFD802" />
           <path d="M2.28571 16V1.71429L0 6.28571H1.14286V16H2.28571Z" fill="#FFD802" />
