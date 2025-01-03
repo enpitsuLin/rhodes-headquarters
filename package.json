@@ -31,7 +31,9 @@
     "ofetch": "^1.4.1",
     "pinia": "^2.2.4",
     "ufo": "^1.5.4",
-    "vue-router": "^4.4.5"
+    "vue-router": "^4.4.5",
+    "workbox-routing": "^7.3.0",
+    "workbox-strategies": "^7.3.0"
   },
   "devDependencies": {
     "@antfu/eslint-config": "2.23.2",

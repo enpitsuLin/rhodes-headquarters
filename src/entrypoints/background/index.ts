@@ -1,6 +1,8 @@
 /// <reference lib="webworker"/>
 import { debouncedWatch } from '@vueuse/core'
 import { fromUnixTime } from 'date-fns'
+import { registerRoute } from 'workbox-routing'
+import { StaleWhileRevalidate } from 'workbox-strategies'
 import { usePreference } from '~/composables/storages'
 import { registerBackgroundService, registerNotificationService } from '~/service'
 
@@ -50,6 +52,11 @@ export default defineBackground({
         immediate: true,
         deep: true,
       },
+    )
+
+    registerRoute(
+      event => event.request.destination === 'image' && event.request.url.startsWith('https://web.hycdn.cn/arknights/'),
+      new StaleWhileRevalidate(),
     )
   },
 })
