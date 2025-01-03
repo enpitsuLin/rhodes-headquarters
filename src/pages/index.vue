@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { useRouter } from 'vue-router/auto'
 import { useMagicKeys } from '@vueuse/core'
 import { storeToRefs } from 'pinia'
-import SectionSanity from '~/components/home/SectionSanity.vue'
-import SectionRhodesIsland from '~/components/home/SectionRhodesIsland.vue'
-import SectionMission from '~/components/home/SectionMission.vue'
-import SectionTip from '~/components/home/SectionTip.vue'
+import { useRouter } from 'vue-router/auto'
 import SectionCharacter from '~/components/home/SectionCharacter.vue'
+import SectionMission from '~/components/home/SectionMission.vue'
+import SectionRhodesIsland from '~/components/home/SectionRhodesIsland.vue'
+import SectionSanity from '~/components/home/SectionSanity.vue'
+import SectionTip from '~/components/home/SectionTip.vue'
 import Loading from '~/components/Loading.vue'
 import { useAccountsStore } from '~/store/account'
 

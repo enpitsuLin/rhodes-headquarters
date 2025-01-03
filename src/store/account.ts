@@ -1,6 +1,6 @@
-import { acceptHMRUpdate, defineStore } from 'pinia'
-import type { BindingInfo } from '~/types'
 import type { ArknightRole, SklandAccount } from '~/composables/storages'
+import type { BindingInfo } from '~/types'
+import { acceptHMRUpdate, defineStore } from 'pinia'
 import {
   useArknightAccountsInfo,
   useArknightCharacters,

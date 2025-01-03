@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import type { BuildingDormitory } from '~/types'
 import Base from './Base.vue'
 import ResidentCharacter from './ResidentCharacter.vue'
-import type { BuildingDormitory } from '~/types'
 
 defineProps<{ data: BuildingDormitory }>()
 </script>

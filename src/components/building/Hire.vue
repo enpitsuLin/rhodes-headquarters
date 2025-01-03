@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import type { BuildingHire } from '~/types'
 import Base from './Base.vue'
 import ResidentCharacter from './ResidentCharacter.vue'
-import type { BuildingHire } from '~/types'
 
 defineProps<{ data: BuildingHire }>()
 </script>

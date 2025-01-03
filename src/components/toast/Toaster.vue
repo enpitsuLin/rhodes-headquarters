@@ -2,9 +2,9 @@
 import {
   ToastCloseTrigger,
   ToastDescription,
+  Toaster,
   ToastRoot,
   ToastTitle,
-  Toaster,
 } from '@ark-ui/vue'
 
 const { toaster } = useToast()

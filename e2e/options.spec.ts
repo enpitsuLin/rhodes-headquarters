@@ -1,10 +1,10 @@
 import { expect, test } from './fixtures'
-import grant from './mocks/grant.json' assert {type:'json'}
-import generate_cred_by_code from './mocks/generate_cred_by_code.json' assert {type:'json'}
-import me from './mocks/me.json' assert {type:'json'}
-import binding from './mocks/binding.json' assert {type:'json'}
-import check from './mocks/check.json' assert {type:'json'}
-import info from './mocks/info.json' assert {type:'json'}
+import binding from './mocks/binding.json' assert {type: 'json'}
+import check from './mocks/check.json' assert {type: 'json'}
+import generate_cred_by_code from './mocks/generate_cred_by_code.json' assert {type: 'json'}
+import grant from './mocks/grant.json' assert {type: 'json'}
+import info from './mocks/info.json' assert {type: 'json'}
+import me from './mocks/me.json' assert {type: 'json'}
 
 const apiResponseMap = new Map<string, any>(
   [

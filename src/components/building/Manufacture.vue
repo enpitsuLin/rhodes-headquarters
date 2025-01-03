@@ -1,8 +1,8 @@
 <script setup lang="ts">
+import type { BuildingManufacture } from '~/types'
 import { intervalToDuration } from 'date-fns'
 import Base from './Base.vue'
 import ResidentCharacter from './ResidentCharacter.vue'
-import type { BuildingManufacture } from '~/types'
 
 const props = defineProps<{
   data: BuildingManufacture

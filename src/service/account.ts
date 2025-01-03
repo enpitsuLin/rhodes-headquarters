@@ -1,10 +1,10 @@
 import type { RemovableRef } from '@vueuse/core'
-import { defineProxyService } from '@webext-core/proxy-service'
 import type { ArknightRole, SklandAccount } from '~/composables/storages'
-import { useArknightAccountsInfo, useArknightCharacters, useCurrentArknightCharacter, useSklandAccounts } from '~/composables/storages'
+import type { BindingInfo } from '~/types'
+import { defineProxyService } from '@webext-core/proxy-service'
 
 import * as API from '~/api'
-import type { BindingInfo } from '~/types'
+import { useArknightAccountsInfo, useArknightCharacters, useCurrentArknightCharacter, useSklandAccounts } from '~/composables/storages'
 
 class BackgroundService {
   static readonly refreshInfoAlarmName = 'refresh-info'

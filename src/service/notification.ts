@@ -1,5 +1,5 @@
-import { defineProxyService } from '@webext-core/proxy-service'
 import type { Alarms, Notifications } from 'wxt/browser'
+import { defineProxyService } from '@webext-core/proxy-service'
 import { format } from 'date-fns'
 import { Logger } from '~/utils/logger'
 
@@ -107,9 +107,11 @@ class NotificationService {
       )
 
       if (browser.alarms
-        .onAlarm.hasListener(showNotificationListener)) {
+        .onAlarm
+        .hasListener(showNotificationListener)) {
         browser.alarms
-          .onAlarm.removeListener(showNotificationListener)
+          .onAlarm
+          .removeListener(showNotificationListener)
       }
     }
     browser.alarms.onAlarm.addListener(showNotificationListener)

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
-import { useAccountsStore } from '~/store/account'
-import { useSanityInfo } from '~/composables/status/ap'
 import SectionTitle from '~/components/home/SectionTitle.vue'
+import { useSanityInfo } from '~/composables/status/ap'
+import { useAccountsStore } from '~/store/account'
 
 const { info } = storeToRefs(useAccountsStore())
 

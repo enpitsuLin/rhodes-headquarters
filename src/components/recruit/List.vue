@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import RecruitItem from './Item.vue'
-import { useRecruits } from '~/composables/status/recruit'
 import type { Recruit } from '~/types'
+import { useRecruits } from '~/composables/status/recruit'
+import RecruitItem from './Item.vue'
 
 const props = defineProps<{ data: Recruit[] }>()
 

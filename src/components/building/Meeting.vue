@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import type { BuildingMeeting } from '~/types'
 import Base from './Base.vue'
 import ResidentCharacter from './ResidentCharacter.vue'
-import type { BuildingMeeting } from '~/types'
 
 const props = defineProps<{ data: BuildingMeeting }>()
 

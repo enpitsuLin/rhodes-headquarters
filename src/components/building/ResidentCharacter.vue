@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import { storeToRefs } from 'pinia'
-import type { Character } from '~/types/character'
 import type { ResidentCharacter } from '~/types/building'
-import CharacterAvatar from '~/components/CharacterAvatar.vue'
-import ApLow from '~/assets/icons/ap-low.svg'
+import { storeToRefs } from 'pinia'
 import ApHalf from '~/assets/icons/ap-half.svg'
 import ApHigh from '~/assets/icons/ap-high.svg'
+import ApLow from '~/assets/icons/ap-low.svg'
 import StatusWorking from '~/assets/icons/status-working.svg'
+import CharacterAvatar from '~/components/CharacterAvatar.vue'
 import { useAccountsStore } from '~/store/account'
 
 const props = defineProps<{

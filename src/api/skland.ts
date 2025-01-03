@@ -1,6 +1,6 @@
+import type { Binding, BindingInfo, Status, User } from '~/types'
 import { ofetch } from 'ofetch'
 import { onSignatureRequest } from '~/utils'
-import type { Binding, BindingInfo, Status, User } from '~/types'
 
 const $fetch = ofetch.create({
   baseURL: 'https://zonai.skland.com/',

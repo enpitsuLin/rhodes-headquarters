@@ -2,12 +2,12 @@
 import { Tabs } from '@ark-ui/vue'
 import { useScroll } from '@vueuse/core'
 import { storeToRefs } from 'pinia'
-import SectionTitle from './SectionTitle.vue'
 import Labor from '~/components/building/Labor.vue'
 import BuildingList from '~/components/building/List.vue'
 import HireRfreshCount from '~/components/recruit/HireRfreshCount.vue'
 import RecruitList from '~/components/recruit/List.vue'
 import { useAccountsStore } from '~/store/account'
+import SectionTitle from './SectionTitle.vue'
 
 const { info } = storeToRefs(useAccountsStore())
 

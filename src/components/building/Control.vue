@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import type { BuildingControl } from '~/types'
 import Base from './Base.vue'
 import ResidentCharacter from './ResidentCharacter.vue'
-import type { BuildingControl } from '~/types'
 
 defineProps<{ data: BuildingControl }>()
 </script>

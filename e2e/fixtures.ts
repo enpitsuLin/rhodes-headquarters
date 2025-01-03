@@ -1,5 +1,5 @@
-import path from 'node:path'
 import type { BrowserContext } from '@playwright/test'
+import path from 'node:path'
 import { test as base, chromium } from '@playwright/test'
 import { OptionsPage } from './pages/options'
 import { PopupPage } from './pages/popup'

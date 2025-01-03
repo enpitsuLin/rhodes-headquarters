@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useAccountsStore } from '~/store/account'
-import Avatar from '~/components/Avatar.vue'
 import type { ArknightRole } from '~/composables/storages'
+import Avatar from '~/components/Avatar.vue'
+import { useAccountsStore } from '~/store/account'
 
 const { account } = defineProps<{ account: ArknightRole }>()
 
