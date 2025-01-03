@@ -51,7 +51,7 @@ const { arrivedState } = useScroll(el)
         <Tabs.Content value="基建" relative h-full>
           <div flex="~ col" h-full>
             <Labor v-if="info" :data="info.building.labor" />
-            <div ref="el" flex-1 of-x-hidden of-y-scroll pb-4px pt-4px>
+            <div ref="el" flex-1 of-x-hidden of-y-scroll pt-4px>
               <div flex="~ col items-center gap-4px">
                 <BuildingList v-if="info" :info="info" />
               </div>
