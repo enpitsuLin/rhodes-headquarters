@@ -46,7 +46,7 @@ function inClueBoard(index: number) {
         <div flex="~ col gap-2px">
           <div flex="~ items-center justify-between gap-4px">
             <div class="text-#fd661c">
-              搜集中
+              {{ data.clue.sharing ? '交流中' : '搜集中' }}
             </div>
 
             <div flex="~ items-center gap-4px">
