@@ -1,5 +1,6 @@
 import { resolve } from 'node:path'
 import VueRouter from 'unplugin-vue-router/vite'
+import { analyzer } from 'vite-bundle-analyzer'
 import VueDevTools from 'vite-plugin-vue-devtools'
 import Layouts from 'vite-plugin-vue-layouts'
 import { defineConfig } from 'wxt'
@@ -29,6 +30,19 @@ export default defineConfig({
     },
   },
   vite(env) {
+    const plugins = [
+
+      VueRouter({
+        dts: './src/typed-router.d.ts',
+      }),
+      Layouts(),
+
+      VueDevTools({ appendTo: /main\.ts/ }),
+    ]
+    // eslint-disable-next-line node/prefer-global/process
+    if (process.env.ANALYZE === 'true') {
+      plugins.push(analyzer())
+    }
     return {
       ssr: {
         noExternal: ['@webext-core/messaging', '@webext-core/proxy-service'],
@@ -40,14 +54,7 @@ export default defineConfig({
       build: {
         sourcemap: env.mode === 'serve',
       },
-      plugins: [
-        VueRouter({
-          dts: './src/typed-router.d.ts',
-        }),
-        Layouts(),
-
-        VueDevTools({ appendTo: /main\.ts/ }),
-      ],
+      plugins,
     }
   },
 })
