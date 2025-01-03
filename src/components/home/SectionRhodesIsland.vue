@@ -1,17 +1,15 @@
 <script setup lang="ts">
-import { storeToRefs } from 'pinia'
 import { Tabs } from '@ark-ui/vue'
 import { useScroll } from '@vueuse/core'
+import { storeToRefs } from 'pinia'
 import SectionTitle from './SectionTitle.vue'
-import { useRecruits } from '~/composables/status/recruit'
-import { useAccountsStore } from '~/store/account'
+import Labor from '~/components/building/Labor.vue'
 import BuildingList from '~/components/building/List.vue'
+import HireRfreshCount from '~/components/recruit/HireRfreshCount.vue'
+import RecruitList from '~/components/recruit/List.vue'
+import { useAccountsStore } from '~/store/account'
 
 const { info } = storeToRefs(useAccountsStore())
-
-const hire = computed(() => info.value!.building.hire)
-
-const parsedRecruits = useRecruits(info.value!.recruit)
 
 const el = ref<HTMLElement | null>(null)
 const { arrivedState } = useScroll(el)
@@ -35,16 +33,9 @@ const { arrivedState } = useScroll(el)
         </Tabs.List>
       </SectionTitle>
       <div relative h-270px of-hidden class="after:(absolute inset-x-0 bottom-0 h-1px bg-border content-empty)">
-        <Tabs.Content value="公招" h-full class="data-[selected]:(animate-in fade-in)">
+        <Tabs.Content value="公招" h-full>
           <div flex="~ col" h-full>
-            <div h-30px border="b-1 border" flex="~ items-center">
-              <template v-if="hire">
-                联络次数 {{ hire?.refreshCount }}/3
-              </template>
-              <template v-else>
-                公招功能可能尚未解锁
-              </template>
-            </div>
+            <HireRfreshCount />
             <div relative flex="~ 1 col justify-between">
               <div absolute bottom-0 left-0 c-border>
                 <svg width="274" height="184" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -53,77 +44,19 @@ const { arrivedState } = useScroll(el)
                   <path d="m151.265 199.389-3.926-3.067-8.154 10.436-2.753-2.151 8.154-10.436-3.926-3.067 2.188-2.801 10.605 8.286-2.188 2.8Zm-19.95 1.211-2.975-2.324 1.613-13.296-7.062 9.039-2.754-2.152 10.337-13.231 2.979 2.327-1.617 13.3 7.065-9.043 2.751 2.149-10.337 13.231Zm-5.953-21.729-6.008-4.694-2.183 2.793 5.03 3.93-1.87 2.394-5.03-3.93-2.181 2.792 6.008 4.694-2.052 2.626-8.757-6.842 10.338-13.231 8.757 6.842-2.052 2.626Zm-19.91 1.523-2.753-2.15 6.598-8.445-6.922 3.143-1.416-1.106 1.376-7.478-6.598 8.446-2.75-2.148 10.338-13.231 2.749 2.147.058.046-1.699 9.231 8.544-3.884.06.047 2.752 2.151-10.337 13.231Zm-5.463-21.066-3.924-3.066-8.154 10.436-2.75-2.149 8.153-10.436-3.928-3.069 2.188-2.8 10.603 8.284-2.188 2.8Zm-22.275-.573 1.348-6.56-1.835-1.442-3.7 4.712-2.745-2.158 10.372-13.204 5.383 4.228c2.256 1.774 2.594 5.114.753 7.46-1.335 1.698-3.447 2.403-5.367 1.993l-1.466 7.127-2.743-2.156Zm-10.675-8.372.936-3.007-5.158-4.029-2.69 1.635-2.752-2.149 15.342-9.322 2.405 1.879-5.334 17.141-2.749-2.148Zm-9.476-15.005-2.645-2.066-3.688 4.72-2.75-2.15 10.337-13.231 1.196.934 1.555 1.215 2.645 2.067c2.263 1.768 2.609 5.106.773 7.455-1.838 2.352-5.16 2.825-7.423 1.056Zm-3.508-12.218-6.008-4.694-2.182 2.794 5.028 3.928-1.87 2.393-5.028-3.928-2.181 2.792 6.008 4.694-2.052 2.626-8.76-6.843 10.338-13.231 8.76 6.843-2.053 2.626Zm-25.814-3.081-5.042-3.939 10.342-13.237 5.042 3.939c3.52 2.751 4.056 7.943 1.202 11.596-2.857 3.657-8.023 4.391-11.544 1.641Zm-9.574-2.813 124.517 97.283 14.852-19.01L33.519 98.256l-14.852 19.01Z" fill="currentColor" />
                 </svg>
               </div>
-              <ul
-                flex="~ col justify-between"
-                relative h-full py-10px
-              >
-                <li
-                  v-for="(recruit, index) in parsedRecruits"
-                  :key="index"
-                >
-                  <div
-                    h-50px flex="~ gap-10px items-center"
-                    bg="#2D2E30/30" px-8px
-                  >
-                    <div size-24px bg-primary text-center leading-24px>
-                      {{ index + 1 }}
-                    </div>
-                    <template v-if="recruit.status === 'completed'">
-                      <div text-base>
-                        已成功招募到候选人
-                      </div>
-                    </template>
-
-                    <template v-else-if="recruit.status === 'recruiting'">
-                      <div flex-1 animate-pulse>
-                        招募中...
-                      </div>
-                      <div flex="~ col" text-10px>
-                        <div>剩余时间: {{ recruit.readableDuration }}</div>
-                        <div>预计完成于 {{ recruit.readableCompletedAt }}</div>
-                      </div>
-                    </template>
-                    <template v-else-if="recruit.status === 'locked'">
-                      <div text-base>
-                        尚未解锁公招位
-                      </div>
-                    </template>
-                    <template v-else>
-                      <div text-base>
-                        没有进行中的招募
-                      </div>
-                    </template>
-                  </div>
-                </li>
-                <!-- 船新创的号 森空岛api暂无数据的情况 -->
-                <template v-if="parsedRecruits.length < 4">
-                  <li v-for="i in 4 - parsedRecruits.length" :key="i">
-                    <div
-                      h-50px flex="~ gap-10px items-center"
-                      bg="#2D2E30/30" px-8px
-                    >
-                      <div size-24px bg-primary text-center leading-24px>
-                        {{ i + parsedRecruits.length }}
-                      </div>
-                      <div text-base>
-                        尚未解锁公招位
-                      </div>
-                    </div>
-                  </li>
-                </template>
-              </ul>
+              <RecruitList :data="info?.recruit ?? []" />
             </div>
           </div>
         </Tabs.Content>
-        <Tabs.Content value="基建" class="data-[selected]:(animate-in fade-in)" relative h-full>
-          <div mb-4px>
-            无人机
-          </div>
-          <div ref="el" h-full of-scroll pb-4px>
-            <div flex="~ col items-center gap-4px">
-              <BuildingList v-if="info" :info="info" />
+        <Tabs.Content value="基建" relative h-full>
+          <div flex="~ col" h-full>
+            <Labor v-if="info" :data="info.building.labor" />
+            <div ref="el" flex-1 of-x-hidden of-y-scroll pb-4px pt-4px>
+              <div flex="~ col items-center gap-4px">
+                <BuildingList v-if="info" :info="info" />
+              </div>
+              <div v-show="!arrivedState.bottom" absolute inset-x-0 bottom-0 h-30px class="from-background to-transparent bg-gradient-to-t" />
             </div>
-            <div v-show="!arrivedState.bottom" absolute inset-x-0 bottom-0 h-30px class="from-background to-transparent bg-gradient-to-t" />
           </div>
         </Tabs.Content>
       </div>

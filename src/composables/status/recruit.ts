@@ -33,7 +33,7 @@ interface LockedRecruit {
   status: 'locked'
 }
 
-type RecruitState = CompletedRecruit | StandbyRecruit | RecruitingRecruit | LockedRecruit
+export type RecruitState = CompletedRecruit | StandbyRecruit | RecruitingRecruit | LockedRecruit
 
 function recruitStatus(recruit: Recruit, timestamp: number): RecruitState['status'] {
   if (recruit.state === 1) {
