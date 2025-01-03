@@ -3,7 +3,24 @@ import Base from './Base.vue'
 import ResidentCharacter from './ResidentCharacter.vue'
 import type { BuildingMeeting } from '~/types'
 
-defineProps<{ data: BuildingMeeting }>()
+const props = defineProps<{ data: BuildingMeeting }>()
+
+const clueBoardList = [
+  'RHINE',
+  'PENGUIN',
+  'BLACKSTEEL',
+  'URSUS',
+  'GLASGOW',
+  'KJERAG',
+  'RHODES',
+] as const
+
+function inClueBoard(index: number) {
+  if (!props.data.clue.board.at(index - 1))
+    return false
+
+  return clueBoardList.includes(props.data.clue.board.at(index - 1) as typeof clueBoardList[number])
+}
 </script>
 
 <template>
@@ -62,8 +79,10 @@ defineProps<{ data: BuildingMeeting }>()
           <div
             v-for="i in 7" :key="i"
             border="~ border"
-
-            h-16px w-12px text-center text-12px leading-12px
+            bg="[&.include]:border"
+            h-16px w-12px text-center text-12px
+            flex="inline items-center justify-center"
+            :class="inClueBoard(i) && 'include'"
           >
             {{ i }}
           </div>
