@@ -74,14 +74,28 @@ export interface BuildingHire extends BuildingRoom {
  * 基建制造站
  */
 export interface BuildingManufacture extends BuildingRoom {
+  /**
+   * 生产力 1 为 100%
+   */
   speed: number
   complete: number
+  /** 库存容量 */
   capacity: number
+  /** 当前库存 */
   weight: number
   formulaId: string | number
+  /**
+   * 剩余制作数量
+   * 一般都是剩 99 个
+   */
   remain: number
   slotId: string
+  /**
+   * 完成工作时间
+   * 预计填满库存时间
+   */
   completeWorkTime: number
+  /** 最后更新时间 */
   lastUpdateTime: number
 }
 
