@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import type { Status } from '~/types'
+import { storeToRefs } from 'pinia'
 import SectionCharacterPanel from '~/components/home/SectionCharacterPanel.vue'
+import { useAccountsStore } from '~/store/account'
 
-defineProps<{ status: Status }>()
+const { info } = storeToRefs(useAccountsStore())
 
+const status = computed(() => info.value!.status!)
 const open = ref(false)
 </script>
 
