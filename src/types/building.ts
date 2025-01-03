@@ -78,6 +78,7 @@ export interface BuildingManufacture extends BuildingRoom {
    * 生产力 1 为 100%
    */
   speed: number
+  /** 完成数量 */
   complete: number
   /** 库存容量 */
   capacity: number

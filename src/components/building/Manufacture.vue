@@ -47,7 +47,7 @@ const currentWeight = computed(() => {
 
   const runningMinutes = (runningDuration.hours || 0) * 60 + (runningDuration.minutes || 0)
 
-  return Math.floor(runningMinutes / productPreMinutes) * currentFormula.value.weight
+  return props.data.weight + Math.floor(runningMinutes / productPreMinutes) * currentFormula.value.weight
 })
 </script>
 
