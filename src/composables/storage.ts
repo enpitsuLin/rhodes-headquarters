@@ -159,10 +159,10 @@ export function useWxtStorageAsync<T extends (string | number | boolean | object
       return storage.getItem(`${scope}:${key}`)
     },
     setItem(key, value) {
-      storage.setItem(`local:${key}`, value)
+      storage.setItem(`${scope}:${key}`, value)
     },
     removeItem(key) {
-      storage.removeItem(`local:${key}`)
+      storage.removeItem(`${scope}:${key}`)
     },
   }
 
