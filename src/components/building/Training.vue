@@ -9,7 +9,7 @@ const chars = computed(() => {
   return [
     props.data.trainer,
     props.data.trainee,
-  ] as ResidentCharacterType[]
+  ].filter(Boolean) as ResidentCharacterType[]
 })
 </script>
 
