@@ -1,3 +1,4 @@
+import { PiniaColada } from '@pinia/colada'
 import { createPinia } from 'pinia'
 import { setupLayouts } from 'virtual:generated-layouts'
 import {
@@ -30,4 +31,5 @@ const pinia = createPinia()
 
 app.use(router)
 app.use(pinia)
+app.use(PiniaColada)
 app.mount('#app')

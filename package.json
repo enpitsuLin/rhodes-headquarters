@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@ark-ui/vue": "^4.6.0",
+    "@pinia/colada": "^0.13.2",
     "@vueuse/core": "^12.3.0",
     "@webext-core/proxy-service": "^1.2.1",
     "crypto-js": "^4.2.0",

@@ -11,6 +11,9 @@ importers:
       '@ark-ui/vue':
         specifier: ^4.6.0
         version: 4.6.0(vue@3.5.13(typescript@5.7.2))
+      '@pinia/colada':
+        specifier: ^0.13.2
+        version: 0.13.2(pinia@2.3.0(typescript@5.7.2)(vue@3.5.13(typescript@5.7.2)))
       '@vueuse/core':
         specifier: ^12.3.0
         version: 12.3.0(typescript@5.7.2)
@@ -838,6 +841,11 @@ packages:
 
   '@one-ini/wasm@0.1.1':
     resolution: {integrity: sha512-XuySG1E38YScSJoMlqovLru4KTUNSjgVTIjyh7qMX6aNN5HY5Ct5LhRJdxO79JtTzKfzV/bnWpz+zquYrISsvw==}
+
+  '@pinia/colada@0.13.2':
+    resolution: {integrity: sha512-anZCon5gr8UH517zui1NJfh5XPzi3Kyb+vaKW0CjTkHGhlEd4hudW7gLavhrfj5OiUjUwy17ZK7ornHRyon0dg==}
+    peerDependencies:
+      pinia: ^2.2.6
 
   '@pkgr/core@0.1.1':
     resolution: {integrity: sha512-cq8o4cWH0ibXh9VGi5P20Tu9XF/0fFXl9EUinr9QfTM7a7p0oTA4iJRCQWppXR1Pg8dSM0UCItCkPwsk9qWWYA==}
@@ -5488,6 +5496,10 @@ snapshots:
       fastq: 1.15.0
 
   '@one-ini/wasm@0.1.1': {}
+
+  '@pinia/colada@0.13.2(pinia@2.3.0(typescript@5.7.2)(vue@3.5.13(typescript@5.7.2)))':
+    dependencies:
+      pinia: 2.3.0(typescript@5.7.2)(vue@3.5.13(typescript@5.7.2))
 
   '@pkgr/core@0.1.1': {}
 
