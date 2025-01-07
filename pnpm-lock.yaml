@@ -4,6 +4,11 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  '@zag-js/vue':
+    hash: xxlmchnd5ih4svg3o3hxz57oni
+    path: patches/@zag-js__vue.patch
+
 importers:
 
   .:
@@ -4924,7 +4929,7 @@ snapshots:
       '@zag-js/tree-view': 0.79.1
       '@zag-js/types': 0.79.1
       '@zag-js/utils': 0.79.1
-      '@zag-js/vue': 0.79.1(vue@3.5.13(typescript@5.7.2))
+      '@zag-js/vue': 0.79.1(patch_hash=xxlmchnd5ih4svg3o3hxz57oni)(vue@3.5.13(typescript@5.7.2))
       vue: 3.5.13(typescript@5.7.2)
 
   '@babel/code-frame@7.24.7':
@@ -6718,7 +6723,7 @@ snapshots:
 
   '@zag-js/utils@0.79.1': {}
 
-  '@zag-js/vue@0.79.1(vue@3.5.13(typescript@5.7.2))':
+  '@zag-js/vue@0.79.1(patch_hash=xxlmchnd5ih4svg3o3hxz57oni)(vue@3.5.13(typescript@5.7.2))':
     dependencies:
       '@zag-js/core': 0.79.1
       '@zag-js/store': 0.79.1

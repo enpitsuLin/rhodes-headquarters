@@ -1,0 +1,26 @@
+diff --git a/dist/index.js b/dist/index.js
+index 109fca5019f82e0f20867024df402343c6fc421a..8f3dd25796450351d67d85971073b10a45eebad3 100644
+--- a/dist/index.js
++++ b/dist/index.js
+@@ -24,7 +24,7 @@ function toVueProp(prop) {
+   if (prop.startsWith("on")) {
+     return `on${toCase(prop.substr(2))}`;
+   }
+-  return prop.toLowerCase();
++  return prop;
+ }
+ var normalizeProps = types.createNormalizer((props) => {
+   const normalized = {};
+diff --git a/dist/index.mjs b/dist/index.mjs
+index 14b53ef644f1478787f3ee6f0989ef71faf12229..a3eed483700317de6b9fbfd7b436a81749e14e86 100644
+--- a/dist/index.mjs
++++ b/dist/index.mjs
+@@ -22,7 +22,7 @@ function toVueProp(prop) {
+   if (prop.startsWith("on")) {
+     return `on${toCase(prop.substr(2))}`;
+   }
+-  return prop.toLowerCase();
++  return prop;
+ }
+ var normalizeProps = createNormalizer((props) => {
+   const normalized = {};

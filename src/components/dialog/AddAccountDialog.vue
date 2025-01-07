@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { DialogBackdrop, DialogContent, DialogPositioner, DialogRoot, DialogTitle } from '@ark-ui/vue'
-import { useAsyncState } from '@vueuse/core'
+import { useMutation } from '@pinia/colada'
 import { useDeviceId } from '~/composables/storages'
 import { getBackgroundService } from '~/service'
 import { useAccountsStore } from '~/store/account'
+import MethodScan from './MethodScan.vue'
 
 const open = defineModel<boolean>('open', { required: true })
 
@@ -17,42 +18,36 @@ const errorMessage = ref('')
 
 const { state: deviceId, isLoading: isLoadingDeviceId } = useDeviceId()
 
-const { isLoading, execute } = useAsyncState(
-  async () => {
-    if (token.value) {
-      const binding = await accountService.signIn(token.value, deviceId.value)
-      binding.forEach(({ info, role, account }) => {
-        accountsStore.addAccount(account)
-        accountsStore.addRole(role)
-        accountsStore.setInfoMapping(role.uid, info)
-      })
+const { mutate, isLoading } = useMutation({
+  async mutation(token: string) {
+    if (!token)
+      throw new Error('凭证为空')
 
-      if (accountsStore.characters.length === 1)
-        accountsStore.setCurrentUid(accountsStore.characters[0].uid)
+    return accountService.signIn(token, deviceId.value)
+  },
+  onSuccess(data) {
+    data.forEach(({ info, role, account }) => {
+      accountsStore.addAccount(account)
+      accountsStore.addRole(role)
+      accountsStore.setInfoMapping(role.uid, info)
+    })
 
-      return true
-    }
-    throw new Error('凭证为空')
+    if (accountsStore.characters.length === 1)
+      accountsStore.setCurrentUid(accountsStore.characters[0].uid)
+
+    toast.create({
+      title: '新增成功',
+      notification: false,
+    })
+    open.value = false
   },
-  false,
-  {
-    immediate: false,
-    onSuccess() {
-      toast.create({
-        title: '新增成功',
-        notification: false,
-      })
-      token.value = ''
-      open.value = false
-    },
-    onError(e) {
-      if ((e as Error).toString().includes('FetchError'))
-        errorMessage.value = '验证出错'
-      else
-        errorMessage.value = (e as Error).message
-    },
+  onError(error) {
+    if ((error as Error).toString().includes('FetchError'))
+      errorMessage.value = '验证出错'
+    else
+      errorMessage.value = (error as Error).message
   },
-)
+})
 </script>
 
 <template>
@@ -100,42 +95,45 @@ const { isLoading, execute } = useAsyncState(
               <div absolute size-3px left="-1px" bottom="-1px" bg-border />
             </div>
           </DialogTitle>
-          <main>
-            <div p-4 space-y-2>
-              <p>1. 打开森空岛网页版并登录</p>
-              <p>
-                2. 登录森空岛网页版后，打开 <a
-                  href="https://web-api.skland.com/account/info/hg"
-                  target="_blank"
-                >https://web-api.skland.com/account/info/hg</a> 记下 content 字段的值
-              </p>
-              <p>3. 在下面输入获取到的值</p>
-              <div flex="~" relative>
-                <input
-                  v-model="token" type="text" border="~ border [&.warning]:red focus:primary" p="x-3 y2" flex-1
-                  bg-background outline-none :class="!!errorMessage && 'warning animate-shake'"
-                  @focus="errorMessage = ''"
-                >
-                <p absolute text-xs c-red bottom="-4.5">
-                  {{ errorMessage }}
+          <template v-if="false">
+            <main>
+              <div p-4 space-y-2>
+                <p>1. 打开森空岛网页版并登录</p>
+                <p>
+                  2. 登录森空岛网页版后，打开 <a
+                    href="https://web-api.skland.com/account/info/hg"
+                    target="_blank"
+                  >https://web-api.skland.com/account/info/hg</a> 记下 content 字段的值
                 </p>
+                <p>3. 在下面输入获取到的值</p>
+                <div flex="~" relative>
+                  <input
+                    v-model="token" type="text" border="~ border [&.warning]:red focus:primary" p="x-3 y2" flex-1
+                    bg-background outline-none :class="!!errorMessage && 'warning animate-shake'"
+                    @focus="errorMessage = ''"
+                  >
+                  <p absolute text-xs c-red bottom="-4.5">
+                    {{ errorMessage }}
+                  </p>
+                </div>
               </div>
-            </div>
-          </main>
-          <footer p="t-5px b-13px" flex="~ justify-center">
-            <button
-              v-if="isLoadingDeviceId" h-32px w-250px p-10px bg="[url(~/assets/btn-bg.svg)]"
-              flex="inline justify-center items-center"
-            >
-              初始化中
-            </button>
-            <button
-              v-else :disabled="isLoading || isLoadingDeviceId" h-32px w-250px p-10px
-              bg="[url(~/assets/btn-bg.svg)]" flex="inline justify-center items-center" @click="execute()"
-            >
-              {{ isLoading || isLoadingDeviceId ? 'Loading...' : '新增账户' }}
-            </button>
-          </footer>
+            </main>
+            <footer p="t-5px b-13px" flex="~ justify-center">
+              <button
+                v-if="isLoadingDeviceId" h-32px w-250px p-10px bg="[url(~/assets/btn-bg.svg)]"
+                flex="inline justify-center items-center"
+              >
+                初始化中
+              </button>
+              <button
+                v-else :disabled="isLoading || isLoadingDeviceId" h-32px w-250px p-10px
+                bg="[url(~/assets/btn-bg.svg)]" flex="inline justify-center items-center" @click="mutate(token)"
+              >
+                {{ isLoading || isLoadingDeviceId ? 'Loading...' : '新增账户' }}
+              </button>
+            </footer>
+          </template>
+          <MethodScan />
         </DialogContent>
       </DialogPositioner>
     </Teleport>

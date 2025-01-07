@@ -70,6 +70,9 @@
       "allowAny": [
         "eslint"
       ]
+    },
+    "patchedDependencies": {
+      "@zag-js/vue": "patches/@zag-js__vue.patch"
     }
   },
   "simple-git-hooks": {
