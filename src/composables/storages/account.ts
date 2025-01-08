@@ -6,6 +6,9 @@ export interface SklandAccount {
   cred: string
 }
 
+/**
+ * 森空岛绑定的明日方舟游戏角色
+ */
 export interface ArknightRole extends BindingRole {
   accountId: SklandAccount['id']
 }

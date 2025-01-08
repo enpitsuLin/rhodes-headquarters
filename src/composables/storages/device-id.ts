@@ -1,4 +1,3 @@
-import { useAsyncState } from '@vueuse/core'
 import { format } from 'date-fns'
 import { encryptAES, encryptObjectByDESRules, md5 } from '~/utils/crypto'
 
@@ -310,22 +309,12 @@ export async function getDid() {
 
 export const DEVICE_ID_KEY = 'local:PRRH:DEVICE_ID'
 
-export function useDeviceId() {
-  return useAsyncState(
-    async () => {
-      const deviceId = await storage.getItem<string>(DEVICE_ID_KEY)
-      if (deviceId)
-        return deviceId
+export async function getDeviceId() {
+  const deviceId = await storage.getItem<string>(DEVICE_ID_KEY)
+  if (deviceId)
+    return deviceId
 
-      const dId = await getDid()
-      await storage.setItem(DEVICE_ID_KEY, dId)
-      return dId
-    },
-    '',
-    {
-      onError(e) {
-        console.error(e)
-      },
-    },
-  )
+  const dId = await getDid()
+  await storage.setItem(DEVICE_ID_KEY, dId)
+  return dId
 }

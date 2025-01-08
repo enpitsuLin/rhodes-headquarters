@@ -1,10 +1,8 @@
 <script setup lang="ts">
 import { DialogBackdrop, DialogContent, DialogPositioner, DialogRoot, DialogTitle } from '@ark-ui/vue'
 import { useMutation } from '@pinia/colada'
-import { useDeviceId } from '~/composables/storages'
 import { getBackgroundService } from '~/service'
 import { useAccountsStore } from '~/store/account'
-import MethodScan from './MethodScan.vue'
 
 const open = defineModel<boolean>('open', { required: true })
 
@@ -16,14 +14,12 @@ const toast = useToast()
 const token = ref('')
 const errorMessage = ref('')
 
-const { state: deviceId, isLoading: isLoadingDeviceId } = useDeviceId()
-
 const { mutate, isLoading } = useMutation({
   async mutation(token: string) {
     if (!token)
       throw new Error('凭证为空')
 
-    return accountService.signIn(token, deviceId.value)
+    return accountService.signIn(token)
   },
   onSuccess(data) {
     data.forEach(({ info, role, account }) => {
@@ -95,45 +91,36 @@ const { mutate, isLoading } = useMutation({
               <div absolute size-3px left="-1px" bottom="-1px" bg-border />
             </div>
           </DialogTitle>
-          <template v-if="false">
-            <main>
-              <div p-4 space-y-2>
-                <p>1. 打开森空岛网页版并登录</p>
-                <p>
-                  2. 登录森空岛网页版后，打开 <a
-                    href="https://web-api.skland.com/account/info/hg"
-                    target="_blank"
-                  >https://web-api.skland.com/account/info/hg</a> 记下 content 字段的值
+          <main>
+            <div p-4 space-y-2>
+              <p>1. 打开森空岛网页版并登录</p>
+              <p>
+                2. 登录森空岛网页版后，打开 <a
+                  href="https://web-api.skland.com/account/info/hg"
+                  target="_blank"
+                >https://web-api.skland.com/account/info/hg</a> 记下 content 字段的值
+              </p>
+              <p>3. 在下面输入获取到的值</p>
+              <div flex="~" relative>
+                <input
+                  v-model="token" type="text" border="~ border [&.warning]:red focus:primary" p="x-3 y2" flex-1
+                  bg-background outline-none :class="!!errorMessage && 'warning animate-shake'"
+                  @focus="errorMessage = ''"
+                >
+                <p absolute text-xs c-red bottom="-4.5">
+                  {{ errorMessage }}
                 </p>
-                <p>3. 在下面输入获取到的值</p>
-                <div flex="~" relative>
-                  <input
-                    v-model="token" type="text" border="~ border [&.warning]:red focus:primary" p="x-3 y2" flex-1
-                    bg-background outline-none :class="!!errorMessage && 'warning animate-shake'"
-                    @focus="errorMessage = ''"
-                  >
-                  <p absolute text-xs c-red bottom="-4.5">
-                    {{ errorMessage }}
-                  </p>
-                </div>
               </div>
-            </main>
-            <footer p="t-5px b-13px" flex="~ justify-center">
-              <button
-                v-if="isLoadingDeviceId" h-32px w-250px p-10px bg="[url(~/assets/btn-bg.svg)]"
-                flex="inline justify-center items-center"
-              >
-                初始化中
-              </button>
-              <button
-                v-else :disabled="isLoading || isLoadingDeviceId" h-32px w-250px p-10px
-                bg="[url(~/assets/btn-bg.svg)]" flex="inline justify-center items-center" @click="mutate(token)"
-              >
-                {{ isLoading || isLoadingDeviceId ? 'Loading...' : '新增账户' }}
-              </button>
-            </footer>
-          </template>
-          <MethodScan />
+            </div>
+          </main>
+          <footer p="t-5px b-13px" flex="~ justify-center">
+            <button
+              :disabled="isLoading" h-32px w-250px p-10px
+              bg="[url(~/assets/btn-bg.svg)]" flex="inline justify-center items-center" @click="mutate(token)"
+            >
+              {{ isLoading ? 'Loading...' : '新增账户' }}
+            </button>
+          </footer>
         </DialogContent>
       </DialogPositioner>
     </Teleport>

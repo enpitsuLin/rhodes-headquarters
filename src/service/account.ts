@@ -32,9 +32,9 @@ class BackgroundService {
     })
   }
 
-  async signIn(token: string, deviceId: string) {
+  async signIn(token: string) {
     const code = await API.hypergrayph.grantAuthorizeCode(token)
-    const res = await API.skland.generateCredByCode(code, deviceId)
+    const res = await API.skland.generateCredByCode(code)
     const binding = await API.skland.getPlayerBinding(res.cred)
 
     const account: SklandAccount = {

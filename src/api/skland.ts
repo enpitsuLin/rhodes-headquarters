@@ -1,5 +1,6 @@
 import type { Binding, BindingInfo, Status, User } from '~/types'
 import { ofetch } from 'ofetch'
+import { getDeviceId } from '~/composables/storages'
 import { onSignatureRequest } from '~/utils'
 
 const $fetch = ofetch.create({
@@ -17,9 +18,8 @@ interface SklandResponse<T> {
  * 获取用户访问令牌
  * @param code 鹰角 OAuth 授权码
  */
-export async function generateCredByCode(code: string, deviceId: string) {
-  if (!deviceId)
-    throw new Error('deviceId 不存在')
+export async function generateCredByCode(code: string) {
+  const deviceId = await getDeviceId()
 
   const res = await $fetch<SklandResponse<{ cred: string, userId: string, token: string }>>(
     '/web/v1/user/auth/generate_cred_by_code',
