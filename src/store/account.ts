@@ -38,6 +38,10 @@ export const useAccountsStore = defineStore('PRRH:arknight-role', {
         this.currentUid = null
 
       this.characters = this.characters.filter(role => role.uid !== uid)
+
+      const accountCharacter = this.characters.map(i => i.accountId)
+      this.accounts = this.accounts.filter(i => accountCharacter.includes(i.id))
+
       delete this.infoMapping[uid]
     },
     setInfoMapping(uid: ArknightRole['uid'], info: BindingInfo) {

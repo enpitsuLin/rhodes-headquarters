@@ -1,49 +1,9 @@
 <script setup lang="ts">
-import { DialogBackdrop, DialogContent, DialogPositioner, DialogRoot, DialogTitle } from '@ark-ui/vue'
-import { useMutation } from '@pinia/colada'
-import { getBackgroundService } from '~/service'
-import { useAccountsStore } from '~/store/account'
+import { DialogBackdrop, DialogContent, DialogPositioner, DialogRoot, DialogTitle, Tabs } from '@ark-ui/vue'
+import MethodOAuth from './MethodOAuth.vue'
+import MethodScan from './MethodScan.vue'
 
 const open = defineModel<boolean>('open', { required: true })
-
-const accountService = getBackgroundService()
-const accountsStore = useAccountsStore()
-
-const toast = useToast()
-
-const token = ref('')
-const errorMessage = ref('')
-
-const { mutate, isLoading } = useMutation({
-  async mutation(token: string) {
-    if (!token)
-      throw new Error('凭证为空')
-
-    return accountService.signIn(token)
-  },
-  onSuccess(data) {
-    data.forEach(({ info, role, account }) => {
-      accountsStore.addAccount(account)
-      accountsStore.addRole(role)
-      accountsStore.setInfoMapping(role.uid, info)
-    })
-
-    if (accountsStore.characters.length === 1)
-      accountsStore.setCurrentUid(accountsStore.characters[0].uid)
-
-    toast.create({
-      title: '新增成功',
-      notification: false,
-    })
-    open.value = false
-  },
-  onError(error) {
-    if ((error as Error).toString().includes('FetchError'))
-      errorMessage.value = '验证出错'
-    else
-      errorMessage.value = (error as Error).message
-  },
-})
 </script>
 
 <template>
@@ -91,36 +51,24 @@ const { mutate, isLoading } = useMutation({
               <div absolute size-3px left="-1px" bottom="-1px" bg-border />
             </div>
           </DialogTitle>
-          <main>
-            <div p-4 space-y-2>
-              <p>1. 打开森空岛网页版并登录</p>
-              <p>
-                2. 登录森空岛网页版后，打开 <a
-                  href="https://web-api.skland.com/account/info/hg"
-                  target="_blank"
-                >https://web-api.skland.com/account/info/hg</a> 记下 content 字段的值
-              </p>
-              <p>3. 在下面输入获取到的值</p>
-              <div flex="~" relative>
-                <input
-                  v-model="token" type="text" border="~ border [&.warning]:red focus:primary" p="x-3 y2" flex-1
-                  bg-background outline-none :class="!!errorMessage && 'warning animate-shake'"
-                  @focus="errorMessage = ''"
-                >
-                <p absolute text-xs c-red bottom="-4.5">
-                  {{ errorMessage }}
-                </p>
-              </div>
+          <Tabs.Root default-value="oauth">
+            <Tabs.List>
+              <Tabs.Trigger value="oauth">
+                OAuth
+              </Tabs.Trigger>
+              <Tabs.Trigger value="scan">
+                扫码
+              </Tabs.Trigger>
+            </Tabs.List>
+            <div>
+              <Tabs.Content value="scan">
+                <MethodScan @close="open = false" />
+              </Tabs.Content>
+              <Tabs.Content value="oauth">
+                <MethodOAuth @close="open = false" />
+              </Tabs.Content>
             </div>
-          </main>
-          <footer p="t-5px b-13px" flex="~ justify-center">
-            <button
-              :disabled="isLoading" h-32px w-250px p-10px
-              bg="[url(~/assets/btn-bg.svg)]" flex="inline justify-center items-center" @click="mutate(token)"
-            >
-              {{ isLoading ? 'Loading...' : '新增账户' }}
-            </button>
-          </footer>
+          </Tabs.Root>
         </DialogContent>
       </DialogPositioner>
     </Teleport>
