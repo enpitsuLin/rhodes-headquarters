@@ -51,16 +51,20 @@ const open = defineModel<boolean>('open', { required: true })
               <div absolute size-3px left="-1px" bottom="-1px" bg-border />
             </div>
           </DialogTitle>
-          <Tabs.Root default-value="oauth">
-            <Tabs.List>
-              <Tabs.Trigger value="oauth">
+          <Tabs.Root default-value="oauth" flex="~ col items-center" pt-2>
+            <Tabs.List
+              flex="~ items-center justify-between"
+              relative box-content w-120px bg-background p-1px border="~ border rounded-full"
+            >
+              <Tabs.Indicator h="$height" w="$width" rounded-full bg-primary />
+              <Tabs.Trigger value="oauth" relative w-60px>
                 OAuth
               </Tabs.Trigger>
-              <Tabs.Trigger value="scan">
+              <Tabs.Trigger value="scan" relative w-60px>
                 扫码
               </Tabs.Trigger>
             </Tabs.List>
-            <div>
+            <div h-250px flex="~ col items-center justify-center">
               <Tabs.Content value="scan">
                 <MethodScan @close="open = false" />
               </Tabs.Content>

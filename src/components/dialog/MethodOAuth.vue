@@ -35,7 +35,7 @@ const { mutate, isLoading, error, reset } = useSkalandSignIn({
           border="~ border [&.warning]:red focus:primary"
           p="x-3 y2" flex-1
           bg-background outline-none
-          :class="!!error && 'warning animate-shake'"
+          :class="!!error && 'warning animate-shake-x'"
           @focus="reset"
         >
         <p absolute text-xs c-red bottom="-4.5">
