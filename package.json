@@ -71,8 +71,8 @@
         "eslint"
       ]
     },
-    "patchedDependencies": {
-      "@zag-js/vue": "patches/@zag-js__vue.patch"
+    "overrides": {
+      "@zag-js/vue": "0.81.0"
     }
   },
   "simple-git-hooks": {
