@@ -1,7 +1,7 @@
 import type { FetchContext } from 'ofetch'
 import { getUnixTime } from 'date-fns'
 import { stringifyQuery } from 'ufo'
-import { refresh } from '~/api'
+import * as API from '~/api'
 import { DEVICE_ID_KEY } from '~/composables/storages'
 
 const WHITELIST = ['/web/v1/user/auth/generate_cred_by_code', '/api/v1/auth/refresh']
@@ -25,7 +25,8 @@ export async function onSignatureRequest(ctx: FetchContext) {
   const headers = new Headers(ctx.options.headers)
   let token = headers.get('token') ?? await storage.getItem<string>('local:PRRH:TOKEN')
   if (!token || Date.now() - lastRefreshTime.value > 20 * 60 * MILLISECOND_PER_SECOND) {
-    token = await refresh()
+    // fetch 在 background 中，所以不能使用 `webext-bridge` 来调用
+    token = await API.skland.refresh()
     await storage.setItem('local:PRRH:TOKEN', token)
     lastRefreshTime.value = Date.now()
   }

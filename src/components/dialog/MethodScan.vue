@@ -2,7 +2,7 @@
 import { QrCode } from '@ark-ui/vue/qr-code'
 import { useMutation, useQuery } from '@pinia/colada'
 import { useIntervalFn } from '@vueuse/core'
-import { genScanLoginUrl, getOAuthTokenByScanCode, getScanStatus } from '~/api'
+import { sendMessage } from 'webext-bridge/popup'
 import { useSkalandSignIn } from '~/composables/mutations/skland'
 
 const emit = defineEmits<{ close: [] }>()
@@ -13,7 +13,7 @@ const toast = useToast()
 const { data, isLoading } = useQuery({
   key: ['genScanLoginUrl'],
   async query() {
-    return genScanLoginUrl()
+    return sendMessage('api:hypergrayph:gen-scan-login-url', undefined)
   },
   enabled,
   refetchOnWindowFocus: false,
@@ -42,7 +42,7 @@ const {
 const { mutate: mutateGetTokenByScanCode } = useMutation({
   key: () => ['getTokenByScanCode'],
   async mutation(scanCode: string) {
-    return getOAuthTokenByScanCode(scanCode)
+    return sendMessage('api:hypergrayph:get-oauth-token-by-scan-code', scanCode)
   },
   onSuccess(data) {
     mutateSignIn(data)
@@ -52,7 +52,7 @@ const { mutate: mutateGetTokenByScanCode } = useMutation({
 const { mutate } = useMutation({
   key: () => ['getScanStatus', String(data.value?.scanId)],
   async mutation() {
-    return getScanStatus(data.value!.scanId)
+    return sendMessage('api:hypergrayph:get-scan-status', data.value!.scanId)
   },
   onSuccess(data) {
     if (data.msg === '已扫码待确认') {

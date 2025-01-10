@@ -104,7 +104,7 @@ export async function getPlayerBinding(cred: string) {
     .flat(2)
 }
 
-export async function getBindingInfo(cred: string, uid: string) {
+export async function getBindingInfo({ cred, uid }: { cred: string, uid: string }) {
   const pathname = `/api/v1/game/player/info`
   const {
     data,

@@ -2,7 +2,7 @@ import type { UseMutationReturn } from '@pinia/colada'
 import type { ArknightRole, SklandAccount } from '../storages'
 import type { BindingInfo } from '~/types'
 import { defineMutation, useMutation } from '@pinia/colada'
-import { generateCredByCode, getBindingInfo, getPlayerBinding, grantAuthorizeCode } from '~/api'
+import { sendMessage } from 'webext-bridge/popup'
 import { useAccountsStore } from '~/store/account'
 
 export interface UseSkalandSignInOptions {
@@ -26,9 +26,9 @@ export function useSkalandSignIn(options: UseSkalandSignInOptions): UseSkalandSi
         if (!token)
           throw new Error('凭证为空')
 
-        const code = await grantAuthorizeCode(token)
-        const res = await generateCredByCode(code)
-        const binding = await getPlayerBinding(res.cred)
+        const code = await sendMessage('api:skland:grant-authorize-code', token)
+        const res = await sendMessage('api:skland:generate-cred-by-code', code)
+        const binding = await sendMessage('api:skland:get-player-binding', res.cred)
 
         const account: SklandAccount = {
           id: res.userId,
@@ -37,7 +37,7 @@ export function useSkalandSignIn(options: UseSkalandSignInOptions): UseSkalandSi
         return {
           account,
           bindings: await Promise.all(binding.map(async (b) => {
-            const info = await getBindingInfo(res.cred, b.uid)
+            const info = await sendMessage('api:skland:get-binding-info', { cred: res.cred, uid: b.uid })
             const role: ArknightRole = {
               ...b,
               accountId: res.userId,
