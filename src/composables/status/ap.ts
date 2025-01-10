@@ -1,10 +1,10 @@
-import type { Duration } from 'date-fns'
+import type { Duration, FormatDurationOptions } from 'date-fns'
 import type { ActionPoint } from '~/types'
 import { useNow } from '@vueuse/core'
 import { add, differenceInMinutes, fromUnixTime, intervalToDuration } from 'date-fns'
 import { readableDate, readableDuration } from '~/utils/time'
 
-const MINUTES_PRE_AP = 6
+const MINUTES_PER_AP = 6
 
 interface DateAndDurationInfo {
   date: {
@@ -27,53 +27,52 @@ interface UseSanityInfoReturn {
 export function useSanityInfo(ap: MaybeRefOrGetter<ActionPoint>): UseSanityInfoReturn {
   const now = useNow()
   const sanity = computed(() => toValue(ap))
-
   const max = computed(() => sanity.value.max)
-  const lastAddDate = fromUnixTime(sanity.value.lastApAddTime)
 
-  const lasAddDateMinutesGoes = computed(() => differenceInMinutes(now.value, lastAddDate))
+  const lastAddDate = computed(() => fromUnixTime(sanity.value.lastApAddTime))
+
+  const minutesElapsed = computed(() => differenceInMinutes(now.value, lastAddDate.value))
 
   const current = computed(() => {
-    const calcCurrent = Math.floor(lasAddDateMinutesGoes.value / MINUTES_PRE_AP) + sanity.value.current
-    return calcCurrent > max.value ? max.value : calcCurrent
+    const calcCurrent = Math.floor(minutesElapsed.value / MINUTES_PER_AP) + sanity.value.current
+    return Math.min(calcCurrent, max.value)
   })
 
-  const completeRecovery = computed<DateAndDurationInfo>(() => {
-    const completeRecoveryDate = fromUnixTime(sanity.value.completeRecoveryTime)
-    const completeRecoveryDuration = intervalToDuration({
-      start: now.value,
-      end: completeRecoveryDate,
-    })
+  const createDateAndDurationInfo = (date: Date, durationOptions?: FormatDurationOptions): DateAndDurationInfo => {
+    const duration = intervalToDuration({ start: now.value, end: date })
+
     return {
       date: {
-        value: completeRecoveryDate,
-        readable: readableDate(completeRecoveryDate),
+        value: date,
+        readable: readableDate(date),
       },
       duration: {
-        value: completeRecoveryDuration,
-        readable: readableDuration(completeRecoveryDuration, { format: ['hours', 'minutes'] }),
+        value: duration,
+        readable: readableDuration(duration, durationOptions),
       },
     }
-  })
+  }
+
+  const completeRecoveryDate = computed(() => fromUnixTime(sanity.value.completeRecoveryTime))
+  const completeRecovery = computed<DateAndDurationInfo>(() =>
+    createDateAndDurationInfo(
+      completeRecoveryDate.value,
+      { format: ['hours', 'minutes'] },
+    ),
+  )
+
+  const nextAddDate = computed(() => add(lastAddDate.value, {
+    minutes: MINUTES_PER_AP * (current.value + 1 - sanity.value.current),
+  }))
 
   const nextAdd = computed<DateAndDurationInfo>(() => {
-    const nextAddDate = add(lastAddDate, { minutes: MINUTES_PRE_AP * (current.value + 1 - sanity.value.current) })
-    const nextAddDuration = intervalToDuration({
-      start: now.value,
-      end: nextAddDate,
-    })
-    if (!nextAddDuration.seconds)
-      nextAddDuration.seconds = 0
-    return {
-      date: {
-        value: nextAddDate,
-        readable: readableDate(nextAddDate),
-      },
-      duration: {
-        value: nextAddDuration,
-        readable: readableDuration(nextAddDuration, { format: ['minutes', 'seconds'], zero: true }),
-      },
-    }
+    const info = createDateAndDurationInfo(
+      nextAddDate.value,
+      { format: ['minutes', 'seconds'], zero: true },
+    )
+    if (!info.duration.value.seconds)
+      info.duration.value.seconds = 0
+    return info
   })
 
   return {
