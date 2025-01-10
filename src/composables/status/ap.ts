@@ -26,20 +26,20 @@ interface UseSanityInfoReturn {
 
 export function useSanityInfo(ap: MaybeRefOrGetter<ActionPoint>): UseSanityInfoReturn {
   const now = useNow()
-  const sanity = toValue(ap)
+  const sanity = computed(() => toValue(ap))
 
-  const max = computed(() => sanity.max)
-  const lastAddDate = fromUnixTime(sanity.lastApAddTime)
+  const max = computed(() => sanity.value.max)
+  const lastAddDate = fromUnixTime(sanity.value.lastApAddTime)
 
   const lasAddDateMinutesGoes = computed(() => differenceInMinutes(now.value, lastAddDate))
 
   const current = computed(() => {
-    const calcCurrent = Math.floor(lasAddDateMinutesGoes.value / MINUTES_PRE_AP) + sanity.current
+    const calcCurrent = Math.floor(lasAddDateMinutesGoes.value / MINUTES_PRE_AP) + sanity.value.current
     return calcCurrent > max.value ? max.value : calcCurrent
   })
 
   const completeRecovery = computed<DateAndDurationInfo>(() => {
-    const completeRecoveryDate = fromUnixTime(sanity.completeRecoveryTime)
+    const completeRecoveryDate = fromUnixTime(sanity.value.completeRecoveryTime)
     const completeRecoveryDuration = intervalToDuration({
       start: now.value,
       end: completeRecoveryDate,
@@ -57,7 +57,7 @@ export function useSanityInfo(ap: MaybeRefOrGetter<ActionPoint>): UseSanityInfoR
   })
 
   const nextAdd = computed<DateAndDurationInfo>(() => {
-    const nextAddDate = add(lastAddDate, { minutes: MINUTES_PRE_AP * (current.value + 1 - sanity.current) })
+    const nextAddDate = add(lastAddDate, { minutes: MINUTES_PRE_AP * (current.value + 1 - sanity.value.current) })
     const nextAddDuration = intervalToDuration({
       start: now.value,
       end: nextAddDate,
