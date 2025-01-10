@@ -94,6 +94,7 @@ function toOptions() {
                 <button
                   flex="inline gap-4px items-center justify-between" p="x-10px"
                   h-70px w-full bg="list-item"
+                  class="transition-all active:scale-95 hover:bg-primary/30"
                   @click="accountsStore.setCurrentUid(character.uid)"
                 >
                   <div flex="~ col items-start">
