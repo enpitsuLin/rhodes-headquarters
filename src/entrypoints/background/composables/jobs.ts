@@ -1,6 +1,7 @@
 import type { JobScheduler } from 'background/utils/job'
 import type { MergedRecruit } from 'background/utils/recruit'
 import type { BindingInfo, Preference } from '~/types'
+import { debouncedWatch } from '@vueuse/core'
 import { mergeRecruits } from 'background/utils/recruit'
 import { fromUnixTime } from 'date-fns'
 
@@ -57,12 +58,13 @@ export function useBackgroundJobs(jobScheduler: MaybeRefOrGetter<JobScheduler>) 
       id: `${RECRUIT_DONE_JOB_ID}-${recruit.startTs}`,
       type: 'once',
       date: recruit.date,
-      execute: () => {
-        Logger.log('公招结束', recruit.title)
+      context: recruit,
+      execute: (ctx) => {
+        Logger.log('公招结束', ctx.title)
         browser.notifications.create({
           type: 'basic',
           title: '公招结束',
-          message: `${recruit.title}已成功招募到候选人`,
+          message: `${ctx.title}已成功招募到候选人`,
           iconUrl: browser.runtime.getURL('/icon-512.png'),
         })
       },
@@ -83,19 +85,23 @@ export function useBackgroundJobs(jobScheduler: MaybeRefOrGetter<JobScheduler>) 
     { deep: true, immediate: true },
   )
 
-  watch(currentAccount, (account) => {
-    if (!account)
-      return
+  debouncedWatch(
+    currentAccount,
+    (account) => {
+      if (!account)
+        return
 
-    const completeRecoveryTime = account.status.ap.completeRecoveryTime
-    if (!completeRecoveryTime)
-      return
+      const completeRecoveryTime = account.status.ap.completeRecoveryTime
+      if (!completeRecoveryTime)
+        return
 
-    addSanityRestoreJob(account)
+      addSanityRestoreJob(account)
 
-    const recruits = mergeRecruits(account.recruit)
-    recruits.forEach(addRecruitDoneJob)
-  })
+      const recruits = mergeRecruits(account.recruit)
+      recruits.forEach(addRecruitDoneJob)
+    },
+    { debounce: 500, maxWait: 1000 },
+  )
 
   return {
     runAllJobs() {

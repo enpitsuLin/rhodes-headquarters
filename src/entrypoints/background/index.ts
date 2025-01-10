@@ -29,7 +29,10 @@ export default defineBackground({
     const { runAllJobs } = useBackgroundJobs(jobScheduler)
 
     browser.runtime.onInstalled.addListener(async (details) => {
-      if (details.reason === 'update') {
+      if (
+        details.reason === 'update'
+        && details.previousVersion !== browser.runtime.getManifest().version
+      ) {
         // 更新后清理 alarms
         Logger.log('扩展已更新', `从 ${details.previousVersion} 更新到 ${browser.runtime.getManifest().version}`)
         await browser.alarms.clearAll()
