@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { DialogBackdrop, DialogContent, DialogPositioner, DialogRoot, DialogTitle, Tabs } from '@ark-ui/vue'
+import MethodAccount from './MethodAccount.vue'
 import MethodOAuth from './MethodOAuth.vue'
 import MethodScan from './MethodScan.vue'
 
@@ -51,7 +52,7 @@ const open = defineModel<boolean>('open', { required: true })
               <div absolute size-3px left="-1px" bottom="-1px" bg-border />
             </div>
           </DialogTitle>
-          <Tabs.Root default-value="oauth" flex="~ col items-center" pt-2>
+          <Tabs.Root default-value="phone" flex="~ col items-center" pt-2>
             <Tabs.List
               flex="~ items-center justify-between"
               relative box-content bg-background p-1px border="~ border rounded-full"
@@ -60,16 +61,16 @@ const open = defineModel<boolean>('open', { required: true })
               <Tabs.Trigger value="phone" relative w-60px>
                 账号
               </Tabs.Trigger>
-              <Tabs.Trigger value="oauth" relative w-60px>
-                OAuth
-              </Tabs.Trigger>
               <Tabs.Trigger value="scan" relative w-60px>
                 扫码
+              </Tabs.Trigger>
+              <Tabs.Trigger value="oauth" relative w-60px>
+                OAuth
               </Tabs.Trigger>
             </Tabs.List>
             <div h-250px flex="~ col items-center justify-center">
               <Tabs.Content value="phone">
-                TODO
+                <MethodAccount @close="open = false" />
               </Tabs.Content>
               <Tabs.Content value="scan">
                 <MethodScan @close="open = false" />

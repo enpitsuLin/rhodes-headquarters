@@ -63,17 +63,14 @@ export async function getScanStatus(scanId: string) {
 /**
  * 通过手机号和密码获取鹰角 OAuth token
  */
-export async function getOAuthTokenByPhonePassword(phone: string, password: string) {
+export async function getOAuthTokenByPhonePassword(data: { phone: string, password: string }) {
   const {
     data: { token },
   } = await $fetch<HypergrayphonResponse<{ token: string }>>(
     '/user/auth/v1/token_by_phone_password',
     {
       method: 'POST',
-      body: {
-        phone,
-        password,
-      },
+      body: data,
     },
   )
 
@@ -102,17 +99,14 @@ export async function getOAuthTokenByScanCode(scanCode: string) {
 /**
  * 通过手机号和验证码获取鹰角 OAuth token
  */
-export async function getOauthTokenByPhoneCode(phone: string, code: string) {
+export async function getOauthTokenByPhoneCode(data: { phone: string, code: string }) {
   const {
     data: { token },
   } = await $fetch<HypergrayphonResponse<{ token: string }>>(
     '/user/auth/v2/token_by_phone_code',
     {
       method: 'POST',
-      body: {
-        phone,
-        code,
-      },
+      body: data,
     },
   )
 

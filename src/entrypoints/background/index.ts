@@ -17,9 +17,12 @@ export default defineBackground({
       new StaleWhileRevalidate(),
     )
 
+    onMessage('api:hypergrayph:send-phone-code', message => API.hypergrayph.sendPhoneCode(message.data))
     onMessage('api:hypergrayph:gen-scan-login-url', () => API.hypergrayph.genScanLoginUrl())
     onMessage('api:hypergrayph:get-scan-status', message => API.hypergrayph.getScanStatus(message.data))
     onMessage('api:hypergrayph:get-oauth-token-by-scan-code', message => API.hypergrayph.getOAuthTokenByScanCode(message.data))
+    onMessage('api:hypergrayph:get-oauth-token-by-phone-code', message => API.hypergrayph.getOauthTokenByPhoneCode(message.data))
+    onMessage('api:hypergrayph:get-oauth-token-by-phone-password', message => API.hypergrayph.getOAuthTokenByPhonePassword(message.data))
 
     onMessage('api:skland:grant-authorize-code', message => API.hypergrayph.grantAuthorizeCode(message.data))
     onMessage('api:skland:generate-cred-by-code', message => API.skland.generateCredByCode(message.data))
