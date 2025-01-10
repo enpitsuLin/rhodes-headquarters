@@ -33,6 +33,9 @@ useIntersectionObserver(
     if (!entry?.isIntersecting) {
       pause()
     }
+    else {
+      resume()
+    }
   },
 )
 

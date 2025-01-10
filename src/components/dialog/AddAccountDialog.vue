@@ -58,13 +58,13 @@ const open = defineModel<boolean>('open', { required: true })
               relative box-content bg-background p-1px border="~ border rounded-full"
             >
               <Tabs.Indicator h="$height" w="$width" rounded-full bg-primary />
-              <Tabs.Trigger value="phone" relative w-60px>
+              <Tabs.Trigger value="phone" relative w-70px py-1 text-sm outline-none>
                 账号
               </Tabs.Trigger>
-              <Tabs.Trigger value="scan" relative w-60px>
+              <Tabs.Trigger value="scan" relative w-70px py-1 text-sm outline-none>
                 扫码
               </Tabs.Trigger>
-              <Tabs.Trigger value="oauth" relative w-60px>
+              <Tabs.Trigger value="oauth" relative w-70px py-1 text-sm outline-none>
                 OAuth
               </Tabs.Trigger>
             </Tabs.List>
