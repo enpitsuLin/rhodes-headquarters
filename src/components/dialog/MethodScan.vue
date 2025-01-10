@@ -91,7 +91,7 @@ watch(data, () => {
       <div size-100px class="i-carbon:fade animate-spin" />
     </div>
     <template v-else-if="data?.scanUrl">
-      <QrCode.Root :value="data.scanUrl" size-150px>
+      <QrCode.Root v-model="data.scanUrl" size-150px>
         <QrCode.Frame>
           <QrCode.Pattern fill-white />
         </QrCode.Frame>
