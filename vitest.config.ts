@@ -1,6 +1,6 @@
 import { resolve } from 'node:path'
-import { WxtVitest } from 'wxt/testing'
 import { defineConfig } from 'vitest/config'
+import { WxtVitest } from 'wxt/testing'
 
 export default defineConfig({
   plugins: [WxtVitest()],
