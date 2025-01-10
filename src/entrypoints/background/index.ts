@@ -12,7 +12,7 @@ import { mergeRecruits } from './utils/recruit'
 export default defineBackground({
   type: 'module',
   main: () => {
-    const jobScheduler = defineJobScheduler()
+    const jobScheduler = defineJobScheduler({ logger: null })
 
     registerRoute(
       event => event.request.destination === 'image' && event.request.url.startsWith('https://web.hycdn.cn/arknights/'),
@@ -83,10 +83,11 @@ export default defineBackground({
     }
 
     watch(
-      () => preference.value.periodInMinutes,
+      preference,
       (newValue, oldValue) => {
-        if (newValue !== oldValue) {
-          const duration = newValue * 60 * 1000
+        if (newValue.periodInMinutes !== oldValue?.periodInMinutes) {
+          const duration = newValue.periodInMinutes * 60 * 1000
+          Logger.log('设定定时刷新任务')
           jobScheduler.scheduleJob({
             id: 'refreshInfoJob',
             type: 'interval',

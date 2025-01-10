@@ -1,5 +1,5 @@
-declare const __DEV__: boolean
-/** Extension name, defined in packageJson.name */
+declare const __PUB_VERSION__: string
+declare const __VERSION__: string
 declare const __NAME__: string
 
 declare module '*.vue' {

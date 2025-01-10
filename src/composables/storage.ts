@@ -247,7 +247,7 @@ export function useWxtStorageAsync<T extends (string | number | boolean | object
   }
 
   async function update(event?: StorageEventLike) {
-    if (event && event.storageArea !== storage)
+    if (event && event.storageArea && event.storageArea !== storage)
       return
 
     if (event && event.key == null) {
@@ -277,8 +277,8 @@ export function useWxtStorageAsync<T extends (string | number | boolean | object
     }
   }
 
-  function updateFromCustomEvent(event: CustomEvent<StorageEventLike>) {
-    update(event.detail)
+  function updateFromCustomEvent(event: MessageEvent<StorageEventLike>) {
+    update(event.data)
   }
 
   return data
