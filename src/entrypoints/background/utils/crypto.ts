@@ -1,12 +1,12 @@
-import CryptoJS from 'crypto-js'
-import forge from 'node-forge'
+import * as mima from 'mima-kit'
 
 export async function md5(string: string) {
-  return CryptoJS.MD5(string).toString()
+  return mima.md5(mima.UTF8(string)).to(mima.HEX)
 }
 
 export async function hmacSha256(key: string, data: string) {
-  return CryptoJS.HmacSHA256(data, key).toString()
+  const hmac256 = mima.hmac(mima.sha256)
+  return hmac256(mima.UTF8(key), mima.UTF8(data)).to(mima.HEX)
 }
 
 /**
@@ -52,23 +52,14 @@ function padData(data: string): string {
  * DES ECB 加密
  */
 export async function encryptDES(message: string | number, key: string) {
-  // 将输入转换为字符串
   const inputStr = padData(String(message))
+  // @ts-expect-error 3DES 64 位密钥长度
+  const TripleDES = mima.t_des(64)
 
-  // 创建 key
-  const keyWordArray = CryptoJS.enc.Utf8.parse(key!)
+  const ECBTripleDES = mima.ecb(TripleDES, mima.NO_PAD)
+  const cipher = ECBTripleDES(mima.UTF8(key))
 
-  // 创建输入数据
-  const dataWordArray = CryptoJS.enc.Utf8.parse(inputStr)
-
-  // 使用 TripleDES 加密 (ECB 模式)
-  const encrypted = CryptoJS.TripleDES.encrypt(dataWordArray, keyWordArray, {
-    mode: CryptoJS.mode.ECB,
-    padding: CryptoJS.pad.NoPadding,
-  })
-
-  // 转换为 base64
-  return encrypted.toString()
+  return cipher.encrypt(mima.UTF8(inputStr)).to(mima.B64)
 }
 
 export interface DESRule {
@@ -97,12 +88,68 @@ export async function encryptObjectByDESRules(object: Record<string, string | nu
   return result
 }
 
+/**
+ * 从PEM格式的公钥中提取RSA参数的n和e (BigInt形式)
+ */
+export async function extractJWKFromPEM(publicKeyPEM: string) {
+  // 移除PEM头尾和换行，并进行base64解码
+  const pemContents = publicKeyPEM
+    .replace('-----BEGIN PUBLIC KEY-----', '')
+    .replace('-----END PUBLIC KEY-----', '')
+    .replace(/\s/g, '')
+
+  const binaryDer = atob(pemContents)
+  const derBuffer = new Uint8Array(binaryDer.length)
+  for (let i = 0; i < binaryDer.length; i++) {
+    derBuffer[i] = binaryDer.charCodeAt(i)
+  }
+
+  // 使用 Web Crypto API 导入密钥
+  const cryptoKey = await crypto.subtle.importKey(
+    'spki',
+    derBuffer,
+    {
+      name: 'RSA-OAEP',
+      hash: 'SHA-256',
+    },
+    true,
+    ['encrypt'],
+  )
+
+  // 导出为JWK格式
+  const jwk = await crypto.subtle.exportKey('jwk', cryptoKey)
+
+  return {
+    n: base64URLToBigInt(jwk.n!),
+    e: base64URLToBigInt(jwk.e!),
+  }
+}
+
+export function base64URLToBigInt(base64url: string): bigint {
+  // 1. Base64URL 转 Base64
+  const base64 = base64url
+    .replace(/-/g, '+')
+    .replace(/_/g, '/')
+    .padEnd(Math.ceil(base64url.length / 4) * 4, '=')
+
+  // 2. Base64 解码为二进制字符串
+  const binaryStr = atob(base64)
+
+  // 3. 转换为 BigInt
+  let result = 0n
+  for (let i = 0; i < binaryStr.length; i++) {
+    result = (result << 8n) | BigInt(binaryStr.charCodeAt(i))
+  }
+
+  return result
+}
+
 export async function encryptRSA(message: string, publicKey: string) {
-  const formatPublickey = publicKey.match(/.{1,64}/g)?.join('\n') || ''
-  const pk = `-----BEGIN PUBLIC KEY-----\n${formatPublickey}\n-----END PUBLIC KEY-----`
+  const { n, e } = await extractJWKFromPEM(publicKey)
+  const key = mima.rsa({ n, e })
+  const cliper = mima.pkcs1_es_1_5(key)
 
-  const publicKeyForge = forge.pki.publicKeyFromPem(pk)
-  const encrypted = publicKeyForge.encrypt(message, 'RSAES-PKCS1-V1_5')
+  const encrypted = cliper.encrypt(mima.UTF8(message)).to(mima.B64)
 
-  return forge.util.encode64(encrypted)
+  return encrypted
 }
