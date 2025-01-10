@@ -9,10 +9,7 @@ const token = ref('')
 
 const { mutate, isLoading, error, reset } = useSkalandSignIn({
   onSuccess() {
-    toast.create({
-      title: '新增成功',
-      notification: false,
-    })
+    toast.create({ title: '新增成功' })
     emit('close')
   },
 })

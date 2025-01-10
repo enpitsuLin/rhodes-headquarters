@@ -42,8 +42,13 @@ export default defineBackground({
         type: 'once',
         date: fromUnixTime(completeRecoveryTime),
         execute: () => {
-          // TODO 理智完全恢复的通知
           Logger.log('理智完全恢复')
+          browser.notifications.create({
+            type: 'basic',
+            title: '理智恢复',
+            message: '理智已完全恢复',
+            iconUrl: browser.runtime.getURL('/icon-512.png'),
+          })
         },
       })
 
@@ -54,8 +59,13 @@ export default defineBackground({
           type: 'once',
           date: recruit.date,
           execute: () => {
-            // TODO 公招结束的通知
             Logger.log('公招结束', recruit.title)
+            browser.notifications.create({
+              type: 'basic',
+              title: '公招结束',
+              message: `${recruit.title}已成功招募到候选人`,
+              iconUrl: browser.runtime.getURL('/icon-512.png'),
+            })
           },
         })
       })

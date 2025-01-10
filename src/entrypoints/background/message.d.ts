@@ -9,7 +9,6 @@ import type * as API from './api'
 
 declare module 'webext-bridge' {
   export interface ProtocolMap {
-
     // 鹰角 API
     'api:hypergrayph:gen-scan-login-url': ProtocolWithReturn<void, ReturnType<typeof API.hypergrayph.genScanLoginUrl>>
     'api:hypergrayph:get-scan-status': ProtocolWithReturn<string, ReturnType<typeof API.hypergrayph.getScanStatus>>

@@ -31,10 +31,7 @@ const {
   mutate: mutateSignIn,
 } = useSkalandSignIn({
   onSuccess() {
-    toast.create({
-      title: '新增成功',
-      notification: false,
-    })
+    toast.create({ title: '新增成功' })
     emit('close')
   },
 })
