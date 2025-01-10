@@ -1,19 +1,25 @@
-import type { ArknightRole, SklandAccount } from '~/composables/storages'
-import type { BindingInfo } from '~/types'
+import type { BindingInfo, BindingRole } from '~/types'
 import { acceptHMRUpdate, defineStore } from 'pinia'
-import {
-  useArknightAccountsInfo,
-  useArknightCharacters,
-  useCurrentArknightCharacter,
-  useSklandAccounts,
-} from '~/composables/storages'
+
+export interface SklandAccount {
+  id: string
+  /** 森空岛账号用户登录凭证 */
+  cred: string
+}
+
+/**
+ * 森空岛绑定的明日方舟游戏角色
+ */
+export interface ArknightRole extends BindingRole {
+  accountId: SklandAccount['id']
+}
 
 export const useAccountsStore = defineStore('PRRH:arknight-role', {
   state() {
-    const accounts = useSklandAccounts()
-    const characters = useArknightCharacters()
-    const currentUid = useCurrentArknightCharacter()
-    const infoMapping = useArknightAccountsInfo()
+    const accounts = useWxtStorageAsync<SklandAccount[]>('PRRH:SKLAND_ACCOUNTS', [])
+    const characters = useWxtStorageAsync<ArknightRole[]>('PRRH:ARKNIGHT_CHARACTERS', [])
+    const currentUid = useWxtStorageAsync<string | null>('PRRH:ARKNIGHT_CHARACTER_CURRENT', '')
+    const infoMapping = useWxtStorageAsync<Record<string, BindingInfo>>('PRRH:ARKNIGHT_ACCOUNTS_INFO', {})
 
     return {
       accounts,
@@ -38,6 +44,10 @@ export const useAccountsStore = defineStore('PRRH:arknight-role', {
         this.currentUid = null
 
       this.characters = this.characters.filter(role => role.uid !== uid)
+
+      const accountCharacter = this.characters.map(i => i.accountId)
+      this.accounts = this.accounts.filter(i => accountCharacter.includes(i.id))
+
       delete this.infoMapping[uid]
     },
     setInfoMapping(uid: ArknightRole['uid'], info: BindingInfo) {

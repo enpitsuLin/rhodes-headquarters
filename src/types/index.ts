@@ -37,3 +37,10 @@ export interface User {
     id: number
   }
 }
+
+export interface Preference {
+  /** 定时器时间 */
+  periodInMinutes: number
+  /** 多账户提醒 */
+  charactersAlarmsEnable: boolean
+}

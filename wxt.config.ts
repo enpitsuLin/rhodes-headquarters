@@ -28,13 +28,17 @@ export default defineConfig({
       vueTemplate: true,
     },
   },
+  alias: {
+    background: resolve('src/entrypoints/background'),
+  },
   vite(env) {
     return {
       ssr: {
         noExternal: ['@webext-core/messaging', '@webext-core/proxy-service'],
       },
       define: {
-        __DEV__: env.mode === 'serve',
+        __PUB_VERSION__: JSON.stringify(pkg.publishVersion),
+        __VERSION__: JSON.stringify(pkg.version),
         __NAME__: JSON.stringify(pkg.name),
       },
       build: {

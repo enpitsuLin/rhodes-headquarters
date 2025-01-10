@@ -1,58 +1,10 @@
 <script setup lang="ts">
-import { DialogBackdrop, DialogContent, DialogPositioner, DialogRoot, DialogTitle } from '@ark-ui/vue'
-import { useAsyncState } from '@vueuse/core'
-import { useDeviceId } from '~/composables/storages'
-import { getBackgroundService } from '~/service'
-import { useAccountsStore } from '~/store/account'
+import { DialogBackdrop, DialogContent, DialogPositioner, DialogRoot, DialogTitle, Tabs } from '@ark-ui/vue'
+import MethodAccount from './MethodAccount.vue'
+import MethodOAuth from './MethodOAuth.vue'
+import MethodScan from './MethodScan.vue'
 
 const open = defineModel<boolean>('open', { required: true })
-
-const accountService = getBackgroundService()
-const accountsStore = useAccountsStore()
-
-const toast = useToast()
-
-const token = ref('')
-const errorMessage = ref('')
-
-const { state: deviceId, isLoading: isLoadingDeviceId } = useDeviceId()
-
-const { isLoading, execute } = useAsyncState(
-  async () => {
-    if (token.value) {
-      const binding = await accountService.signIn(token.value, deviceId.value)
-      binding.forEach(({ info, role, account }) => {
-        accountsStore.addAccount(account)
-        accountsStore.addRole(role)
-        accountsStore.setInfoMapping(role.uid, info)
-      })
-
-      if (accountsStore.characters.length === 1)
-        accountsStore.setCurrentUid(accountsStore.characters[0].uid)
-
-      return true
-    }
-    throw new Error('凭证为空')
-  },
-  false,
-  {
-    immediate: false,
-    onSuccess() {
-      toast.create({
-        title: '新增成功',
-        notification: false,
-      })
-      token.value = ''
-      open.value = false
-    },
-    onError(e) {
-      if ((e as Error).toString().includes('FetchError'))
-        errorMessage.value = '验证出错'
-      else
-        errorMessage.value = (e as Error).message
-    },
-  },
-)
 </script>
 
 <template>
@@ -100,42 +52,34 @@ const { isLoading, execute } = useAsyncState(
               <div absolute size-3px left="-1px" bottom="-1px" bg-border />
             </div>
           </DialogTitle>
-          <main>
-            <div p-4 space-y-2>
-              <p>1. 打开森空岛网页版并登录</p>
-              <p>
-                2. 登录森空岛网页版后，打开 <a
-                  href="https://web-api.skland.com/account/info/hg"
-                  target="_blank"
-                >https://web-api.skland.com/account/info/hg</a> 记下 content 字段的值
-              </p>
-              <p>3. 在下面输入获取到的值</p>
-              <div flex="~" relative>
-                <input
-                  v-model="token" type="text" border="~ border [&.warning]:red focus:primary" p="x-3 y2" flex-1
-                  bg-background outline-none :class="!!errorMessage && 'warning animate-shake'"
-                  @focus="errorMessage = ''"
-                >
-                <p absolute text-xs c-red bottom="-4.5">
-                  {{ errorMessage }}
-                </p>
-              </div>
+          <Tabs.Root default-value="phone" flex="~ col items-center" pt-2>
+            <Tabs.List
+              flex="~ items-center justify-between"
+              relative box-content bg-background p-1px border="~ border rounded-full"
+            >
+              <Tabs.Indicator h="$height" w="$width" rounded-full bg-primary />
+              <Tabs.Trigger value="phone" relative w-70px py-1 text-sm outline-none>
+                账号
+              </Tabs.Trigger>
+              <Tabs.Trigger value="scan" relative w-70px py-1 text-sm outline-none>
+                扫码
+              </Tabs.Trigger>
+              <Tabs.Trigger value="oauth" relative w-70px py-1 text-sm outline-none>
+                OAuth
+              </Tabs.Trigger>
+            </Tabs.List>
+            <div h-250px flex="~ col items-center justify-center">
+              <Tabs.Content value="phone">
+                <MethodAccount @close="open = false" />
+              </Tabs.Content>
+              <Tabs.Content value="scan">
+                <MethodScan @close="open = false" />
+              </Tabs.Content>
+              <Tabs.Content value="oauth">
+                <MethodOAuth @close="open = false" />
+              </Tabs.Content>
             </div>
-          </main>
-          <footer p="t-5px b-13px" flex="~ justify-center">
-            <button
-              v-if="isLoadingDeviceId" h-32px w-250px p-10px bg="[url(~/assets/btn-bg.svg)]"
-              flex="inline justify-center items-center"
-            >
-              初始化中
-            </button>
-            <button
-              v-else :disabled="isLoading || isLoadingDeviceId" h-32px w-250px p-10px
-              bg="[url(~/assets/btn-bg.svg)]" flex="inline justify-center items-center" @click="execute()"
-            >
-              {{ isLoading || isLoadingDeviceId ? 'Loading...' : '新增账户' }}
-            </button>
-          </footer>
+          </Tabs.Root>
         </DialogContent>
       </DialogPositioner>
     </Teleport>

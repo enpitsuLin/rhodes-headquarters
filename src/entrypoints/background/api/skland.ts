@@ -1,6 +1,7 @@
 import type { Binding, BindingInfo, Status, User } from '~/types'
+import { getDeviceId } from 'background/utils/device-id'
+import { onSignatureRequest } from 'background/utils/signature'
 import { ofetch } from 'ofetch'
-import { onSignatureRequest } from '~/utils'
 
 const $fetch = ofetch.create({
   baseURL: 'https://zonai.skland.com/',
@@ -17,9 +18,8 @@ interface SklandResponse<T> {
  * 获取用户访问令牌
  * @param code 鹰角 OAuth 授权码
  */
-export async function generateCredByCode(code: string, deviceId: string) {
-  if (!deviceId)
-    throw new Error('deviceId 不存在')
+export async function generateCredByCode(code: string) {
+  const deviceId = await getDeviceId()
 
   const res = await $fetch<SklandResponse<{ cred: string, userId: string, token: string }>>(
     '/web/v1/user/auth/generate_cred_by_code',
@@ -104,7 +104,7 @@ export async function getPlayerBinding(cred: string) {
     .flat(2)
 }
 
-export async function getBindingInfo(cred: string, uid: string) {
+export async function getBindingInfo({ cred, uid }: { cred: string, uid: string }) {
   const pathname = `/api/v1/game/player/info`
   const {
     data,

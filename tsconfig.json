@@ -2,7 +2,8 @@
   "extends": "./.wxt/tsconfig.json",
   "compilerOptions": {
     "paths": {
-      "~/*": ["./src/*"]
+      "~/*": ["./src/*"],
+      "background/*": ["./src/entrypoints/background/*"]
     },
     "types": ["unplugin-vue-router/client", "vite-plugin-vue-layouts/client"],
     "strictNullChecks": true

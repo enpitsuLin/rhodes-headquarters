@@ -208,11 +208,11 @@ export interface Building {
   /** 宿舍 */
   dormitories: BuildingDormitory[]
   /** 人力办公室 */
-  hire: BuildingHire
+  hire: BuildingHire | null
   /** 训练室 */
-  training: BuildingTraining
+  training: BuildingTraining | null
   /** 会客室 */
-  meeting: BuildingMeeting
+  meeting: BuildingMeeting | null
   /** 无人机 */
   labor: Labor
   /** 电梯 */
