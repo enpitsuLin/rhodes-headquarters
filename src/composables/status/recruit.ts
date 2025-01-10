@@ -36,61 +36,55 @@ interface LockedRecruit {
 export type RecruitState = CompletedRecruit | StandbyRecruit | RecruitingRecruit | LockedRecruit
 
 function recruitStatus(recruit: Recruit, timestamp: number): RecruitState['status'] {
-  if (recruit.state === 1) {
-    return 'standby'
-  }
-  else if (recruit.state === 2) {
-    if (timestamp - recruit.finishTs > 0)
+  switch (recruit.state) {
+    case 1:
+      return 'standby'
+    case 2:
+      return timestamp - recruit.finishTs > 0 ? 'completed' : 'recruiting'
+    case 3:
       return 'completed'
-    return 'recruiting'
+    case 0:
+      return 'locked'
+    default:
+      throw new Error('Unexpected state')
   }
-  else if (recruit.state === 3) {
-    return 'completed'
-  }
-  else if (recruit.state === 0) {
-    return 'locked'
-  }
-
-  throw new Error('Unexpected state')
 }
 
 function parseRecruit(recruit: Recruit, now: Date): RecruitState {
+  const recruitValue = toValue(recruit)
   const nowTimestamp = getUnixTime(now)
+  const status = recruitStatus(recruitValue, nowTimestamp)
 
-  const status = recruitStatus(toValue(recruit), nowTimestamp)
+  if (status === 'locked') {
+    return { status }
+  }
 
-  const completedAt = status === 'standby'
-    ? null
-    : fromUnixTime(toValue(recruit).finishTs)
+  if (status === 'standby') {
+    return {
+      status,
+      completedAt: null,
+      readableCompletedAt: null,
+      remainDuration: null,
+      readableDuration: null,
+    }
+  }
 
-  const readableCompletedAt = completedAt
-    ? readableDate(completedAt)
-    : null
-
-  const remainDuration = status === 'standby'
-    ? null
-    : intervalToDuration({
-        start: now,
-        end: fromUnixTime(toValue(recruit).finishTs),
-      })
-
-  const duration = remainDuration ? readableDuration(remainDuration, { format: ['hours', 'minutes'] }) : null
+  const completedAt = fromUnixTime(recruitValue.finishTs)
+  const remainDuration = intervalToDuration({
+    start: now,
+    end: completedAt,
+  })
 
   return {
     status,
     completedAt,
-    readableCompletedAt,
+    readableCompletedAt: readableDate(completedAt),
     remainDuration,
-    readableDuration: duration,
-  } as RecruitState
+    readableDuration: readableDuration(remainDuration, { format: ['hours', 'minutes'] }),
+  }
 }
 
 export function useRecruits(recruits: MaybeRefOrGetter<Recruit[]>) {
   const now = useNow()
-  return computed(() => {
-    return toValue(recruits).map(
-      recruit =>
-        parseRecruit(toValue(recruit), now.value),
-    )
-  })
+  return computed(() => toValue(recruits).map(recruit => parseRecruit(recruit, now.value)))
 }

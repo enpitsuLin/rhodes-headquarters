@@ -44,7 +44,7 @@ export interface ActionPoint {
 export interface Recruit {
   startTs: number
   finishTs: number
-  state: 1 | 2 | 3
+  state: 0 | 1 | 2 | 3
 }
 
 /**
