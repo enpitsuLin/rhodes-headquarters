@@ -1,7 +1,9 @@
 import type { JobScheduler } from 'background/utils/job'
 import type { MergedRecruit } from 'background/utils/recruit'
+import type { ArknightRole, SklandAccount } from '~/store/account'
 import type { BindingInfo, Preference } from '~/types'
 import { debouncedWatch } from '@vueuse/core'
+import * as API from 'background/api'
 import { mergeRecruits } from 'background/utils/recruit'
 import { fromUnixTime } from 'date-fns'
 
@@ -18,6 +20,8 @@ export function useBackgroundJobs(jobScheduler: MaybeRefOrGetter<JobScheduler>) 
     },
   )
 
+  const accounts = useWxtStorageAsync<SklandAccount[]>('PRRH:SKLAND_ACCOUNTS', [])
+  const characters = useWxtStorageAsync<ArknightRole[]>('PRRH:ARKNIGHT_CHARACTERS', [])
   const currentUid = useWxtStorageAsync<string | null>('PRRH:ARKNIGHT_CHARACTER_CURRENT', '')
   const infoMapping = useWxtStorageAsync<Record<string, BindingInfo>>('PRRH:ARKNIGHT_ACCOUNTS_INFO', {})
 
@@ -71,8 +75,33 @@ export function useBackgroundJobs(jobScheduler: MaybeRefOrGetter<JobScheduler>) 
     })
   }
 
-  function refreshInfo() {
-    // TODO 刷新角色信息
+  async function refreshCharacterInfo(character: ArknightRole) {
+    const account = accounts.value.find(account => account.id === character.accountId)
+    if (!account)
+      return
+
+    const data = await API.skland.getBindingInfo({
+      uid: character.uid,
+      cred: account.cred,
+    })
+    infoMapping.value[character.uid] = data
+  }
+
+  async function refreshInfo() {
+    if (preference.value.charactersAlarmsEnable) {
+      await Promise.all(
+        characters.value.map(async (character) => {
+          await refreshCharacterInfo(character)
+        }),
+      )
+    }
+    else {
+      const currentCharacter = characters.value.find(role => role.uid === currentUid.value)
+      if (!currentCharacter)
+        return
+
+      await refreshCharacterInfo(currentCharacter)
+    }
   }
 
   watch(
