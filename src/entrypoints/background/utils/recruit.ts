@@ -1,7 +1,7 @@
 import type { Recruit } from '~/types'
 import { fromUnixTime } from 'date-fns'
 
-interface MergedRecruit extends Recruit {
+export interface MergedRecruit extends Recruit {
   title: string
   date: Date
 }

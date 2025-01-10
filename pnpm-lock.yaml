@@ -20,12 +20,6 @@ importers:
       '@vueuse/core':
         specifier: ^12.3.0
         version: 12.3.0(typescript@5.7.2)
-      '@webext-core/job-scheduler':
-        specifier: ^1.0.0
-        version: 1.0.0
-      '@webext-core/proxy-service':
-        specifier: ^1.2.1
-        version: 1.2.1(@webext-core/messaging@2.1.0)(webextension-polyfill@0.12.0)
       crypto-js:
         specifier: ^4.2.0
         version: 4.2.0
@@ -836,10 +830,6 @@ packages:
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
 
-  '@lukeed/csprng@1.1.0':
-    resolution: {integrity: sha512-Z7C/xXCiGWsg0KuKsHTKJxbWhpI3Vs5GwLfOean7MGyVFGqdRgBbAjOCh6u4bbjPc/8MJ2pZmK/0DLdCbivLDA==}
-    engines: {node: '>=8'}
-
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
     engines: {node: '>= 8'}
@@ -1402,20 +1392,8 @@ packages:
   '@webext-core/isolated-element@1.1.2':
     resolution: {integrity: sha512-CNHYhsIR8TPkPb+4yqTIuzaGnVn/Fshev5fyoPW+/8Cyc93tJbCjP9PC1XSK6fDWu+xASdPHLZaoa2nWAYoxeQ==}
 
-  '@webext-core/job-scheduler@1.0.0':
-    resolution: {integrity: sha512-DdowrAsLWa3/YnvPSFC3FzgTv/foDeHXl1y8ZVYdVjpRexi/ogAC0vKW5Sdyd7koBwFAMa2EvTUXkm3/vveFJg==}
-
   '@webext-core/match-patterns@1.0.3':
     resolution: {integrity: sha512-NY39ACqCxdKBmHgw361M9pfJma8e4AZo20w9AY+5ZjIj1W2dvXC8J31G5fjfOGbulW9w4WKpT8fPooi0mLkn9A==}
-
-  '@webext-core/messaging@2.1.0':
-    resolution: {integrity: sha512-1Bwr97HDMRQJ+XFwvhAvE4fdHK7Ge1o3NHxr/Cyv5yYCDAfz6cSzQaopeGZkkW/kN5eBRb1g3yonVwXC5ZXt8w==}
-
-  '@webext-core/proxy-service@1.2.1':
-    resolution: {integrity: sha512-MTs/7o8dZ8q7ySO0Kkkz9DYKPdTvMZqCYi7VVj1onzIHVy7m9b/OesQ8c3rrPzu8ZaljuZQJKfO3GITI6tSj6A==}
-    peerDependencies:
-      '@webext-core/messaging': '>=1.3.1'
-      webextension-polyfill: '>=0.10.0'
 
   '@wxt-dev/module-vue@1.0.2':
     resolution: {integrity: sha512-eRRpPgrakgQSfzR8AnmT3+Dd/ltgghOzgfy1MrHl0zZ2Pc2rcuwcoeFt9rrpjH3KuvZfYD2JIAg3gY9OlTPkmQ==}
@@ -2062,10 +2040,6 @@ packages:
   core-util-is@1.0.3:
     resolution: {integrity: sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==}
 
-  cron-parser@4.9.0:
-    resolution: {integrity: sha512-p0SaNjrHOnQeR8/VnfGbmg9te2kfyYSQ7Sc/j/6DtPL3JQvKxmjO9TSjNFpujqV3vEYYBvNNvXSxzyksBWAx1Q==}
-    engines: {node: '>=12.0.0'}
-
   cross-env@7.0.3:
     resolution: {integrity: sha512-+/HKd6EgcQCJGh2PSjZuUitQBQynKor4wrFbRg4DtAgS1aWO+gU52xpH7M9ScGgXSYmAVS9bIJ8EzuaGw0oNAw==}
     engines: {node: '>=10.14', npm: '>=6', yarn: '>=1'}
@@ -2641,9 +2615,6 @@ packages:
     resolution: {integrity: sha512-ETEklSGi5t0QMZuiXoA/Q6vcnxcLQP5vdugSpuAyi6SVGi2clPPp+xgEhuMaHC+zGgn31Kd235W35f7Hykkaww==}
     engines: {node: '>= 6'}
 
-  format-duration@3.0.2:
-    resolution: {integrity: sha512-pKzJDSRgK2lqAiPW3uizDaIJaJnataZclsahz25UMwfdryBGDa+1HlbXGjzpMvX/2kMh4O0sNevFXKaEfCjHsA==}
-
   formdata-node@6.0.3:
     resolution: {integrity: sha512-8e1++BCiTzUno9v5IZ2J6bv4RU+3UKDmqWUQD0MIMVCd9AdhWkO1gw57oo1mNEX1dMq2EGI+FbWz4B92pscSQg==}
     engines: {node: '>= 18'}
@@ -2716,10 +2687,6 @@ packages:
 
   get-tsconfig@4.8.1:
     resolution: {integrity: sha512-k9PN+cFBmaLWtVz29SkUoqU5O0slLuHJXt/2P+tMVFT+phsSGXGkp9t3rQIqdz0e+06EHNGs3oM6ZX1s2zHxRg==}
-
-  get-value@3.0.1:
-    resolution: {integrity: sha512-mKZj9JLQrwMBtj5wxi6MH8Z5eSKaERpAwjg43dPtlGI1ZVEgH/qC7T8/6R2OBSUA+zzHBZgICsVJaEIV2tKTDA==}
-    engines: {node: '>=6.0'}
 
   giget@1.2.3:
     resolution: {integrity: sha512-8EHPljDvs7qKykr6uw8b+lqLiUc/vUg+KVTI0uND4s63TdsZM2Xus3mflvF0DDG9SiM4RlCkFGL+7aAjRmV7KA==}
@@ -3257,10 +3224,6 @@ packages:
   lru-cache@6.0.0:
     resolution: {integrity: sha512-Jo6dJ04CmSjuznwJSS3pUeWmd/H0ffTlkXXgwZi+eq1UCmqQwCh+eLsYOYCwY991i2Fah4h1BEMCx4qThGbsiA==}
     engines: {node: '>=10'}
-
-  luxon@3.5.0:
-    resolution: {integrity: sha512-rh+Zjr6DNfUYR3bPwJEnuwDdqMbxZW7LOQfUN4B54+Cl+0o5zaU9RJ6bcidfDtC1cWCZXQ+nvX8bf6bAji37QQ==}
-    engines: {node: '>=12'}
 
   magic-string-ast@0.6.2:
     resolution: {integrity: sha512-oN3Bcd7ZVt+0VGEs7402qR/tjgjbM7kPlH/z7ufJnzTLVBzXJITRHOJiwMmmYMgZfdoWQsfQcY+iKlxiBppnMA==}
@@ -4039,10 +4002,6 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
 
-  serialize-error@11.0.3:
-    resolution: {integrity: sha512-2G2y++21dhj2R7iHAdd0FIzjGwuKZld+7Pl/bTU6YIkrC2ZMbVUjm+luj6A6V34Rv9XfKJDKpTWu9W4Gse1D9g==}
-    engines: {node: '>=14.16'}
-
   serialize-error@9.1.1:
     resolution: {integrity: sha512-6uZQLGyUkNA4N+Zii9fYukmNu9PEA1F5rqcwXzN/3LtBjwl2dFBbVZ1Zyn08/CGkB4H440PIemdOQBt1Wvjbrg==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
@@ -4409,10 +4368,6 @@ packages:
   uhyphen@0.2.0:
     resolution: {integrity: sha512-qz3o9CHXmJJPGBdqzab7qAYuW8kQGKNEuoHFYrBwV6hWIMcpAmxDLXojcHfFr9US1Pe6zUswEIJIbLI610fuqA==}
 
-  uid@2.0.2:
-    resolution: {integrity: sha512-u3xV3X7uzvi5b1MncmZo3i2Aw222Zk1keqLA1YkHldREkAhAqi65wuPfe7lHx8H/Wzy+8CE7S7uS3jekIM5s8g==}
-    engines: {node: '>=8'}
-
   unconfig@0.6.0:
     resolution: {integrity: sha512-4C67J0nIF2QwSXty2kW3zZx1pMZ3iXabylvJWWgHybWVUcMf9pxwsngoQt0gC+AVstRywFqrRBp3qOXJayhpOw==}
 
@@ -4668,9 +4623,6 @@ packages:
 
   webext-bridge@6.0.1:
     resolution: {integrity: sha512-GruIrN+vNwbxVCi8UW4Dqk5YkcGA9V0ZfJ57jXP9JXHbrsDs5k2N6NNYQR5e+wSCnQpGYOGAGihwUpKlhg8QIw==}
-
-  webextension-polyfill@0.10.0:
-    resolution: {integrity: sha512-c5s35LgVa5tFaHhrZDnr3FpQpjj1BB+RXhLTYUxGqBVN460HkbM8TBtEqdXWbpTKfzwCcjAZVF7zXCYSKtcp9g==}
 
   webextension-polyfill@0.12.0:
     resolution: {integrity: sha512-97TBmpoWJEE+3nFBQ4VocyCdLKfw54rFaJ6EVQYLBCXqCIpLSZkwGgASpv4oPt9gdKCJ80RJlcmNzNn008Ag6Q==}
@@ -5548,8 +5500,6 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.0
       '@jridgewell/sourcemap-codec': 1.5.0
 
-  '@lukeed/csprng@1.1.0': {}
-
   '@nodelib/fs.scandir@2.1.5':
     dependencies:
       '@nodelib/fs.stat': 2.0.5
@@ -6267,25 +6217,7 @@ snapshots:
     dependencies:
       is-potential-custom-element-name: 1.0.1
 
-  '@webext-core/job-scheduler@1.0.0':
-    dependencies:
-      cron-parser: 4.9.0
-      format-duration: 3.0.2
-      webextension-polyfill: 0.10.0
-
   '@webext-core/match-patterns@1.0.3': {}
-
-  '@webext-core/messaging@2.1.0':
-    dependencies:
-      serialize-error: 11.0.3
-      uid: 2.0.2
-      webextension-polyfill: 0.10.0
-
-  '@webext-core/proxy-service@1.2.1(@webext-core/messaging@2.1.0)(webextension-polyfill@0.12.0)':
-    dependencies:
-      '@webext-core/messaging': 2.1.0
-      get-value: 3.0.1
-      webextension-polyfill: 0.12.0
 
   '@wxt-dev/module-vue@1.0.2(vite@5.4.9(@types/node@22.10.5))(vue@3.5.13(typescript@5.7.2))(wxt@0.19.23(@types/node@22.10.5)(rollup@4.24.0)(webpack-sources@3.2.3))':
     dependencies:
@@ -7230,10 +7162,6 @@ snapshots:
 
   core-util-is@1.0.3: {}
 
-  cron-parser@4.9.0:
-    dependencies:
-      luxon: 3.5.0
-
   cross-env@7.0.3:
     dependencies:
       cross-spawn: 7.0.3
@@ -7952,8 +7880,6 @@ snapshots:
       mime-types: 2.1.35
     optional: true
 
-  format-duration@3.0.2: {}
-
   formdata-node@6.0.3: {}
 
   fs-extra@11.2.0:
@@ -8018,10 +7944,6 @@ snapshots:
   get-tsconfig@4.8.1:
     dependencies:
       resolve-pkg-maps: 1.0.0
-
-  get-value@3.0.1:
-    dependencies:
-      isobject: 3.0.1
 
   giget@1.2.3:
     dependencies:
@@ -8536,8 +8458,6 @@ snapshots:
   lru-cache@6.0.0:
     dependencies:
       yallist: 4.0.0
-
-  luxon@3.5.0: {}
 
   magic-string-ast@0.6.2:
     dependencies:
@@ -9515,10 +9435,6 @@ snapshots:
 
   semver@7.6.3: {}
 
-  serialize-error@11.0.3:
-    dependencies:
-      type-fest: 2.19.0
-
   serialize-error@9.1.1:
     dependencies:
       type-fest: 2.19.0
@@ -9832,10 +9748,6 @@ snapshots:
   ufo@1.5.4: {}
 
   uhyphen@0.2.0: {}
-
-  uid@2.0.2:
-    dependencies:
-      '@lukeed/csprng': 1.1.0
 
   unconfig@0.6.0:
     dependencies:
@@ -10215,8 +10127,6 @@ snapshots:
       serialize-error: 9.1.1
       tiny-uid: 1.1.2
       webextension-polyfill: 0.9.0
-
-  webextension-polyfill@0.10.0: {}
 
   webextension-polyfill@0.12.0: {}
 
