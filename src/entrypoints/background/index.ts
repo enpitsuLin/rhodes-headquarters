@@ -1,11 +1,11 @@
 /// <reference lib="webworker"/>
 
+import type { Preference } from '~/types'
 import { defineJobScheduler } from '@webext-core/job-scheduler'
 import { onMessage } from 'webext-bridge/background'
 import { registerRoute } from 'workbox-routing'
 import { StaleWhileRevalidate } from 'workbox-strategies'
-import * as API from '~/api'
-import { usePreference } from '~/composables/storages'
+import * as API from './api'
 
 export default defineBackground({
   type: 'module',
@@ -26,7 +26,13 @@ export default defineBackground({
     onMessage('api:skland:get-player-binding', message => API.skland.getPlayerBinding(message.data))
     onMessage('api:skland:get-binding-info', message => API.skland.getBindingInfo(message.data))
 
-    const preference = usePreference()
+    const preference = useWxtStorageAsync<Preference>(
+      'PRRH:PREFERENCE',
+      {
+        periodInMinutes: 10,
+        charactersAlarmsEnable: false,
+      },
+    )
 
     function refreshInfo() {
       // TODO 刷新角色信息

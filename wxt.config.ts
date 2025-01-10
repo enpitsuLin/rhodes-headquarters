@@ -28,6 +28,9 @@ export default defineConfig({
       vueTemplate: true,
     },
   },
+  alias: {
+    background: resolve('src/entrypoints/background'),
+  },
   vite(env) {
     return {
       ssr: {

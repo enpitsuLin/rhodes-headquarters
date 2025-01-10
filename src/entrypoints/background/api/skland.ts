@@ -1,7 +1,7 @@
 import type { Binding, BindingInfo, Status, User } from '~/types'
+import { getDeviceId } from 'background/utils/device-id'
+import { onSignatureRequest } from 'background/utils/signature'
 import { ofetch } from 'ofetch'
-import { getDeviceId } from '~/composables/storages'
-import { onSignatureRequest } from '~/utils'
 
 const $fetch = ofetch.create({
   baseURL: 'https://zonai.skland.com/',

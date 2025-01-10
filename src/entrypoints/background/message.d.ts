@@ -5,7 +5,7 @@
  */
 
 import type { ProtocolWithReturn } from 'webext-bridge'
-import type * as API from '~/api'
+import type * as API from './api'
 
 declare module 'webext-bridge' {
   export interface ProtocolMap {

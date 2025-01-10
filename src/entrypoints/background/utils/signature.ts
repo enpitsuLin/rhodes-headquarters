@@ -1,8 +1,9 @@
 import type { FetchContext } from 'ofetch'
+import { getDeviceId } from 'background/utils/device-id'
 import { getUnixTime } from 'date-fns'
 import { stringifyQuery } from 'ufo'
-import * as API from '~/api'
-import { DEVICE_ID_KEY } from '~/composables/storages'
+import * as API from '../api'
+import { hmacSha256, md5 } from './crypto'
 
 const WHITELIST = ['/web/v1/user/auth/generate_cred_by_code', '/api/v1/auth/refresh']
 
@@ -33,7 +34,7 @@ export async function onSignatureRequest(ctx: FetchContext) {
 
   const query = ctx.options.query ? stringifyQuery(ctx.options.query) : ''
   const timestamp = getUnixTime(Date.now() - 5 * MILLISECOND_PER_SECOND).toString()
-  const did = await storage.getItem<string>(DEVICE_ID_KEY)
+  const did = await getDeviceId()
 
   const signatureHeaders = {
     platform: '1',

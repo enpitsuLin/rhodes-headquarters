@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import type { NumberInputValueChangeDetails } from '@ark-ui/vue/number-input'
+import type { Preference } from '~/types'
 import { NumberInput } from '@ark-ui/vue/number-input'
 import { useDebounceFn } from '@vueuse/core'
 import PreferenceItem from '~/components/preferences/PreferenceItem.vue'
 import Switch from '~/components/ui/Switch.vue'
-import { usePreference } from '~/composables/storages'
 
 definePage({
   meta: {
@@ -15,7 +15,13 @@ definePage({
   },
 })
 
-const preferences = usePreference()
+const preferences = useWxtStorageAsync<Preference>(
+  'PRRH:PREFERENCE',
+  {
+    periodInMinutes: 10,
+    charactersAlarmsEnable: false,
+  },
+)
 
 const debounceOnChange = useDebounceFn((e: NumberInputValueChangeDetails) => {
   const periodInMinutes = Number(e.value)

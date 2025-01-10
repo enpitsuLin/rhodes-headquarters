@@ -1,5 +1,5 @@
 import type { UseMutationReturn } from '@pinia/colada'
-import type { ArknightRole, SklandAccount } from '../storages'
+import type { ArknightRole, SklandAccount } from '~/store/account'
 import type { BindingInfo } from '~/types'
 import { defineMutation, useMutation } from '@pinia/colada'
 import { sendMessage } from 'webext-bridge/popup'
