@@ -9,10 +9,13 @@ import type * as API from './api'
 
 declare module 'webext-bridge' {
   export interface ProtocolMap {
+
+    // 鹰角 API
     'api:hypergrayph:gen-scan-login-url': ProtocolWithReturn<void, ReturnType<typeof API.hypergrayph.genScanLoginUrl>>
     'api:hypergrayph:get-scan-status': ProtocolWithReturn<string, ReturnType<typeof API.hypergrayph.getScanStatus>>
     'api:hypergrayph:get-oauth-token-by-scan-code': ProtocolWithReturn<string, ReturnType<typeof API.hypergrayph.getOAuthTokenByScanCode>>
 
+    // 森空岛 API
     'api:skland:grant-authorize-code': ProtocolWithReturn<string, ReturnType<typeof API.hypergrayph.grantAuthorizeCode>>
     'api:skland:generate-cred-by-code': ProtocolWithReturn<string, ReturnType<typeof API.skland.generateCredByCode>>
     'api:skland:get-player-binding': ProtocolWithReturn<string, ReturnType<typeof API.skland.getPlayerBinding>>

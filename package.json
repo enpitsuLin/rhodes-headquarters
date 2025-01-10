@@ -17,6 +17,7 @@
     "analyze": "wxt build --analyze",
     "postinstall": "wxt prepare && simple-git-hooks",
     "typecheck": "tsc --noEmit",
+    "test": "vitest",
     "e2e": "cross-env PW_EXPERIMENTAL_SERVICE_WORKER_NETWORK_EVENTS=1 playwright test",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"

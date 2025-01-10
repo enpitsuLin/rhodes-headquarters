@@ -1,11 +1,13 @@
 /// <reference lib="webworker"/>
 
-import type { Preference } from '~/types'
+import type { BindingInfo, Preference } from '~/types'
 import { defineJobScheduler } from '@webext-core/job-scheduler'
+import { fromUnixTime } from 'date-fns'
 import { onMessage } from 'webext-bridge/background'
 import { registerRoute } from 'workbox-routing'
 import { StaleWhileRevalidate } from 'workbox-strategies'
 import * as API from './api'
+import { mergeRecruits } from './utils/recruit'
 
 export default defineBackground({
   type: 'module',
@@ -16,6 +18,48 @@ export default defineBackground({
       event => event.request.destination === 'image' && event.request.url.startsWith('https://web.hycdn.cn/arknights/'),
       new StaleWhileRevalidate(),
     )
+
+    const currentUid = useWxtStorageAsync<string | null>('PRRH:ARKNIGHT_CHARACTER_CURRENT', '')
+    const infoMapping = useWxtStorageAsync<Record<string, BindingInfo>>('PRRH:ARKNIGHT_ACCOUNTS_INFO', {})
+
+    const currentAccount = computed(() => {
+      if (!currentUid.value)
+        return null
+
+      return infoMapping.value[currentUid.value]
+    })
+
+    watch(currentAccount, (account) => {
+      if (!account)
+        return
+
+      const completeRecoveryTime = account.status.ap.completeRecoveryTime
+      if (!completeRecoveryTime)
+        return
+
+      jobScheduler.scheduleJob({
+        id: 'sanity-restore',
+        type: 'once',
+        date: fromUnixTime(completeRecoveryTime),
+        execute: () => {
+          // TODO 理智完全恢复的通知
+          Logger.log('理智完全恢复')
+        },
+      })
+
+      const recruits = mergeRecruits(account.recruit)
+      recruits.forEach((recruit) => {
+        jobScheduler.scheduleJob({
+          id: `recruit-${recruit.startTs}`,
+          type: 'once',
+          date: recruit.date,
+          execute: () => {
+            // TODO 公招结束的通知
+            Logger.log('公招结束', recruit.title)
+          },
+        })
+      })
+    })
 
     onMessage('api:hypergrayph:gen-scan-login-url', () => API.hypergrayph.genScanLoginUrl())
     onMessage('api:hypergrayph:get-scan-status', message => API.hypergrayph.getScanStatus(message.data))
