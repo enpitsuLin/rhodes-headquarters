@@ -48,7 +48,7 @@ export async function genScanLoginUrl() {
  * 轮训获取扫码状态
  */
 export async function getScanStatus(scanId: string) {
-  const { data, msg } = await $fetch<HypergrayphonResponse<{ scanCode: string }, '未扫码' | '已扫码待确认' | (string & {})>>(
+  const { data, msg } = await $fetch<HypergrayphonResponse<{ scanCode: string }, '未扫码' | '已扫码待确认' | '已失效'| (string & {})>>(
     `/general/v1/scan_status`,
   {
     query: {
