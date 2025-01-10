@@ -59,8 +59,6 @@ export function useSkalandSignIn(options: UseSkalandSignInOptions): UseSkalandSi
         if (accountsStore.characters.length === 1)
           accountsStore.setCurrentUid(accountsStore.characters[0].uid)
 
-        // TODO 添加刷新角色信息任务
-
         options.onSuccess()
       },
     })
