@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { SwitchContext, SwitchControl, SwitchHiddenInput, SwitchLabel, SwitchRoot, SwitchThumb } from '@ark-ui/vue'
+
+const checked = defineModel<boolean>('checked')
 </script>
 
 <template>
-  <SwitchRoot>
+  <SwitchRoot v-model:checked="checked">
     <SwitchControl>
       <SwitchThumb />
     </SwitchControl>

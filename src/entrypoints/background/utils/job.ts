@@ -165,7 +165,7 @@ export function defineJobScheduler(): JobScheduler {
       case 'interval':
         if (!existing || alarm.periodInMinutes !== existing.periodInMinutes) {
           browser.alarms.create(alarm.name, {
-            delayInMinutes: job.immediate && !existing ? 0 : alarm.periodInMinutes,
+            delayInMinutes: job.immediate ? 0 : alarm.periodInMinutes,
             periodInMinutes: alarm.periodInMinutes,
           })
         }

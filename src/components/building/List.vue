@@ -27,7 +27,7 @@ const nameComponentMap = {
 
 const list = computed(() => {
   return Object.entries(props.info.building)
-    .filter(([type]) => buildingsType.includes(type))
+    .filter(([type, value]) => buildingsType.includes(type) && value !== null)
     .map(([type, value]) => {
       const items = Array.isArray(value) ? value : [value]
       return items.map(item => ({ type, data: item })) as { type: keyof typeof nameComponentMap, data: any }[]

@@ -64,8 +64,8 @@ const debounceOnChange = useDebounceFn((e: NumberInputValueChangeDetails) => {
       </PreferenceItem>
     </li>
     <li>
-      <PreferenceItem title="多账户提醒(WIP)" description="对非当前账户的其余账户信息提供可用提醒，如理智即将恢复，公招即将结束等。">
-        <Switch v-model="preferences.charactersAlarmsEnable" />
+      <PreferenceItem title="多账户提醒" description="对非当前账户的其余账户信息提供可用提醒，如理智即将恢复，公招即将结束等。">
+        <Switch v-model:checked="preferences.charactersAlarmsEnable" />
       </PreferenceItem>
     </li>
   </ul>
