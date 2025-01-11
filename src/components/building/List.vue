@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { BindingInfo } from '~/types'
 
+import { useScroll, useVirtualList } from '@vueuse/core'
 import Control from '~/components/building/Control.vue'
 import Dormitory from '~/components/building/Dormitory.vue'
 import Hire from '~/components/building/Hire.vue'
@@ -25,7 +26,7 @@ const nameComponentMap = {
   meeting: Meeting,
 } as const
 
-const list = computed(() => {
+const itemsList = computed(() => {
   return Object.entries(props.info.building)
     .filter(([type, value]) => buildingsType.includes(type) && value !== null)
     .map(([type, value]) => {
@@ -38,16 +39,31 @@ const list = computed(() => {
       const bType = b.type
       return buildingsType.indexOf(aType) - buildingsType.indexOf(bType)
     })
-    .map(({ type, data }) => {
-      const Component = nameComponentMap[type]
-      // @ts-expect-error: ignore
-      return h(Component, { data })
-    })
 })
+
+const { list, containerProps, wrapperProps } = useVirtualList(
+  itemsList,
+  {
+    itemHeight: 84,
+  },
+)
+
+const { arrivedState } = useScroll(containerProps.ref)
 </script>
 
 <template>
-  <template v-for="item in list" :key="item.type">
-    <component :is="item" />
-  </template>
+  <div
+    h-270px w-full flex-1 of-x-hidden of-y-scroll pt-4px
+    v-bind="containerProps"
+  >
+    <div flex="~ col items-center gap-4px" v-bind="wrapperProps">
+      <template v-for="item in list" :key="item.index">
+        <component
+          :is="nameComponentMap[item.data.type]"
+          :data="item.data.data"
+        />
+      </template>
+    </div>
+    <div v-show="!arrivedState.bottom" absolute inset-x-0 bottom-0 h-30px class="from-background to-transparent bg-gradient-to-t" />
+  </div>
 </template>
