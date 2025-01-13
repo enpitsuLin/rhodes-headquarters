@@ -68,7 +68,6 @@ type RemoveListenerFn = () => void
  * 创建一个基于 [alarms API](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/alarms)
  * 的 `JobScheduler`。
  *
- * @param options
  * @returns 可用于调度和管理任务的 `JobScheduler`
  */
 export function defineJobScheduler(): JobScheduler {
