@@ -16,7 +16,7 @@
 
 - 🧠 显示博士的剩余理智及恢复情况
 - 👋 罗德岛内公开招募进行情况
-- 🏗 基建运行状态 （正在开发中...）
+- 🏗 基建运行状态
 - 💰 与外部单位合作业务如保全派驻、剿灭作战工作进展
 - 📚 支持多账号/多名博士的岛上实时信息
 - 👨‍🔧 更多功能由工程部正在紧锣密鼓的开发中...
@@ -57,6 +57,7 @@ pnpm dev
 ## 特别鸣谢
 
 - [wxt](https://github.com/wxt-dev/wxt) 基于 vite 的浏览器扩展框架
+- [mima-kit](https://github.com/RSoraM/mima-kit) 真正意义上的现代加密 js 库 ~~crypto-js、node-forge 老古董爪巴~~
 - [Enhance-for-Skland](https://github.com/LaviniaFalcone/Enhance-for-Skland) 接口类型定义参考
 
 ## 协议
