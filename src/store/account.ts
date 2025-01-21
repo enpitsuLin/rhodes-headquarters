@@ -21,10 +21,25 @@ export const useAccountsStore = defineStore('PRRH:arknight-role', {
     const currentUid = useWxtStorageAsync<string | null>('PRRH:ARKNIGHT_CHARACTER_CURRENT', '')
     const infoMapping = useWxtStorageAsync<Record<string, BindingInfo>>('PRRH:ARKNIGHT_ACCOUNTS_INFO', {})
 
+    const currentCharacter = computed(() => {
+      if (!currentUid.value)
+        return null
+
+      return characters.value.find(i => i.uid === currentUid.value)
+    })
+    const currentAccount = computed(() => {
+      if (!currentUid.value)
+        return null
+
+      return accounts.value.find(i => i.id === currentCharacter.value?.accountId)
+    })
+
     return {
       accounts,
       characters,
       currentUid,
+      currentCharacter,
+      currentAccount,
       infoMapping,
     }
   },
