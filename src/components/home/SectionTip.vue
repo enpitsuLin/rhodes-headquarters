@@ -68,7 +68,11 @@ function refreshInfo() {
           leave-to-class="op-0"
         >
           <Tooltip.Positioner>
-            <Tooltip.Content relative bg-background p-2 border="~ border/30">
+            <Tooltip.Content
+              relative
+              bg-background p-2 border="~ border/30"
+              animate="data-[state=closed]:(out duration-200 fade-out) data-[state=open]:(in duration-200 fade-in)"
+            >
               立即更新
             </Tooltip.Content>
           </Tooltip.Positioner>
@@ -93,7 +97,11 @@ function refreshInfo() {
           leave-to-class="op-0"
         >
           <Tooltip.Positioner>
-            <Tooltip.Content relative bg-background p-2 border="~ border/30">
+            <Tooltip.Content
+              relative
+              bg-background p-2 border="~ border/30"
+              animate="data-[state=closed]:(out duration-200 fade-out) data-[state=open]:(in duration-200 fade-in)"
+            >
               <p>
                 <span>数据更新于:</span>
                 <time :datetime="updateTime.toISOString()">
