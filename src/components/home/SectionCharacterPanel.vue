@@ -97,12 +97,12 @@ function toOptions() {
                   class="transition-all active:scale-95 hover:bg-primary/30"
                   @click="accountsStore.setCurrentUid(character.uid)"
                 >
-                  <div flex="~ col items-start">
+                  <div font-akrobat flex="~ col items-start">
                     <div text-sm font-bold>
                       Dr. {{ character.nickName }}
                     </div>
 
-                    <div text-10px font-bold op-60 space-x-1>
+                    <div text-12px font-bold op-60 space-x-1>
                       <span>角色区服: {{ character.channelName }}</span>
                       <span>UID: {{ character.uid }}</span>
                     </div>

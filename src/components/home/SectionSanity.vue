@@ -22,7 +22,7 @@ const { max, current, completeRecovery, nextAdd } = useSanityInfo(ap)
       </div>
       <div flex="~ col gap-4px" p="x-4px y-8px" relative h-85px>
         <div flex="~ justify-between items-center">
-          <span text-24px font-bold leading-27px>{{ current }}/{{ max }}</span>
+          <span class="font-bender" text-24px font-bold leading-27px>{{ current }}/{{ max }}</span>
           <span v-if="current === max">理智已完全恢复!</span>
           <span v-else>下次恢复: {{ nextAdd.duration.readable }}</span>
         </div>

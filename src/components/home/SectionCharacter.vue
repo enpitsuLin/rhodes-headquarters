@@ -20,11 +20,11 @@ const open = ref(false)
     </div>
     <div flex-1>
       <div flex="~ items-end">
-        <div grid="~ rows-1 cols-7">
-          <div col-span-3 text-20px>
+        <div grid="~ rows-1 cols-3">
+          <div col-span-1 text-20px font-akrobat>
             {{ status.level }}
           </div>
-          <div col-span-4 self-center justify-self-start flex="~ col">
+          <div col-span-2 self-center justify-self-start font-akrobat flex="~ col">
             <div transform-origin-l scale-70 text-12px leading-12px>
               Lv.
             </div>
@@ -33,9 +33,11 @@ const open = ref(false)
             </div>
           </div>
         </div>
-        <div>UID: {{ status.uid }}</div>
+        <div font-akrobat>
+          UID: {{ status.uid }}
+        </div>
       </div>
-      <div text-base font-bold>
+      <div text-base font-bold font-akrobat>
         Dr. {{ status.name }}
       </div>
     </div>

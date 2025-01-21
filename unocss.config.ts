@@ -25,6 +25,7 @@ export default defineConfig<Theme>({
     },
     fontFamily: {
       bender: 'Bender, sans-serif',
+      akrobat: 'Akrobat, sans-serif',
     },
   },
   shortcuts: {
