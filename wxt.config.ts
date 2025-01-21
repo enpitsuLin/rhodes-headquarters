@@ -22,6 +22,11 @@ export default defineConfig({
     ],
     host_permissions: ['*://*/*'],
   },
+  analysis: {
+    template: 'raw-data',
+    keepArtifacts: true,
+    outputFile: '.analysis/stats.html',
+  },
   imports: {
     presets: ['vue'],
     addons: {
