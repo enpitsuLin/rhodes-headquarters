@@ -69,5 +69,5 @@ jobs:
       - uses: twk3/rollup-size-compare-action@v1.0.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          current-stats-json-path: ./head-stats/stats.json
-          base-stats-json-path: ./base-stats/stats.json
+          current-stats-json-path: ./head-stats/stats-0.json
+          base-stats-json-path: ./base-stats/stats-0.json
