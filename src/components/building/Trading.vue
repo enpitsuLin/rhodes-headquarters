@@ -7,7 +7,11 @@ defineProps<{ data: BuildingTrading }>()
 </script>
 
 <template>
-  <Base title="贸易站" :level="data.level" color="#5ab8f9">
+  <Base
+    color="#5ab8f9"
+    type="trading"
+    :level="data.level"
+  >
     <template #icon>
       <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g clip-path="url(#clip0_502_914)">

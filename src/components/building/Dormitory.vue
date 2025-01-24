@@ -7,7 +7,11 @@ defineProps<{ data: BuildingDormitory }>()
 </script>
 
 <template>
-  <Base title="宿舍" :level="data.level" color="white">
+  <Base
+    color="white"
+    type="dormitory"
+    :level="data.level"
+  >
     <template #icon>
       <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g clip-path="url(#clip0_502_976)">
