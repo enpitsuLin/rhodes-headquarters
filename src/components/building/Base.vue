@@ -1,14 +1,18 @@
 <script setup lang="ts">
+import type { ResidentCharacter } from '~/types'
 import { BUILDING_TYPE_NAME_MAPPING, type BuildingState, BuildingStateProvider } from '~/composables/buildings'
 
 const props = defineProps<{
   level: number
   color: string
   type: BuildingState['type']
+  characters: ResidentCharacter[]
 }>()
 
 const state: BuildingState = {
   type: props.type,
+  level: props.level,
+  characters: toRaw(props.characters),
 }
 
 const title = computed(() => BUILDING_TYPE_NAME_MAPPING[props.type])

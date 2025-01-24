@@ -1,3 +1,4 @@
+import type { ResidentCharacter } from '~/types'
 import { Fragment } from 'vue'
 
 export { }
@@ -15,6 +16,8 @@ export const BUILDING_TYPE_NAME_MAPPING = {
 
 export interface BuildingState {
   type: keyof typeof BUILDING_TYPE_NAME_MAPPING
+  level: number
+  characters: ResidentCharacter[]
 }
 
 const BuildingStateInjectKey = Symbol('BuildingInjectKey') as InjectionKey<ComputedRef<BuildingState>>
@@ -31,7 +34,8 @@ export function useBuildingState() {
 
 export const BuildingStateProvider = defineComponent(
   (props, { slots }) => {
-    provide(BuildingStateInjectKey, computed(() => props.state))
+    const state = computed(() => props.state)
+    provide(BuildingStateInjectKey, state)
     return () => h(Fragment, slots.default?.())
   },
   {

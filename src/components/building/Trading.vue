@@ -11,6 +11,7 @@ defineProps<{ data: BuildingTrading }>()
     color="#5ab8f9"
     type="trading"
     :level="data.level"
+    :characters="data.chars"
   >
     <template #icon>
       <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">

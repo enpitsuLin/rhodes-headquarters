@@ -28,6 +28,7 @@ function inClueBoard(index: number) {
     color="white"
     type="meeting"
     :level="data.level"
+    :characters="data.chars"
   >
     <template #icon>
       <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
