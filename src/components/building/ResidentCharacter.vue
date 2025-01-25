@@ -6,6 +6,7 @@ import ApHigh from '~/assets/icons/ap-high.svg'
 import ApLow from '~/assets/icons/ap-low.svg'
 import StatusWorking from '~/assets/icons/status-working.svg'
 import CharacterAvatar from '~/components/CharacterAvatar.vue'
+import { useBuildingState } from '~/composables/buildings'
 import { useAccountsStore } from '~/store/account'
 
 const props = defineProps<{
@@ -37,6 +38,12 @@ const ApStatus = computed(() => {
   }
   return ApHigh
 })
+const buildingState = useBuildingState()
+
+watch(buildingState, () => {
+  // eslint-disable-next-line no-console
+  console.log(buildingState.value)
+}, { immediate: true })
 </script>
 
 <template>

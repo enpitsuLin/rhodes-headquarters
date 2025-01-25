@@ -1,4 +1,4 @@
-import type { ResidentCharacter } from '~/types'
+import type { Character, ResidentCharacter } from '~/types'
 import { Fragment } from 'vue'
 
 export { }
@@ -17,7 +17,7 @@ export const BUILDING_TYPE_NAME_MAPPING = {
 export interface BuildingState {
   type: keyof typeof BUILDING_TYPE_NAME_MAPPING
   level: number
-  characters: ResidentCharacter[]
+  characters: (Character & ResidentCharacter)[]
 }
 
 const BuildingStateInjectKey = Symbol('BuildingInjectKey') as InjectionKey<ComputedRef<BuildingState>>

@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import type { ResidentCharacter } from '~/types'
+import { storeToRefs } from 'pinia'
 import { BUILDING_TYPE_NAME_MAPPING, type BuildingState, BuildingStateProvider } from '~/composables/buildings'
+import { useAccountsStore } from '~/store/account'
 
 const props = defineProps<{
   level: number
@@ -9,11 +11,22 @@ const props = defineProps<{
   characters: ResidentCharacter[]
 }>()
 
-const state: BuildingState = {
-  type: props.type,
-  level: props.level,
-  characters: toRaw(props.characters),
-}
+const { info } = storeToRefs(useAccountsStore())
+
+const state = computed(() => {
+  const characters = toRaw(props.characters).map((resident) => {
+    const char = info.value!.chars.find(i => i.charId === resident.charId)
+    return {
+      ...resident,
+      ...char,
+    }
+  })
+  return {
+    type: props.type,
+    level: props.level,
+    characters,
+  } as BuildingState
+})
 
 const title = computed(() => BUILDING_TYPE_NAME_MAPPING[props.type])
 </script>
