@@ -37,7 +37,7 @@
     "workbox-strategies": "^7.3.0"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "3.12.1",
+    "@antfu/eslint-config": "3.16.0",
     "@iconify/json": "^2.2.298",
     "@playwright/test": "^1.49.1",
     "@types/crypto-js": "^4.2.2",
