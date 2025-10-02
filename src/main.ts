@@ -5,7 +5,7 @@ import {
   createRouter,
   createWebHashHistory,
 } from 'vue-router/auto'
-import { routes } from 'vue-router/auto-routes'
+import { handleHotUpdate, routes } from 'vue-router/auto-routes'
 import App from './App.vue'
 import '~/styles'
 
@@ -33,3 +33,7 @@ app.use(router)
 app.use(pinia)
 app.use(PiniaColada)
 app.mount('#app')
+
+if (import.meta.hot) {
+  handleHotUpdate(router)
+}
