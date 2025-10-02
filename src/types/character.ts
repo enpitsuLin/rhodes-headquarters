@@ -11,6 +11,9 @@ export interface CharacterInfo {
   profession: string
   /** 分支 */
   subProfessionId: string
+  subProfessionName: string
+  appellation: string
+  sortId: number
   rarity: 0 | 1 | 2 | 3 | 4 | 5
 }
 
@@ -34,6 +37,10 @@ export interface Character {
   defaultSkillId: string
   gainTime: number
   defaultEquipId?: EquipmentInfo['id']
+  sortId: number
+  exp: number
+  gold: number
+  rarity: number
 }
 
 /** 干员技能 */
@@ -47,11 +54,13 @@ export interface CharacterSkill {
 export interface CharacterEquip {
   id: EquipmentInfo['id']
   level: number
+  locked: boolean
 }
 
 /** 助战干员 */
-export interface AssistCharacter extends Omit<Character, 'skills' | 'equip' | 'favorPercent' | 'defaultSkillId' | 'gainTime' | 'defaultEquipId'> {
-  equip: null
+export interface AssistCharacter
+  extends Pick<Character, 'charId' | 'skinId' | 'level' | 'evolvePhase' | 'potentialRank' | 'mainSkillLvl'> {
+  equip: CharacterEquip | null
   skillId: CharacterSkill['id']
   specializeLevel: CharacterSkill['specializeLevel']
 }
@@ -66,9 +75,11 @@ export interface Skin {
 /** 皮肤信息 */
 export interface SkinInfo {
   id: string
+  name: string
   brandId: string
   sortId: number
   displayTagId: string
+  charId: Character['charId']
 }
 
 /**

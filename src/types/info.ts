@@ -23,6 +23,22 @@ export interface Status {
   charCnt: number
   furnitureCnt: number
   skinCnt: number
+  exp: {
+    current: number
+    max: number
+  }
+}
+
+/** 蚀刻章 */
+export interface Medal {
+  type: 'CUSTOM' | (string & {})
+  template: string
+  templateMedalList: []
+  customMedalLayout: {
+    id: string
+    pos: [number, number]
+  }[]
+  total: 540
 }
 
 /** 头像设置 */
@@ -78,6 +94,7 @@ export interface CampaignLevelInfo {
   id: string
   name: string
   campaignZoneId: string
+  picUrl: string
 }
 
 /**
@@ -120,6 +137,7 @@ export interface TowerZoneInfo {
   id: string
   name: string
   subName: string
+  picUrl: string
 }
 
 /**
@@ -136,6 +154,12 @@ export interface RougeRecord {
   rogueId: string
   relicCnt: number
   bank: { current: number, record: number }
+  clearTime: number
+  bpLevel: number
+  medal: {
+    total: number
+    current: number
+  }
 }
 
 /**
@@ -145,6 +169,7 @@ export interface RogueThemeInfo {
   id: string
   name: string
   sort: number
+  picUrl: string
 }
 
 /**
@@ -179,7 +204,11 @@ export interface ActivityInfo {
   endTime: number
   rewardEndTime: number
   isReplicate: boolean
-  type: string
+  type: 'MINISTORY' | 'SIDESTORY' | 'BRANCHLINE' | (string & {})
+  dropItemIds: string[]
+  shopGoodItemIds: string[]
+  favorUpList: string[]
+  picUrl: string
 }
 
 /**
@@ -189,6 +218,12 @@ export interface StageLevelInfo {
   id: string
   code: string
   name: string
+  zoneId: string
+  diffGroup: 'NONE' | (string & {})
+  stageType: 'ACTIVITY' | (string & {})
+  dangerLevel: '-' | (string & {})
+  apCost: number
+  difficulty: 'NORMAL' | (string & {})
 }
 
 export interface ManufactureFormulaInfo {
@@ -196,7 +231,23 @@ export interface ManufactureFormulaInfo {
   itemId: string
   count: number
   weight: number
+  costs: unknown[]
   costPoint: number
+}
+
+export interface Sandbox {
+  id: string
+  name: string
+  maxDay: number
+  maxDayChallenge: number
+  mainQuest: number
+  subQuest: { id: string, name: string, done: boolean }[]
+  baseLv: number
+  unlockNode: number
+  enemyKill: number
+  createRift: number
+  fixRift: number[]
+  picUrl: string
 }
 
 export interface BindingInfo {
@@ -207,10 +258,11 @@ export interface BindingInfo {
   }
   currentTs: number
   status: Status
+  medal: Medal
   assistChars: AssistCharacter[]
   chars: Character[]
   recruit: Recruit[]
-  charInfoMap: { [id: string]: CharacterInfo }
+  charInfoMap: Record<string, CharacterInfo>
   building: Building
   skins: Skin[]
   skinInfoMap: { [id: string]: SkinInfo }
@@ -227,8 +279,8 @@ export interface BindingInfo {
   activityInfoMap: { [id: string]: ActivityInfo }
   stageInfoMap: { [id: string]: StageLevelInfo }
   manufactureFormulaInfoMap: { [id: number]: ManufactureFormulaInfo }
-  charAssets: never[]
-  skinAssets: never[]
+  charAssets: unknown[]
+  skinAssets: unknown[]
   activityBannerList: {
     list: {
       activityId: string
@@ -246,5 +298,9 @@ export interface BindingInfo {
       stageId: string
       difficulty: string
     }
+    picUrl: string
   }[]
+  bannerList: unknown[]
+  /** 沟槽的生稀盐酸 */
+  sandbox: Sandbox[]
 }
