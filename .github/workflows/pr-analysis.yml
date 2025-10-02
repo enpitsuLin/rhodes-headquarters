@@ -66,7 +66,7 @@ jobs:
       pull-requests: write
     steps:
       - uses: actions/download-artifact@v5
-      - uses: twk3/rollup-size-compare-action@v1.0.0
+      - uses: twk3/rollup-size-compare-action@v1.2.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           current-stats-json-path: ./head-stats/stats-0.json
