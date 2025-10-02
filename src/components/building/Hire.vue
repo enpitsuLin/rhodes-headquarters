@@ -7,7 +7,12 @@ defineProps<{ data: BuildingHire }>()
 </script>
 
 <template>
-  <Base title="人力办公室" :level="data.level" color="white">
+  <Base
+    color="white"
+    type="hire"
+    :level="data.level"
+    :characters="data.chars"
+  >
     <template #icon>
       <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g clip-path="url(#clip0_502_960)">
