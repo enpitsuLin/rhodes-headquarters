@@ -26,3 +26,4 @@ playwright-report
 *.sw?
 
 .analysis/
+.env.submit
